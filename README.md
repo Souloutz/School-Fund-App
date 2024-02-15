@@ -8,7 +8,7 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 - Howard Kong
 - Austin Kunkel
 - Ethan Ricker
-- MEMBER4
+- Christopher Brooks
 
 
 ## Prerequisites

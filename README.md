@@ -6,7 +6,7 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 ## Team
 
 - Howard Kong
-- MEMBER2
+- Austin Kunkel
 - MEMBER3
 - MEMBER4
 

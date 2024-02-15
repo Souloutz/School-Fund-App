@@ -16,7 +16,7 @@ import com.ufund.api.model.Ufund;
 import com.ufund.api.persistence.UfundDAO;
 
 /**
- * @author
+ * @author Howard Kong
  * @author
  * @author
  * @author
@@ -29,7 +29,8 @@ import com.ufund.api.persistence.UfundDAO;
     // Map<Integer, ufund> ufund
 
     /**
-     * TODO add the rest of the DAO file info, im unsure
+     * TODO
+     * Implement overridden methods
      * whats need and what isnt so not much has been added
      */
 // }

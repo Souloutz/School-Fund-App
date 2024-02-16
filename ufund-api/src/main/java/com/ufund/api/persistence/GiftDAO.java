@@ -36,7 +36,7 @@ public interface GiftDAO {
      * @return An array of {@link Gift gifts} whose names contains the given text, may be empty
      * @throws IOException if an issue with underlying storage
      */
-    Gift[] find(String containsText) throws IOException;
+    Gift[] findItem(String containsText) throws IOException;
     
     /**
      * Retrieve a {@linkplain Gift gift} with the given id

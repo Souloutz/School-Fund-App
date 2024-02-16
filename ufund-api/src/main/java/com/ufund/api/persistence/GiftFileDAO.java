@@ -138,39 +138,80 @@ public class GiftFileDAO implements GiftDAO {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Gift[] getItems() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItems'");
+        synchronized (gifts) {
+            return getGiftsArray();
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Gift[] find(String containsText) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+    public Gift[] findItem(String containsText) throws IOException {
+        synchronized (gifts) {
+            return getGiftsArray(containsText);
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Gift getItem(int id) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getItem'");
+        synchronized (gifts) {
+            if (gifts.containsKey(id))
+                return gifts.get(id);
+            else
+                return null;
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Gift createItem(Gift item) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createItem'");
+        synchronized (gifts) {
+            Gift newGift = new Gift(nextId(), item.getName());
+            gifts.put(newGift.getId(), newGift);
+            save(); 
+
+            return newGift;
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Gift updateItem(Gift item) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateItem'");
+        synchronized (gifts) {
+            if (gifts.containsKey(item.getId()) == false)
+                return null;
+
+            gifts.put(item.getId(), item);
+            save();
+            return item;
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteItem(int id) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteItem'");
+        synchronized (gifts) {
+            if (gifts.containsKey(id)) {
+                gifts.remove(id);
+                return save();
+            }
+
+            return false;
+        }
     }
 }

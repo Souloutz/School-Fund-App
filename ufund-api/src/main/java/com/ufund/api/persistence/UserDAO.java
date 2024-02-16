@@ -36,7 +36,7 @@ public interface UserDAO {
      * @return An array of {@link User users} whose names contains the given text, may be empty
      * @throws IOException if an issue with underlying storage
      */
-    User[] find(String containsText) throws IOException;
+    User[] findUsers(String containsText) throws IOException;
     
     /**
      * Retrieve a {@linkplain User users} with the given id

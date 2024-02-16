@@ -138,39 +138,79 @@ public class UserFileDAO implements UserDAO {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User[] getUsers() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsers'");
+        synchronized (users) {
+            return getUsersArray();
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public User[] find(String containsText) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+    public User[] findUsers(String containsText) throws IOException {
+        synchronized (users) {
+            return getUsersArray(containsText);
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getUser(int id) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUser'");
+        synchronized (users) {
+            if (users.containsKey(id))
+                return users.get(id);
+
+            return null;
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User createUser(User user) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+        synchronized (users) {
+            User newUser = new User(nextId(), user.getName());
+            users.put(newUser.getId(), newUser);
+            save();
+            return newUser;
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User updateUser(User user) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        synchronized (users) {
+            if (users.containsKey(user.getId()) == false)
+                return null;
+
+            users.put(user.getId(), user);
+            save();
+            return user;
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean deleteUser(int id) throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+        synchronized (users) {
+            if (users.containsKey(id)) {
+                users.remove(id);
+                return save();
+            }
+
+            return false;
+        }
     }
 }

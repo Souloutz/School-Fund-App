@@ -3,6 +3,7 @@ users
     _id: SERIAL,
     username: STRING,
     password: STRING,
+    email: STRING,
     cart: [
         {
             item_id: SERIAL,

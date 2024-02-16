@@ -22,71 +22,59 @@ public interface UserDAO {
      */
 
     /**
-     * Retrieve all {@linkplain Hero heroes}
+     * Retrieve all {@linkplain User users}
      * 
-     * @return An array of {@link Hero hero} objects, may be empty
-
+     * @return An array of {@link User user} objects, may be empty
      * @throws IOException if an issue with underlying storage
      */
     User[] getUsers() throws IOException;
     
     /**
-     * Find all {@linkplain Hero heroes} whose name contains the given text
+     * Find all {@linkplain User users} whose name contains the given text
      * 
      * @param containsText The text to match against
-     * 
-     * @return An array of {@link Hero heroes} whose nemes contains the given text, may be empty
-     * 
+     * @return An array of {@link User users} whose names contains the given text, may be empty
      * @throws IOException if an issue with underlying storage
      */
     User[] find(String containsText) throws IOException;
     
     /**
-     * Retrieve a {@linkplain Hero hero} with the given id
+     * Retrieve a {@linkplain User users} with the given id
      * 
-     * @param id The id of the {@link Hero hero} to get
-     * 
-     * @return a {@link Hero hero} object with the matching id
-     *         null if no {@link Hero hero} with a matching id is found
-     * 
+     * @param id The id of the {@link User user} to get
+     * @return a {@link User user} object with the matching id
+     *         null if no {@link User user} with a matching id is found
      * @throws IOException if an issue with underlying storage
      */
     User getUser(int id) throws IOException;
 
     /**
-     * Create and save a {@linkplain Hero hero}
+     * Create and save a {@linkplain User user}
      * 
-     * @param hero {@linkplain Hero hero} object to be created and saved
-     * 
-     * The id of the hero object is ignored and a new uniqe id is assigned
-     *
-     * @return new {@link Hero hero} if successful
-     *         false otherwise 
-     * 
+     * @param user {@linkplain User user} object to be created and saved
+     *             The id of the user object is ignored and a new uniqe id is assigned
+     * @return new {@link User user} if successful
+     *         false otherwise
      * @throws IOException if an issue with underlying storage
      */
     User createUser(User user) throws IOException;
 
     /**
-     * Update and save a {@linkplain Hero hero}
+     * Update and save a {@linkplain User user}
      * 
-     * @param {@link Hero hero} object to be updated and saved
-     * 
-     * @return updated {@link Hero hero} if successful
-     *         null if {@link Hero hero} could not be found
-     * 
+     * @param {@link User user} object to be updated and saved
+     * @return updated {@link User user} if successful
+     *         null if {@link User user} could not be found
      * @throws IOException if underlying storage cannot be accessed
      */
     User updateUser(User user) throws IOException;
 
     /**
-     * Delete a {@linkplain Hero hero} with the given id
+     * Delete a {@linkplain User user} with the given id
      * 
-     * @param id The id of the {@link Hero hero}
-     * 
-     * @return true if the {@link Hero hero} was deleted
-     *         false if hero with the given id does not exist
-     * 
+     * @param id The id of the {@link User user}
+     * @return true if the {@link User user} was deleted
+     *         false if user with the given id does not exist
      * @throws IOException if underlying storage cannot be accessed
      */
     boolean deleteUser(int id) throws IOException;

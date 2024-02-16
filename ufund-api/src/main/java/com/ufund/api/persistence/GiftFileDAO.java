@@ -12,10 +12,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.ufund.api.model.Ufund;
+import com.ufund.api.model.Gift;
 
 /**
- * Implements the functionality for JSON file-based peristance for Heroes
+ * Implements the functionality for JSON file-based peristance for Gifts
  * 
  * {@literal @}Component Spring annotation instantiates a single instance of this
  * class and injects the instance into other classes as needed
@@ -26,38 +26,33 @@ import com.ufund.api.model.Ufund;
  * @author
  */
 @Component
-public class UfundFileDAO implements UfundDAO {
+public class GiftFileDAO implements GiftDAO {
     /*
      * TODO
      * Update references to ufund
      * Implement functions
      */
-    private static final Logger LOG = Logger.getLogger(UfundFileDAO.class.getName());
-    Map<Integer, Ufund> ufunds;     // Provides a local cache of the hero objects
-                                    // so that we don't need to read from the file
-                                    // each time
-    private ObjectMapper objectMapper;  // Provides conversion between Hero
-                                        // objects and JSON text format written
-                                        // to the file
-    private static int nextId;  // The next Id to assign to a new hero
+    private static final Logger LOG = Logger.getLogger(GiftFileDAO.class.getName());
+    Map<Integer, Gift> gifts;     // Provides a local cache of the gift objects so that we don't need to read from the file each time
+    private ObjectMapper objectMapper;  // Provides conversion between Gift objects and JSON text format written to the file
+    private static int nextId;  // The next Id to assign to a new gift
     private String filename;    // Filename to read from and write to
 
      /**
-     * Creates a Hero File Data Access Object
+     * Create a Gift File Data Access Object
      * 
      * @param filename Filename to read from and write to
      * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
-     * 
      * @throws IOException when file cannot be accessed or read from
      */
-    public UfundFileDAO(@Value("${gifts.file}") String filename, ObjectMapper objectMapper) throws IOException {
+    public GiftFileDAO(@Value("${gifts.file}") String filename, ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        load();  // load the heroes from the file
+        load();  // load the gifts from the file
     }
 
     /**
-     * Generates the next id for a new {@linkplain Hero hero}
+     * Generate the next id for a new {@linkplain Gift gift}
      * 
      * @return The next id
      */
@@ -68,109 +63,107 @@ public class UfundFileDAO implements UfundDAO {
     }
 
     /**
-     * Generates an array of {@linkplain Hero heroes} from the tree map
+     * Generate an array of {@linkplain Gift gifts} from the tree map
      * 
-     * @return  The array of {@link Hero heroes}, may be empty
+     * @return The array of {@link Gift gifts}, may be empty
      */
-    private Ufund[] getHeroesArray() {
-        return getHeroesArray(null);
+    private Gift[] getGiftsArray() {
+        return getGiftsArray(null);
     }
 
     /**
-     * Generates an array of {@linkplain Hero heroes} from the tree map for any
-     * {@linkplain Hero heroes} that contains the text specified by containsText
-     * <br>
-     * If containsText is null, the array contains all of the {@linkplain Hero heroes}
-     * in the tree map
+     * Generate an array of {@linkplain Gift gifts} from the tree map for any
+     * {@linkplain Gift gifts} that contains the text specified by containsText
+     *
+     * If containsText is null, the array contains all of the {@linkplain Gift gifts} in the tree map
      * 
-     * @return  The array of {@link Hero heroes}, may be empty
+     * @return The array of {@link Gift gifts}, may be empty
      */
-    private Ufund[] getHeroesArray(String containsText) { // if containsText == null, no filter
-        ArrayList<Ufund> heroArrayList = new ArrayList<>();
+    private Gift[] getGiftsArray(String containsText) { // if containsText == null, no filter
+        ArrayList<Gift> giftsArrayList = new ArrayList<>();
 
-        for (Ufund hero : ufunds.values()) {
-            if (containsText == null || hero.getName().contains(containsText)) {
-                heroArrayList.add(hero);
+        for (Gift gift : gifts.values()) {
+            if (containsText == null || gift.getName().contains(containsText)) {
+                giftsArrayList.add(gift);
             }
         }
 
-        Ufund[] heroArray = new Ufund[heroArrayList.size()];
-        heroArrayList.toArray(heroArray);
-        return heroArray;
+        Gift[] giftsArray = new Gift[giftsArrayList.size()];
+        giftsArrayList.toArray(giftsArray);
+        return giftsArray;
     }
 
     /**
-     * Saves the {@linkplain Hero heroes} from the map into the file as an array of JSON objects
+     * Save the {@linkplain Gift gifts} from the map into the file as an array of JSON objects
      * 
-     * @return true if the {@link Hero heroes} were written successfully
-     * 
+     * @return true if the {@link Gift gifts} were written successfully
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Ufund[] heroArray = getHeroesArray();
+        Gift[] giftsArray = getGiftsArray();
 
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
-        objectMapper.writeValue(new File(filename),heroArray);
+        objectMapper.writeValue(new File(filename), giftsArray);
         return true;
     }
 
     /**
-     * Loads {@linkplain Hero heroes} from the JSON file into the map
-     * <br>
+     * Loads {@linkplain Gift gifts} from the JSON file into the map
+     * 
      * Also sets next id to one more than the greatest id found in the file
      * 
      * @return true if the file was read successfully
-     * 
      * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException {
-        ufunds = new TreeMap<>();
+        gifts = new TreeMap<>();
         nextId = 0;
 
-        // Deserializes the JSON objects from the file into an array of heroes
+        // Deserializes the JSON objects from the file into an array of gifts
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-        Ufund[] heroArray = objectMapper.readValue(new File(filename), Ufund[].class);
+        Gift[] giftsArray = objectMapper.readValue(new File(filename), Gift[].class);
 
-        // Add each hero to the tree map and keep track of the greatest id
-        for (Ufund hero : heroArray) {
-            ufunds.put(hero.getId(),hero);
-            if (hero.getId() > nextId)
-                nextId = hero.getId();
+        // Add each gift to the tree map and keep track of the greatest id
+        for (Gift gift : giftsArray) {
+            gifts.put(gift.getId(), gift);
+            if (gift.getId() > nextId)
+                nextId = gift.getId();
         }
+
         // Make the next id one greater than the maximum from the file
         ++nextId;
         return true;
     }
 
     @Override
-    public Ufund[] getItems() throws IOException {
+    public Gift[] getItems() throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItems'");
     }
 
     @Override
-    public Ufund[] find(String containsText) throws IOException {
+    public Gift[] find(String containsText) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'find'");
     }
 
     @Override
-    public Ufund getItem(int id) throws IOException {
+    public Gift getItem(int id) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getItem'");
     }
 
     @Override
-    public Ufund createItem(Ufund item) throws IOException {
+    public Gift createItem(Gift item) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createItem'");
     }
 
     @Override
-    public Ufund updateItem(Ufund item) throws IOException {
+    public Gift updateItem(Gift item) throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateItem'");
     }

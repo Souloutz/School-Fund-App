@@ -1,0 +1,28 @@
+users
+{
+    _id: SERIAL,
+    username: STRING,
+    password: STRING,
+    email: STRING,
+    cart: [
+        {
+            item_id: SERIAL,
+            amount: INT
+        }
+    ],
+    purchases: [
+        {
+            item_id: SERIAL,
+            amount: INT
+        }
+    ]
+}
+
+gifts
+{
+    _id: SERIAL,
+    name: STRING,
+    description: STRING,
+    price: DOUBLE,
+    amount_needed, INT
+}

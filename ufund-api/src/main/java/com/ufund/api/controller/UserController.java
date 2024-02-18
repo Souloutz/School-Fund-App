@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +32,7 @@ import com.ufund.api.persistence.UserDAO;
  */
 
 @RestController
-@RequestMapping("") //add the request like the heroes controller does
+@RequestMapping("users") //add the request like the heroes controller does
 public class UserController {
     /*
      * TODO
@@ -40,16 +41,16 @@ public class UserController {
      */
 
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
-    private UserDAO usersDAO;
+    private UserDAO userDAO;
 
     /**
      * Create a REST API controller to respond to requests
      * 
-     * @param usersDAO The {@link UserDAO User Data Access Object} to perform CRUD operations
+     * @param userDAO The {@link UserDAO User Data Access Object} to perform CRUD operations
      *                 This dependency is injected by the Spring Framework
      */
-    public UserController(UserDAO usersDAO){
-        this.usersDAO = usersDAO;
+    public UserController(UserDAO userDAO){
+        this.userDAO = userDAO;
     }
 
     /**
@@ -63,7 +64,19 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("GET /users/" + id);
+
+        try {
+            User user = userDAO.getUser(id);
+            if (user != null)
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -75,7 +88,17 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<User[]> getAllUsers() {
         // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("GET /users");
+
+        try {
+            User[] users = userDAO.getUsers();
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -89,9 +112,25 @@ public class UserController {
      * GET http://localhost:8080/users/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<User[]> searchUsers(@RequestParam String name) {
+    public ResponseEntity<User[]> searchUsers(@RequestParam String username) {
         // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("GET /users/?username=" + username);
+
+        try {
+            User[] allUsers = userDAO.getUsers();
+            ArrayList<User> matchingUsers = new ArrayList<>();
+
+            for (User user : allUsers)
+                if (user.getUsername().contains(username))
+                    matchingUsers.add(user);
+
+            User[] users = matchingUsers.toArray(new User[matchingUsers.size()]);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } 
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -105,7 +144,23 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         // TODO
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        LOG.info("POST /users/" + user.getId());
+
+        try {
+            User[] users = userDAO.getUsers();
+
+            for (User a_user : users)
+                if (a_user.getUsername().equals(user.getUsername()))
+                    return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+            User newUser = userDAO.createUser(user);
+            
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -119,7 +174,20 @@ public class UserController {
     @PutMapping("")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("PUT /users/" + user.getId());
+
+        try {
+            User updatedUser = userDAO.updateUser(user);
+
+            if (updatedUser != null)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -134,6 +202,19 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable int id) {
         // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("DELETE /users/" + id);
+
+        try {
+            boolean hasBeenDeleted = userDAO.deleteUser(id);
+
+            if (hasBeenDeleted)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

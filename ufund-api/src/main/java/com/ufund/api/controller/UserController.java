@@ -93,7 +93,7 @@ public class UserController {
         try {
             User[] users = userDAO.getUsers();
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
         }
         catch (IOException ioe) {
             LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
@@ -125,7 +125,7 @@ public class UserController {
                     matchingUsers.add(user);
 
             User[] users = matchingUsers.toArray(new User[matchingUsers.size()]);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(users, HttpStatus.OK);
         } 
         catch (IOException ioe) {
             LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
@@ -155,7 +155,7 @@ public class UserController {
 
             User newUser = userDAO.createUser(user);
             
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
         }
         catch (IOException ioe) {
             LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
@@ -180,7 +180,7 @@ public class UserController {
             User updatedUser = userDAO.updateUser(user);
 
             if (updatedUser != null)
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>(updatedUser, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

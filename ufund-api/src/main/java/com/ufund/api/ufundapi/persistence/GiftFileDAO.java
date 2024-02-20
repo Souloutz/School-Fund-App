@@ -177,10 +177,10 @@ public class GiftFileDAO implements GiftDAO {
     public Gift createItem(Gift item) throws IOException {
         synchronized (gifts) {
             Gift newGift = new Gift(nextId(), 
-                                item.getName(), 
-                                item.getDescription(), 
-                                item.getPrice(), 
-                                item.getAmountNeeded());
+                                    item.getName(), 
+                                    item.getDescription(), 
+                                    item.getPrice(), 
+                                    item.getAmountNeeded());
             gifts.put(newGift.getId(), newGift);
             save(); 
 

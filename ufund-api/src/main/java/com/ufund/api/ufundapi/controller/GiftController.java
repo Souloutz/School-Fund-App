@@ -81,8 +81,8 @@ public class GiftController {
     public ResponseEntity<Gift[]> getItems() {
         LOG.info("GET /gifts");
         try{
-            Gift[] gifts_array = giftDAO.getItems();
-            return new ResponseEntity<Gift[]>(gifts_array,HttpStatus.OK); // Return array and status of OK
+            Gift[] gifts = giftDAO.getItems();
+            return new ResponseEntity<Gift[]>(gifts,HttpStatus.OK); // Return array and status of OK
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -106,8 +106,8 @@ public class GiftController {
         LOG.info("GET /gifts/?name="+name);
 
         try{
-            Gift[] found_gifts_array = giftDAO.findItem(name);
-            return new ResponseEntity<Gift[]>(found_gifts_array,HttpStatus.OK); // Return search array and status of OK
+            Gift[] foundGifts = giftDAO.findItem(name);
+            return new ResponseEntity<Gift[]>(foundGifts,HttpStatus.OK); // Return search array and status of OK
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());

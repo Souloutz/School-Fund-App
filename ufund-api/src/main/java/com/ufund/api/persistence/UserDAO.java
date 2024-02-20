@@ -77,5 +77,5 @@ public interface UserDAO {
      *         false if user with the given id does not exist
      * @throws IOException if underlying storage cannot be accessed
      */
-    boolean deleteUser(int id) throws IOException;
+    User deleteUser(int id) throws IOException;
 }

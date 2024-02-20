@@ -83,7 +83,7 @@ public class UserFileDAO implements UserDAO {
         ArrayList<User> usersArrayList = new ArrayList<>();
 
         for (User user : users.values()) {
-            if (containsText == null || user.getName().contains(containsText)) {
+            if (containsText == null || user.getUsername().contains(containsText)) {
                 usersArrayList.add(user);
             }
         }
@@ -177,7 +177,12 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User createUser(User user) throws IOException {
         synchronized (users) {
-            User newUser = new User(nextId(), user.getName());
+            User newUser = new User(nextId(), 
+                                user.getUsername(), 
+                                user.getPassword(), 
+                                user.getEmail(), 
+                                user.getCart(), 
+                                user.getPurchases());
             users.put(newUser.getId(), newUser);
             save();
             return newUser;

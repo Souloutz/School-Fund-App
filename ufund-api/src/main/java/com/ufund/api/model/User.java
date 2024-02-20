@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a User
  * 
  * @author Howard Kong
- * @author
+ * @author Austin Kunkel
  * @author
  * @author
  */

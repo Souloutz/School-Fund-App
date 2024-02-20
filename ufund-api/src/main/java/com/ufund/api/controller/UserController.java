@@ -31,7 +31,7 @@ import com.ufund.api.persistence.UserDAO;
  */
 
 @RestController
-@RequestMapping("") //add the request like the heroes controller does
+@RequestMapping("") //add the request like the users controller does
 public class UserController {
     /*
      * TODO
@@ -62,8 +62,18 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("GET /users/" + id);
+        try {
+            User user = usersDAO.getUser(id);
+            if (user != null)
+                return new ResponseEntity<User>(user,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -74,8 +84,18 @@ public class UserController {
      */
     @GetMapping("")
     public ResponseEntity<User[]> getAllUsers() {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("GET /users");
+        try {
+            User[] users = usersDAO.getUsers();
+            if (users != null)
+                return new ResponseEntity<User[]>(users,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -90,8 +110,18 @@ public class UserController {
      */
     @GetMapping("/")
     public ResponseEntity<User[]> searchUsers(@RequestParam String name) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("GET /users/?name="+name);
+        try {
+            User[] users = usersDAO.findUsers(name);
+            if (users != null)
+                return new ResponseEntity<User[]>(users,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -104,8 +134,18 @@ public class UserController {
      */
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        LOG.info("POST /users " + user);
+        try {
+            User newUser = usersDAO.createUser(user);
+            if (newUser != null)
+                return new ResponseEntity<User>(newUser,HttpStatus.CREATED);
+            else
+                return new ResponseEntity<User>(newUser,HttpStatus.CONFLICT);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -118,8 +158,18 @@ public class UserController {
      */
     @PutMapping("")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("PUT /users " + user);
+        try {
+            User newUser = usersDAO.updateUser(user);
+            if (newUser != null)
+                return new ResponseEntity<User>(newUser,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -133,7 +183,17 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable int id) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("DELETE /users/" + id);
+        try {
+            User user = usersDAO.deleteUser(id);
+            if (user != null)
+                return new ResponseEntity<User>(user,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -69,7 +69,7 @@ public class GiftController {
         try {
             Gift gift = giftDAO.getItem(id);
             if (gift != null)
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<Gift>(gift, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

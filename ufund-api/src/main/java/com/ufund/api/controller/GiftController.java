@@ -32,13 +32,8 @@ import com.ufund.api.persistence.GiftDAO;
  */
 
 @RestController
-@RequestMapping("") //add the request like the heroes controller does
+@RequestMapping("gifts")
 public class GiftController {
-    /*
-     * TODO
-     * Implement CRUD operation functions
-     * Add additional functions (search, return all, etc)
-     */
 
     private static final Logger LOG = Logger.getLogger(GiftController.class.getName());
     private GiftDAO giftDAO;

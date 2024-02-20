@@ -25,7 +25,7 @@ import com.ufund.api.persistence.UserDAO;
  * {@literal @}RestController Spring annotation identifies this class as a REST API method handler to the Spring framework
  * 
  * @author Howard Kong
- * @author
+ * @author Austin Kunkel
  * @author
  * @author
  */
@@ -40,16 +40,16 @@ public class UserController {
      */
 
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
-    private UserDAO usersDAO;
+    private UserDAO userDAO;
 
     /**
      * Create a REST API controller to respond to requests
      * 
-     * @param usersDAO The {@link UserDAO User Data Access Object} to perform CRUD operations
+     * @param userDAO The {@link UserDAO User Data Access Object} to perform CRUD operations
      *                 This dependency is injected by the Spring Framework
      */
-    public UserController(UserDAO usersDAO){
-        this.usersDAO = usersDAO;
+    public UserController(UserDAO userDAO){
+        this.userDAO = userDAO;
     }
 
     /**
@@ -64,7 +64,7 @@ public class UserController {
     public ResponseEntity<User> getUser(@PathVariable int id) {
         LOG.info("GET /users/" + id);
         try {
-            User user = usersDAO.getUser(id);
+            User user = userDAO.getUser(id);
             if (user != null)
                 return new ResponseEntity<User>(user,HttpStatus.OK);
             else
@@ -86,7 +86,7 @@ public class UserController {
     public ResponseEntity<User[]> getAllUsers() {
         LOG.info("GET /users");
         try {
-            User[] users = usersDAO.getUsers();
+            User[] users = userDAO.getUsers();
             if (users != null)
                 return new ResponseEntity<User[]>(users,HttpStatus.OK);
             else
@@ -112,7 +112,7 @@ public class UserController {
     public ResponseEntity<User[]> searchUsers(@RequestParam String name) {
         LOG.info("GET /users/?name="+name);
         try {
-            User[] users = usersDAO.findUsers(name);
+            User[] users = userDAO.findUsers(name);
             if (users != null)
                 return new ResponseEntity<User[]>(users,HttpStatus.OK);
             else
@@ -136,7 +136,7 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         LOG.info("POST /users " + user);
         try {
-            User newUser = usersDAO.createUser(user);
+            User newUser = userDAO.createUser(user);
             if (newUser != null)
                 return new ResponseEntity<User>(newUser,HttpStatus.CREATED);
             else
@@ -160,7 +160,7 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         LOG.info("PUT /users " + user);
         try {
-            User newUser = usersDAO.updateUser(user);
+            User newUser = userDAO.updateUser(user);
             if (newUser != null)
                 return new ResponseEntity<User>(newUser,HttpStatus.OK);
             else
@@ -185,9 +185,9 @@ public class UserController {
     public ResponseEntity<User> deleteUser(@PathVariable int id) {
         LOG.info("DELETE /users/" + id);
         try {
-            User user = usersDAO.deleteUser(id);
-            if (user != null)
-                return new ResponseEntity<User>(user,HttpStatus.OK);
+            boolean deleted = userDAO.deleteUser(id);
+            if (deleted == true)
+                return new ResponseEntity<>(HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

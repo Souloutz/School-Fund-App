@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ufund.api.model.Gift;
+import com.ufund.api.model.User;
 import com.ufund.api.persistence.GiftDAO;
 
 /**
@@ -25,7 +26,7 @@ import com.ufund.api.persistence.GiftDAO;
  * {@literal @}RestController Spring annotation identifies this class as a REST API method handler to the Spring framework
  * 
  * @author Howard Kong
- * @author
+ * @author Christopher Brooks
  * @author
  * @author
  */
@@ -60,9 +61,19 @@ public class GiftController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Gift> getGift(@PathVariable int id) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Gift> getItem(@PathVariable int id) {
+        LOG.info("GET /gifts/" + id);
+        try {
+            Gift gift = giftDAO.getItem(id);
+            if (gift != null)
+                return new ResponseEntity<Gift>(gift,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -72,9 +83,16 @@ public class GiftController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Gift[]> getAllGifts() {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Gift[]> getItems() {
+        LOG.info("GET /gifts");
+        try{
+            Gift[] gifts_array = giftDAO.getItems();
+            return new ResponseEntity<Gift[]>(gifts_array,HttpStatus.OK); // Return array and status of OK
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -89,9 +107,17 @@ public class GiftController {
      * GET http://localhost:8080/gifts/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Gift[]> searchGifts(@RequestParam String name) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Gift[]> findItem(@RequestParam String name) {
+        LOG.info("GET /gifts/?name="+name);
+
+        try{
+            Gift[] found_gifts_array = giftDAO.findItem(name);
+            return new ResponseEntity<Gift[]>(found_gifts_array,HttpStatus.OK); // Return search array and status of OK
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -104,8 +130,18 @@ public class GiftController {
      */
     @PostMapping("")
     public ResponseEntity<Gift> createGift(@RequestBody Gift gift) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        LOG.info("POST /gifts " + gift);
+        try {
+            Gift newGift = giftDAO.createItem(gift);
+            if (newGift != null)
+                return new ResponseEntity<Gift>(newGift,HttpStatus.CREATED);
+            else
+                return new ResponseEntity<Gift>(newGift,HttpStatus.CONFLICT);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -118,8 +154,18 @@ public class GiftController {
      */
     @PutMapping("")
     public ResponseEntity<Gift> updateGift(@RequestBody Gift gift) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("PUT /gifts " + gift);
+        try {
+            Gift updatedGift = giftDAO.updateItem(gift);
+            if (updatedGift != null)
+                return new ResponseEntity<Gift>(updatedGift,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -132,7 +178,17 @@ public class GiftController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Gift> deleteGift(@PathVariable int id) {
-        // TODO
-        return new ResponseEntity<>(HttpStatus.OK);
+        LOG.info("DELETE /gifts/" + id);
+        try {
+            boolean deleted = giftDAO.deleteItem(id);
+            if (deleted == true)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

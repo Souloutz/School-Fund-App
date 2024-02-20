@@ -1,4 +1,4 @@
-package com.ufund.api.controller;
+package com.ufund.api.ufundapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ufund.api.model.Gift;
-import com.ufund.api.model.User;
-import com.ufund.api.persistence.GiftDAO;
+import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.User;
+import com.ufund.api.ufundapi.persistence.GiftDAO;
 
 /**
  * Handles the REST API requests for the Gift resource

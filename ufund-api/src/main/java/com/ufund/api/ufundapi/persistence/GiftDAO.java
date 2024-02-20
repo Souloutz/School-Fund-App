@@ -1,7 +1,8 @@
-package com.ufund.api.persistence;
+package com.ufund.api.ufundapi.persistence;
 
 import java.io.IOException;
-import com.ufund.api.model.Gift;
+
+import com.ufund.api.ufundapi.model.Gift;
 
 /**
  * Interface for Gift Item object persistence

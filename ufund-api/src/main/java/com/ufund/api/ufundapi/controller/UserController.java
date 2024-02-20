@@ -1,4 +1,4 @@
-package com.ufund.api.controller;
+package com.ufund.api.ufundapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ufund.api.model.User;
-import com.ufund.api.persistence.UserDAO;
+import com.ufund.api.ufundapi.model.User;
+import com.ufund.api.ufundapi.persistence.UserDAO;
 
 /**
  * Handles the REST API requests for the User resource

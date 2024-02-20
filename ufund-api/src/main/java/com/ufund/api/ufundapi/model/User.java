@@ -1,4 +1,4 @@
-package com.ufund.api.model;
+package com.ufund.api.ufundapi.model;
 
 import java.util.HashMap;
 import java.util.Map;

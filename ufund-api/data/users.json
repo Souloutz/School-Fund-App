@@ -10,12 +10,6 @@
         "id": 2,
         "username": "user",
         "password": "user",
-        "email": "user@google.com",
-        "cart": [
-
-        ],
-        "purchases": [
-            
-        ]
+        "email": "user@google.com"
     }
 ]

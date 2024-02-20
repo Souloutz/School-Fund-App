@@ -1,4 +1,4 @@
-package com.ufund.api.model;
+package com.ufund.api.ufundapi.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a User
  * 
  * @author Howard Kong
- * @author
+ * @author Austin Kunkel
  * @author
  * @author
  */

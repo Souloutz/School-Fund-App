@@ -1,4 +1,4 @@
-package com.ufund.api.persistence;
+package com.ufund.api.ufundapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,11 +8,10 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.User;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import com.ufund.api.model.User;
 
 /**
  * Implements the functionality for JSON file-based peristance for Users
@@ -177,7 +176,12 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User createUser(User user) throws IOException {
         synchronized (users) {
-            User newUser = new User(nextId(), user.getUsername(), user.getPassword(), user.getPassword(), user.getCart(), user.getPurchases());
+            User newUser = new User(nextId(), 
+                                    user.getUsername(), 
+                                    user.getPassword(), 
+                                    user.getEmail(), 
+                                    user.getCart(), 
+                                    user.getPurchases());
             users.put(newUser.getId(), newUser);
             save();
             return newUser;

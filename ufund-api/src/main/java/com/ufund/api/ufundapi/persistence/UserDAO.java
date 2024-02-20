@@ -1,8 +1,8 @@
-package com.ufund.api.persistence;
+package com.ufund.api.ufundapi.persistence;
 
 import java.io.IOException;
 
-import com.ufund.api.model.User;
+import com.ufund.api.ufundapi.model.User;
 
 /**
  * Interface for User object persistence

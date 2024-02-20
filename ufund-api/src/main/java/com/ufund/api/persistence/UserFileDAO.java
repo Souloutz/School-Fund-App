@@ -1,5 +1,5 @@
 package com.ufund.api.persistence;
 
-public class UfundFileDAO {
+public class UserFileDAO {
     
 }

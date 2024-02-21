@@ -9,16 +9,16 @@ geometry: margin=1in
 > and appear in the generated PDF in italics but do so only **after** all team members agree that the requirements for that section and current Sprint have been met. **Do not** delete future Sprint expectations._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: 71g3r (Tiger)
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Christopher Brooks
+  * Howard Kong
+  * Austin Kunkel
+  * Ethan Ricker
 
 ## Executive Summary
 
-This is a summary of the project.
+Our project is U-Fund School Supplies. Many students are in need of school supplies. With this website, you can pick and choose school supplies to donate to schools. Examples include Backpacks, Art Supplies, Lunches, and other common supplies. Each need has an amount that is requested and users can fund to meet that goal.
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
@@ -39,6 +39,13 @@ This section describes the features of the application.
 > _In this section you do not need to be exhaustive and list every
 > story.  Focus on top-level features from the Vision document and
 > maybe Epics and critical Stories._
+
+Users can log in with their own account.
+Users can browse a list of needs (school supplies).
+Users can pick a need to support and pick the amount to support.
+Users can add items to their cart and checkout
+Users have persistence, they can log out and cart will save 
+Admins can edit the needs in the cupboard, edit amount, add/remove items, etc.
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._

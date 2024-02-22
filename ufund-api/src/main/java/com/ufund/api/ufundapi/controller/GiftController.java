@@ -33,7 +33,7 @@ import com.ufund.api.ufundapi.persistence.GiftDAO;
 @RestController
 @RequestMapping("gifts")
 public class GiftController {
-    
+
     private static final Logger LOG = Logger.getLogger(GiftController.class.getName());
     private GiftDAO giftDAO;
 
@@ -108,7 +108,7 @@ public class GiftController {
         LOG.info("GET /gifts/?name=" + name);
 
         try{
-            Gift[] matchingGifts = giftDAO.findItem(name);
+            Gift[] matchingGifts = giftDAO.findItems(name);
             return new ResponseEntity<Gift[]>(matchingGifts, HttpStatus.OK);
         }
         catch (IOException ioe) {

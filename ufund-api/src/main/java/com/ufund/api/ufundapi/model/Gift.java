@@ -22,7 +22,7 @@ public class Gift {
     @JsonProperty("name") private String name;
     @JsonProperty("description") private String description;
     @JsonProperty("price") private double price;
-    @JsonProperty("amount_needed") private int amount_needed;
+    @JsonProperty("amount_needed") private int amountNeeded;
 
     /**
      * Create a gift with the given fields
@@ -30,7 +30,7 @@ public class Gift {
      * @param name The name of the gift
      * @param description The description of the gift
      * @param price The price of the gift
-     * @param amount_needed The amount of the gift needed
+     * @param amountNeeded The amount of the gift needed
      * 
      * {@literal @}JsonProperty is used in serialization and deserialization
      * of the JSON object to the Java object in mapping the fields.  If a field
@@ -41,12 +41,12 @@ public class Gift {
                 @JsonProperty("name") String name,
                 @JsonProperty("description") String description,
                 @JsonProperty("price") double price,
-                @JsonProperty("amount_needed") int amount_needed) {
+                @JsonProperty("amount_needed") int amountNeeded) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.amount_needed = amount_needed;
+        this.amountNeeded = amountNeeded;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Gift {
      * @return The amount of the gift needed
      */
     public int getAmountNeeded() {
-        return amount_needed;
+        return amountNeeded;
     }
 
     /**
@@ -115,10 +115,10 @@ public class Gift {
 
     /**
      * Set the amount of the gift needed - necessary for JSON object to Java object deserialization
-     * @param amount_needed The amount of the gift needed
+     * @param amountNeeded The amount of the gift needed
      */
-    public void setAmountNeeded(int amount_needed) {
-        this.amount_needed = amount_needed;
+    public void setAmountNeeded(int amountNeeded) {
+        this.amountNeeded = amountNeeded;
     }
 
     /**
@@ -126,6 +126,6 @@ public class Gift {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, name, description, price, amount_needed);
+        return String.format(STRING_FORMAT, id, name, description, price, amountNeeded);
     }
 }

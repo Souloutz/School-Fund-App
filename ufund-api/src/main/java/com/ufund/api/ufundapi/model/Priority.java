@@ -1,5 +1,10 @@
 package com.ufund.api.ufundapi.model;
 
+/**
+ * Represents a enumerated type/level of Priority associated with a number
+ * 
+ * @author Howard Kong
+ */
 public enum Priority {
     NONE(0),
     LOW(1),
@@ -9,7 +14,11 @@ public enum Priority {
 
     private int priorityNumber;
 
-    Priority(int priorityNumber) {
+    /**
+     * Assign priority number with each type
+     * @param priorityNumber The priority number assigned
+     */
+    private Priority(int priorityNumber) {
         this.priorityNumber = priorityNumber;
     }
 
@@ -23,7 +32,6 @@ public enum Priority {
 
     /**
      * Get a priority level based on the priority number provided
-     * 
      * @param priorityNumber
      * @return The Priority level associated with the number
      */

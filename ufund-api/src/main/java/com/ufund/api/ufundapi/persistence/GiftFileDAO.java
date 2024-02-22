@@ -177,6 +177,7 @@ public class GiftFileDAO implements GiftDAO {
                                     item.getName(), 
                                     item.getDescription(), 
                                     item.getPrice(), 
+                                    item.getPriority().getNumber(),
                                     item.getAmountNeeded());
             gifts.put(newGift.getId(), newGift);
             save(); 

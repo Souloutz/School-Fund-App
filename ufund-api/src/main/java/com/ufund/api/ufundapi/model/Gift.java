@@ -16,12 +16,13 @@ public class Gift {
     private static final Logger LOG = Logger.getLogger(Gift.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Gift [id = %d, name = %s, description = %s, price = %f, amount needed = %d]";
+    static final String STRING_FORMAT = "Gift [id = %d, name = %s, description = %s, price = %f, priority = %d, amount needed = %d]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("description") private String description;
     @JsonProperty("price") private double price;
+    @JsonProperty("priority") private Priority priority;
     @JsonProperty("amount_needed") private int amountNeeded;
 
     /**
@@ -30,6 +31,7 @@ public class Gift {
      * @param name The name of the gift
      * @param description The description of the gift
      * @param price The price of the gift
+     * @param priority The priority of the gift
      * @param amountNeeded The amount of the gift needed
      * 
      * {@literal @}JsonProperty is used in serialization and deserialization
@@ -41,11 +43,13 @@ public class Gift {
                 @JsonProperty("name") String name,
                 @JsonProperty("description") String description,
                 @JsonProperty("price") double price,
+                @JsonProperty("priority") int priorityNumber,
                 @JsonProperty("amount_needed") int amountNeeded) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.priority = Priority.getPriority(priorityNumber);
         this.amountNeeded = amountNeeded;
     }
 
@@ -82,6 +86,14 @@ public class Gift {
     }
 
     /**
+     * Retrieve the priority of the gift
+     * @return The priority of the gift
+     */
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
      * Retrieve the amount needed of the gift
      * @return The amount of the gift needed
      */
@@ -114,6 +126,14 @@ public class Gift {
     }
 
     /**
+     * Set the priority of the gift - necessary for JSON object to Java object deserialization
+     * @param priority The priority of the gift
+     */
+    public void setPriority(int priorityNumber) {
+        this.priority = Priority.getPriority(priorityNumber);
+    }
+
+    /**
      * Set the amount of the gift needed - necessary for JSON object to Java object deserialization
      * @param amountNeeded The amount of the gift needed
      */
@@ -126,6 +146,6 @@ public class Gift {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, name, description, price, amountNeeded);
+        return String.format(STRING_FORMAT, id, name, description, price, priority, amountNeeded);
     }
 }

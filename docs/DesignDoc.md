@@ -115,7 +115,8 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+GiftController: Controls and implements the CRUD operations for the Gifts (Needs). Has update, delete, add, get all, retrieve, etc.
+UserController: COntrols and implements the CRUD operations for the Users. Same as gifts, can add users, delete, edit, etc.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -127,7 +128,8 @@ This section describes the web interface flow; this is how the user views and in
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+Gift: Represents the gift (Need). It has a name, description, price, and the amount needed for funding.
+User: A U-Fund user. Has a username, password, email, and their cart. Their data will save in the cart.
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -140,7 +142,17 @@ This section describes the web interface flow; this is how the user views and in
 
 ## OO Design Principles
 
-> _**[Sprint 1]** Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
+Low Coupling: Each class should be as independent as possible. For example, the Gift and User CRUD operations are implemented in separate files to avoid conflict. Although the code actions are mostly the same, it would be best to keep them separated in case we need unique code for one.
+
+Controller: We followed the Controller Model View model for creating our software. For example, GiftController nad UserController are separate, while Gift and Controller classes are in their own files in the model folder. We also have a separate folder for persistence, which deals with persistence.
+
+Law of Demeter: We separated the Gift and User classes, they cannot access each others data.
+
+Dependency Inversion/Injection: We abstracted certain parts of our code. A big example of this is in the DAO files. For example, we have the code that adds a new Gift to the cupboard. The code that actually writes to the JSON itself (And follows the JSON format) is abstracted away for us already. All we have to do it call the DAO function. This is better because we now only have to worry about just calling the add function, and have to know nothing about the implementation of actually writing the JSON.
+
+Open/Closed: We designed our classes to be able to extended easily. We could add more code/functionality to it if we wanted to. But we also kept it closed/avoided modification. This way, we can extend our classes if needed, but not change them completely.
+
+We also worked on separate files as much as possible. This helps us avoid merge conflicts. This made the code easier for the team to work on, since we didn't have to constantly worry about overwriting each others code.
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
@@ -157,6 +169,8 @@ This section describes the web interface flow; this is how the user views and in
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
+
+Video demo was created, tested componets manually. 
 
 ### Acceptance Testing
 > _**[Sprint 2 & 4]** Report on the number of user stories that have passed all their
@@ -176,3 +190,6 @@ This section describes the web interface flow; this is how the user views and in
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
+
+2024-2-09 Sprint 1: Team decided School Supplies U-Fund idea and created sprint 1 plan.
+2024-2-20 Sprint 1: Team decided on using Gift for the needs.

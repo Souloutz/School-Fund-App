@@ -13,13 +13,9 @@ import com.ufund.api.ufundapi.model.Gift;
  * @author
  */
 public interface GiftDAO {
-     
     /**
      * TODO 
-     * Add all the functions that get used and necessary parameters
-     * Update Ufund class name -> Item? Need?
-     * Implement functions in FileDAO
-     * Update Javadocs
+     * Update references from item to gift in method names?
      */
 
     /**
@@ -37,7 +33,7 @@ public interface GiftDAO {
      * @return An array of {@link Gift gifts} whose names contains the given text, may be empty
      * @throws IOException if an issue with underlying storage
      */
-    Gift[] findItem(String containsText) throws IOException;
+    Gift[] findItems(String containsText) throws IOException;
     
     /**
      * Retrieve a {@linkplain Gift gift} with the given id

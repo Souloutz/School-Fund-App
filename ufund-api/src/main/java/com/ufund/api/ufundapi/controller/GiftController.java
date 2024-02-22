@@ -33,7 +33,7 @@ import com.ufund.api.ufundapi.persistence.GiftDAO;
 @RestController
 @RequestMapping("gifts")
 public class GiftController {
-
+    
     private static final Logger LOG = Logger.getLogger(GiftController.class.getName());
     private GiftDAO giftDAO;
 

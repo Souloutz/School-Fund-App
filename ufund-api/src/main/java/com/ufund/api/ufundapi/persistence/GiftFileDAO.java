@@ -26,12 +26,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class GiftFileDAO implements GiftDAO {
-    /*
-     * TODO
-     * Update references to ufund
-     * Implement functions
-     */
+    
     private static final Logger LOG = Logger.getLogger(GiftFileDAO.class.getName());
+
     Map<Integer, Gift> gifts;     // Provides a local cache of the gift objects so that we don't need to read from the file each time
     private ObjectMapper objectMapper;  // Provides conversion between Gift objects and JSON text format written to the file
     private static int nextId;  // The next Id to assign to a new gift
@@ -151,7 +148,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public Gift[] findItem(String containsText) throws IOException {
+    public Gift[] findItems(String containsText) throws IOException {
         synchronized (gifts) {
             return getGiftsArray(containsText);
         }

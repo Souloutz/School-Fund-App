@@ -33,11 +33,6 @@ import com.ufund.api.ufundapi.persistence.UserDAO;
 @RestController
 @RequestMapping("users")
 public class UserController {
-    /*
-     * TODO
-     * Implement CRUD operation functions
-     * Add additional functions (search, return all, etc)
-     */
 
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDAO userDAO;

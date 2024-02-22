@@ -26,12 +26,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserFileDAO implements UserDAO {
-    /*
-     * TODO
-     * Update references to ufund
-     * Implement functions
-     */
+    
     private static final Logger LOG = Logger.getLogger(UserFileDAO.class.getName());
+
     Map<Integer, User> users;     // Provides a local cache of the user object so that we don't need to read from the file each time
     private ObjectMapper objectMapper;  // Provides conversion between User objects and JSON text format written to the file
     private static int nextId;  // The next Id to assign to a new user

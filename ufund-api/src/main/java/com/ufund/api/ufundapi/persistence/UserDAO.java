@@ -13,14 +13,6 @@ import com.ufund.api.ufundapi.model.User;
  * @author
  */
 public interface UserDAO {
-     
-    /**
-     * TODO 
-     * Add all the functions that get used and necessary parameters
-     * Implement functions in FileDAO
-     * Update Javadocs
-     */
-
     /**
      * Retrieve all {@linkplain User users}
      * 

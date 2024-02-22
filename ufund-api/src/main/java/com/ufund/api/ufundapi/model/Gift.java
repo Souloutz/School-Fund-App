@@ -12,13 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author
  */
 public class Gift {
-    /**
-     * TODO
-     * Edit Javadocs
-     * Potentially update "Gift" name
-     * Add/remove fields
-     */
-
+    
     private static final Logger LOG = Logger.getLogger(Gift.class.getName());
 
     // Package private for tests

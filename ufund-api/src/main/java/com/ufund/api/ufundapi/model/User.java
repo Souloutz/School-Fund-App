@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
     /**
      * TODO
-     * Edit Javadocs
      * Add/remove fields and functions
+     * Implement cart and purchases
      */
 
     private static final Logger LOG = Logger.getLogger(User.class.getName());

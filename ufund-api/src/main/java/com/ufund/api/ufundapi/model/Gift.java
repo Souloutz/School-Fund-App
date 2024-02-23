@@ -16,7 +16,7 @@ public class Gift {
     private static final Logger LOG = Logger.getLogger(Gift.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Gift [id = %d, name = %s, description = %s, price = %f, priority = %d, amount needed = %d]";
+    static final String STRING_FORMAT = "Gift [id = %d, name = %s, description = %s, price = %f, priority = %s, amount needed = %d]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
@@ -146,6 +146,6 @@ public class Gift {
      */
     @Override
     public String toString() {
-        return String.format(STRING_FORMAT, id, name, description, price, priority, amountNeeded);
+        return String.format(STRING_FORMAT, id, name, description, price, priority.toString(), amountNeeded);
     }
 }

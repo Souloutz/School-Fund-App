@@ -21,7 +21,7 @@ public class User {
     private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "User [id = %d, name = %s, email = %s]";
+    static final String STRING_FORMAT = "User [id = %d, username = %s, email = %s]";
 
     @JsonProperty("id") private int id;
     @JsonProperty("username") private String username;

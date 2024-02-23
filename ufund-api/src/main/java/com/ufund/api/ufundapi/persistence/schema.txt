@@ -1,3 +1,5 @@
+Designed by Howard Kong
+
 users
 {
     _id: SERIAL,
@@ -24,5 +26,6 @@ gifts
     name: STRING,
     description: STRING,
     price: DOUBLE,
+    priority: INT,
     amount_needed, INT
 }

@@ -1,6 +1,8 @@
 package com.ufund.api.ufundapi.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,8 +31,8 @@ public class User {
     @JsonProperty("username") private String username;
     @JsonProperty("password") private String password;
     @JsonProperty("email") private String email;
-    @JsonProperty("cart") private Map<Integer, Integer> cart; // Integer (Foreign Key), Integer (Amount)
-    @JsonProperty("purchases") private Map<Integer, Integer> purchases; // Integer (Foreign Key), Integer (Amount)
+    @JsonProperty("cart") private List<CartItem> cart;
+    @JsonProperty("purchases") private List<PurchasedItem> purchases;
 
     /**
      * Create a user with the given fields
@@ -50,14 +52,14 @@ public class User {
                 @JsonProperty("username") String username,
                 @JsonProperty("password") String password,
                 @JsonProperty("email") String email,
-                @JsonProperty("cart") Map<Integer, Integer> cart,
-                @JsonProperty("purchases") Map<Integer, Integer> purchases) {
+                @JsonProperty("cart") List<CartItem> cart,
+                @JsonProperty("purchases") List<PurchasedItem> purchases) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        cart = new HashMap<>();
-        purchases = new HashMap<>();
+        this.cart = cart;
+        this.purchases = purchases;
     }
 
     /**
@@ -96,7 +98,7 @@ public class User {
      * Retrieve the cart of the user
      * @return The cart of the user
      */
-    public Map<Integer, Integer> getCart() {
+    public List<CartItem> getCart() {
         return cart;
     }
 
@@ -104,7 +106,7 @@ public class User {
      * Retrieve the purchases of the user
      * @return The purchases of the user
      */
-    public Map<Integer, Integer> getPurchases() {
+    public List<PurchasedItem> getPurchases() {
         return purchases;
     }
 
@@ -136,7 +138,7 @@ public class User {
      * Set the cart of the user - necessary for JSON object to Java object deserialization
      * @param cart The cart of the user
      */
-    public void setCart(Map<Integer, Integer> cart) {
+    public void setCart(List<CartItem> cart) {
         this.cart = cart;
     }
 
@@ -144,7 +146,7 @@ public class User {
      * Set the purchases of the user - necessary for JSON object to Java object deserialization
      * @param purchases The purchases of the user
      */
-    public void setPurchases(Map<Integer, Integer> purchases) {
+    public void setPurchases(List<PurchasedItem> purchases) {
         this.purchases = purchases;
     }
 

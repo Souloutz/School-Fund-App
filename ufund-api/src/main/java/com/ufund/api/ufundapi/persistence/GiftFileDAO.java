@@ -138,7 +138,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public Gift[] getItems() throws IOException {
+    public Gift[] getGifts() throws IOException {
         synchronized (gifts) {
             return getGiftsArray();
         }
@@ -148,7 +148,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public Gift[] findItems(String containsText) throws IOException {
+    public Gift[] findGifts(String containsText) throws IOException {
         synchronized (gifts) {
             return getGiftsArray(containsText);
         }
@@ -158,7 +158,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public Gift getItem(int id) throws IOException {
+    public Gift getGift(int id) throws IOException {
         synchronized (gifts) {
             if (gifts.containsKey(id))
                 return gifts.get(id);
@@ -171,7 +171,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public Gift createItem(Gift item) throws IOException {
+    public Gift createGift(Gift item) throws IOException {
         synchronized (gifts) {
             Gift newGift = new Gift(nextId(), 
                                     item.getName(), 
@@ -190,7 +190,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public Gift updateItem(Gift item) throws IOException {
+    public Gift updateGift(Gift item) throws IOException {
         synchronized (gifts) {
             if (gifts.containsKey(item.getId()) == false)
                 return null;
@@ -205,7 +205,7 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
-    public boolean deleteItem(int id) throws IOException {
+    public boolean deleteGift(int id) throws IOException {
         synchronized (gifts) {
             if (gifts.containsKey(id)) {
                 gifts.remove(id);

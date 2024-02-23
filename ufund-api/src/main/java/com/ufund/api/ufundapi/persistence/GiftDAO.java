@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.ufund.api.ufundapi.model.Gift;
 
 /**
- * Interface for Gift Item object persistence
+ * Interface for Gift item object persistence
  * 
  * @author Howard Kong
  * @author
@@ -14,17 +14,12 @@ import com.ufund.api.ufundapi.model.Gift;
  */
 public interface GiftDAO {
     /**
-     * TODO 
-     * Update references from item to gift in method names?
-     */
-
-    /**
      * Retrieve all {@linkplain Gift gifts}
      * 
      * @return An array of {@link Gift gift} objects, may be empty
      * @throws IOException if an issue with underlying storage
      */
-    Gift[] getItems() throws IOException;
+    Gift[] getGifts() throws IOException;
     
     /**
      * Find all {@linkplain Gift gifts} whose name contains the given text
@@ -33,7 +28,7 @@ public interface GiftDAO {
      * @return An array of {@link Gift gifts} whose names contains the given text, may be empty
      * @throws IOException if an issue with underlying storage
      */
-    Gift[] findItems(String containsText) throws IOException;
+    Gift[] findGifts(String containsText) throws IOException;
     
     /**
      * Retrieve a {@linkplain Gift gift} with the given id
@@ -43,7 +38,7 @@ public interface GiftDAO {
      *         null if no {@link Gift gift} with a matching id is found
      * @throws IOException if an issue with underlying storage
      */
-    Gift getItem(int id) throws IOException;
+    Gift getGift(int id) throws IOException;
 
     /**
      * Create and save a {@linkplain Gift gift}
@@ -54,7 +49,7 @@ public interface GiftDAO {
      *         false otherwise 
      * @throws IOException if an issue with underlying storage
      */
-    Gift createItem(Gift gift) throws IOException;
+    Gift createGift(Gift gift) throws IOException;
 
     /**
      * Update and save a {@linkplain Gift gift}
@@ -64,7 +59,7 @@ public interface GiftDAO {
      *         null if {@link Gift gift} could not be found
      * @throws IOException if underlying storage cannot be accessed
      */
-    Gift updateItem(Gift item) throws IOException;
+    Gift updateGift(Gift item) throws IOException;
 
     /**
      * Delete a {@linkplain Gift gift} with the given id
@@ -74,5 +69,5 @@ public interface GiftDAO {
      *         false if gift with the given id does not exist
      * @throws IOException if underlying storage cannot be accessed
      */
-    boolean deleteItem(int id) throws IOException;
+    boolean deleteGift(int id) throws IOException;
 }

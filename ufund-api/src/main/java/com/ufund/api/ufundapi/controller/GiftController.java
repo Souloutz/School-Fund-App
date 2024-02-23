@@ -56,10 +56,10 @@ public class GiftController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Gift> getItem(@PathVariable int id) {
+    public ResponseEntity<Gift> getGift(@PathVariable int id) {
         LOG.info("GET /gifts/" + id);
         try {
-            Gift gift = giftDAO.getItem(id);
+            Gift gift = giftDAO.getGift(id);
 
             if (gift != null)
                 return new ResponseEntity<Gift>(gift, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class GiftController {
         LOG.info("GET /gifts");
 
         try{
-            Gift[] allGifts = giftDAO.getItems();
+            Gift[] allGifts = giftDAO.getGifts();
             return new ResponseEntity<Gift[]>(allGifts, HttpStatus.OK);
         }
         catch(IOException ioe) {
@@ -108,7 +108,7 @@ public class GiftController {
         LOG.info("GET /gifts/?name=" + name);
 
         try{
-            Gift[] matchingGifts = giftDAO.findItems(name);
+            Gift[] matchingGifts = giftDAO.findGifts(name);
             return new ResponseEntity<Gift[]>(matchingGifts, HttpStatus.OK);
         }
         catch (IOException ioe) {
@@ -129,7 +129,7 @@ public class GiftController {
     public ResponseEntity<Gift> createGift(@RequestBody Gift gift) {
         LOG.info("POST /gifts/" + gift.getId());
         try {
-            Gift newGift = giftDAO.createItem(gift);
+            Gift newGift = giftDAO.createGift(gift);
 
             if (newGift != null)
                 return new ResponseEntity<Gift>(newGift, HttpStatus.CREATED);
@@ -154,7 +154,7 @@ public class GiftController {
     public ResponseEntity<Gift> updateGift(@RequestBody Gift gift) {
         LOG.info("PUT /gifts/ " + gift.getId());
         try {
-            Gift updatedGift = giftDAO.updateItem(gift);
+            Gift updatedGift = giftDAO.updateGift(gift);
 
             if (updatedGift != null)
                 return new ResponseEntity<Gift>(updatedGift, HttpStatus.OK);
@@ -180,7 +180,7 @@ public class GiftController {
         LOG.info("DELETE /gifts/" + id);
 
         try {
-            boolean deleted = giftDAO.deleteItem(id);
+            boolean deleted = giftDAO.deleteGift(id);
 
             if (deleted == true)
                 return new ResponseEntity<>(HttpStatus.OK);

@@ -16,7 +16,6 @@ public class User {
     /**
      * TODO
      * Add/remove fields and functions
-     * Implement cart and purchases
      */
 
     private static final Logger LOG = Logger.getLogger(User.class.getName());

@@ -9,5 +9,4 @@ class UfundApiApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

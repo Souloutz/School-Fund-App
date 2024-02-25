@@ -152,7 +152,7 @@ public class GiftController {
      */
     @PutMapping("")
     public ResponseEntity<Gift> updateGift(@RequestBody Gift gift) {
-        LOG.info("PUT /gifts/ " + gift.getId());
+        LOG.info("PUT /gifts/" + gift.getId());
         try {
             Gift updatedGift = giftDAO.updateGift(gift);
 

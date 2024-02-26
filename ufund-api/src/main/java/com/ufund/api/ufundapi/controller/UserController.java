@@ -270,6 +270,35 @@ public class UserController {
         }
     }
 
+
+    /**
+     * Update the cart of the {@linkplain User user} with the provided id and {@linkplain CartItem cartItem} object, if it exists
+     * 
+     * @param id The id of the {@link User user} to update
+     * @param cartItem The cart item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PutMapping("/{id}/cart")
+    public ResponseEntity<User> updateItemUserCart(@PathVariable int id, @RequestBody CartItem cartItem) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("PUT /users/" + id + "/cart/" + cartItem.getItemId());
+
+        throw new UnsupportedOperationException("Unimplemented method");
+        // try {
+        //    
+        // }
+        // catch (IOException ioe) {
+        //     LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+        //     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        // }
+    }
+
     /**
      * Respond to the GET request for the purchases of the {@linkplain User user}
      * 
@@ -341,5 +370,61 @@ public class UserController {
             LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Update the cart of the {@linkplain User user} with the provided id and {@linkplain CartItem cartItem} object, if it exists
+     * 
+     * @param id The id of the {@link User user} to update
+     * @param cartItem The cart item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PutMapping("/{id}/cart")
+    public ResponseEntity<User> updateItemUserPurchases(@PathVariable int id, @RequestBody CartItem cartItem) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("PUT /users/" + id + "/cart/" + cartItem.getItemId());
+
+        throw new UnsupportedOperationException("Unimplemented method");
+        // try {
+        //    
+        // }
+        // catch (IOException ioe) {
+        //     LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+        //     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        // }
+    }
+
+    /**
+     * Update the cart of the {@linkplain User user} with the provided id and {@linkplain CartItem cartItem} object, if it exists
+     * 
+     * @param id The id of the {@link User user} to update
+     * @param cartItem The cart item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PutMapping("/{id}/cart")
+    public ResponseEntity<User> userCheckout(@PathVariable int id, @RequestBody CartItem cartItem) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("PUT /users/" + id + "/cart/" + cartItem.getItemId());
+
+        throw new UnsupportedOperationException("Unimplemented method");
+        // try {
+        //    
+        // }
+        // catch (IOException ioe) {
+        //     LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+        //     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        // }
     }
 }

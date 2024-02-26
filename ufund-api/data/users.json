@@ -13,14 +13,24 @@
         "email": "user@google.com",
         "cart": [
             {
-                "id": 1,
+                "item_id": 1,
                 "amount": 10
             }
         ],
-        "purchases": [
+        "orders": [
             {
-                "id": 2,
-                "amount": 5
+                "id": 1,
+                "date": "2023-05-12 00:00:00",
+                "items": [
+                    {
+                        "item_id": 2,
+                        "amount": 5
+                    },
+                    {
+                        "item_id": 1,
+                        "amount": 13
+                    }
+                ]
             }
         ]
     }

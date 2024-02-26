@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ufund.api.ufundapi.model.CartItem;
+import com.ufund.api.ufundapi.model.PurchasedItem;
 import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.persistence.UserDAO;
 
@@ -197,6 +198,39 @@ public class UserController {
     }
 
     /**
+     * Respond to the GET request for the cart of the {@linkplain User user}
+     * 
+     * @param id The id of the {@link User user}
+     * @return ResponseEntity with array of {@link CartItem cartItem} objects (may be empty) and HTTP status of OK
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/{id}/cart")
+    public ResponseEntity<CartItem[]> getUserCart(@PathVariable int id) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("GET /users/" + id + "/cart");
+
+        try {
+            User user = userDAO.getUser(id);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<CartItem> userCart = user.getCart();
+            CartItem[] cart = userCart.toArray(new CartItem[userCart.size()]);
+            
+            return new ResponseEntity<CartItem[]>(cart, HttpStatus.OK);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Update the cart of the {@linkplain User user} with the provided id and {@linkplain CartItem cartItem} object, if it exists
      * 
      * @param id The id of the {@link User user} to update
@@ -205,14 +239,14 @@ public class UserController {
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @PutMapping("/{id}/cart/")
-    public ResponseEntity<User> addItemToCart(@PathVariable int id, @RequestBody CartItem cartItem) {
+    @PutMapping("/{id}/cart")
+    public ResponseEntity<User> addItemToUserCart(@PathVariable int id, @RequestBody CartItem cartItem) {
         /*
          * TODO
          * Does not work for admin as admin does not have a cart/purchases
          */
         
-        LOG.info("PUT /users/" + id + "/cart/");
+        LOG.info("PUT /users/" + id + "/cart/" + cartItem.getItemId());
 
         try {
             User user = userDAO.getUser(id);
@@ -223,6 +257,79 @@ public class UserController {
             userCart.add(cartItem);
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getPurchases());
+            User updatedUser = userDAO.updateUser(newUser);
+
+            if (updatedUser != null)
+                return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Respond to the GET request for the purchases of the {@linkplain User user}
+     * 
+     * @param id The id of the {@link User user}
+     * @return ResponseEntity with array of {@link PurchasedItem purchasedItem} objects (may be empty) and HTTP status of OK
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/{id}/purchases")
+    public ResponseEntity<PurchasedItem[]> getUserPurchases(@PathVariable int id) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("GET /users/" + id + "/purchases");
+
+        try {
+            User user = userDAO.getUser(id);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<PurchasedItem> userPurchases = user.getPurchases();
+            PurchasedItem[] purchases = userPurchases.toArray(new PurchasedItem[userPurchases.size()]);
+            
+            return new ResponseEntity<PurchasedItem[]>(purchases, HttpStatus.OK);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Update the purchases of the {@linkplain User user} with the provided id and {@linkplain PurchasedItem purchasedItem} object, if it exists
+     * 
+     * @param id The id of the {@link User user} to update
+     * @param purchasedItem The purchased item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PutMapping("/{id}/purchases")
+    public ResponseEntity<User> addItemToUserPurchases(@PathVariable int id, @RequestBody PurchasedItem purchasedItem) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("PUT /users/" + id + "/purchases/" + purchasedItem.getItemId());
+
+        try {
+            User user = userDAO.getUser(id);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<PurchasedItem> userPurchases = user.getPurchases();
+            userPurchases.add(purchasedItem);
+
+            User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), user.getCart(), userPurchases);
             User updatedUser = userDAO.updateUser(newUser);
 
             if (updatedUser != null)

@@ -1,0 +1,75 @@
+Get gifts
+curl -X GET 'http://localhost:8080/gifts/1'
+
+Retrieve all gifts
+curl -X GET 'http://localhost:8080/gifts'
+
+Search for a gift by partial/full name
+curl -X GET 'http://localhost:8080/gifts/?name=lap
+curl -X GET 'http://localhost:8080/gifts/?name=Lap
+curl -X GET 'http://localhost:8080/gifts/?name=laptop
+curl -X GET 'http://localhost:8080/gifts/?name=Laptop
+
+Add gifts
+curl -X POST -H 'Content-Type:application/json' 'http://localhost:8080/gifts' -d '{"name": "Soccer balls", "description": "let the children play", "price": 10, "amount_needed": 100}'
+
+Update a gift
+curl -i -X PUT -H 'Content-Type:application/json' 'http://localhost:8080/gifts' -d
+'{"name": "Balls", "description": "Bounce", "price": 100.00, "priority": 3, "amount_needed": 50}'
+
+Delete a gift
+curl -i -X DELETE 'http://localhost:8080/gifts/1'
+
+Error Checking
+Try to retrieve a gift that doesn't exist
+curl -i -X GET 'http://localhost:8080/gifts/99'
+
+Try to delete a gift that doesn't exist
+curl -i -X DELETE 'http://localhost:8080/gifts/99'
+
+
+
+Get users
+curl -X GET 'http://localhost:8080/users/2'
+
+Retrieve all users
+curl -X GET 'http://localhost:8080/users'
+
+Search for a users by partial/full name
+curl -X GET 'http://localhost:8080/users/?name=lap
+curl -X GET 'http://localhost:8080/users/?name=Lap
+curl -X GET 'http://localhost:8080/users/?name=laptop
+curl -X GET 'http://localhost:8080/users/?name=Laptop
+
+Add gifts
+curl -X POST -H 'Content-Type:application/json' 'http://localhost:8080/gifts' -d '{"name": "Soccer balls", "description": "let the children play", "price": 10, "amount_needed": 100}'
+
+Update a gift
+curl -i -X PUT -H 'Content-Type:application/json' 'http://localhost:8080/gifts' -d
+'{"name": "Balls", "description": "Bounce", "price": 100.00, "priority": 3, "amount_needed": 50}'
+
+Delete a gift
+curl -i -X DELETE 'http://localhost:8080/gifts/1'
+
+Error Checking
+Try to retrieve a gift that doesn't exist
+curl -i -X GET 'http://localhost:8080/gifts/99'
+
+Try to delete a gift that doesn't exist
+curl -i -X DELETE 'http://localhost:8080/gifts/99'
+
+
+Get a user cart
+curl -X GET 'http://localhost:8080/users/2/cart'
+
+Add a user cart
+curl -i -X PUT -H 'Content-Type:application/json' 'http://localhost:8080/users/2/cart/' -d
+'{"id": 2, "amount": 20}'
+
+
+Get a user purchases
+curl -X GET 'http://localhost:8080/users/2/purchases'
+
+Add a user cart
+curl -i -X PUT -H 'Content-Type:application/json' 'http://localhost:8080/users/2/purchases/' -d
+'{"id": 2, "amount": 20}'

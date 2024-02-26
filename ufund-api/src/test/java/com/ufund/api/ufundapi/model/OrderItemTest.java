@@ -7,25 +7,25 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test the Purchased Item class
+ * Test the Order Item class
  * 
  * @author Howard Kong
  */
 @Tag("Model-tier")
-public class PurchasedItemTest {
+public class OrderItemTest {
     @Test
-    public void testCreatePurchasedItem() {
+    public void testCreateOrderItem() {
         // Setup
         int expectedId = 1;
         int expectedItemAmount = 150;
 
         // Invoke
-        PurchasedItem purchasedItem = new PurchasedItem(expectedId, expectedItemAmount);
+        OrderItem orderItem = new OrderItem(expectedId, expectedItemAmount);
 
         // Analyze
-        assertNotEquals(purchasedItem, null);
-        assertEquals(expectedId, purchasedItem.getItemId());
-        assertEquals(expectedItemAmount, purchasedItem.getItemAmount());
+        assertNotEquals(orderItem, null);
+        assertEquals(expectedId, orderItem.getItemId());
+        assertEquals(expectedItemAmount, orderItem.getItemAmount());
     }
 
     @Test
@@ -33,15 +33,15 @@ public class PurchasedItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        PurchasedItem purchasedItem = new PurchasedItem(id, itemAmount);
+        OrderItem orderItem = new OrderItem(id, itemAmount);
 
         int expectedId = 2;
 
         // Invoke
-        purchasedItem.setItemId(expectedId);
+        orderItem.setItemId(expectedId);
 
         // Analyze
-        assertEquals(expectedId, purchasedItem.getItemId());
+        assertEquals(expectedId, orderItem.getItemId());
     }
 
     @Test
@@ -49,15 +49,15 @@ public class PurchasedItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        PurchasedItem purchasedItem = new PurchasedItem(id, itemAmount);
+        OrderItem orderItem = new OrderItem(id, itemAmount);
 
         int expectedItemAmount = 250;
 
         // Invoke
-        purchasedItem.setItemAmount(expectedItemAmount);
+        orderItem.setItemAmount(expectedItemAmount);
 
         // Analyze
-        assertEquals(expectedItemAmount, purchasedItem.getItemAmount());
+        assertEquals(expectedItemAmount, orderItem.getItemAmount());
     }
 
     @Test
@@ -65,15 +65,15 @@ public class PurchasedItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        PurchasedItem purchasedItem = new PurchasedItem(id, itemAmount);
+        OrderItem orderItem = new OrderItem(id, itemAmount);
 
         int newItemAmount = -10;
         int expectedItemAmount = 0;
 
         // Invoke
-        purchasedItem.setItemAmount(newItemAmount);
+        orderItem.setItemAmount(newItemAmount);
 
         // Analyze
-        assertEquals(expectedItemAmount, purchasedItem.getItemAmount());
+        assertEquals(expectedItemAmount, orderItem.getItemAmount());
     }
 }

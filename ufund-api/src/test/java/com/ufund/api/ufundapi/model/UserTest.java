@@ -3,6 +3,8 @@ package com.ufund.api.ufundapi.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +26,10 @@ public class UserTest {
         String expectedPassword = "User";
         String expectedEmail = "user@gmail.com";
         List<CartItem> expectedCart = null;
-        List<PurchasedItem> expectedPurchases = null;
+        List<Order> expectedOrders = null;
 
         // Invoke
-        User user = new User(expectedId, expectedUsername, expectedPassword, expectedEmail, expectedCart, expectedPurchases);
+        User user = new User(expectedId, expectedUsername, expectedPassword, expectedEmail, expectedCart, expectedOrders);
 
         // Analyze
         assertNotEquals(user, null);
@@ -36,7 +38,7 @@ public class UserTest {
         assertEquals(expectedPassword, user.getPassword());
         assertEquals(expectedEmail, user.getEmail());
         assertEquals(expectedCart, user.getCart());
-        assertEquals(expectedPurchases, user.getPurchases());
+        assertEquals(expectedOrders, user.getOrders());
     }
 
     @Test
@@ -47,8 +49,8 @@ public class UserTest {
         String password = "User";
         String email = "user@gmail.com";
         List<CartItem> cart = null;
-        List<PurchasedItem> purchases = null;
-        User user = new User(id, username, password, email, cart, purchases);
+        List<Order> orders = null;
+        User user = new User(id, username, password, email, cart, orders);
 
         String expectedUsername = "Username";
 
@@ -67,8 +69,8 @@ public class UserTest {
         String password = "User";
         String email = "user@gmail.com";
         List<CartItem> cart = null;
-        List<PurchasedItem> purchases = null;
-        User user = new User(id, username, password, email, cart, purchases);
+        List<Order> orders = null;
+        User user = new User(id, username, password, email, cart, orders);
 
         String expectedPassword = "password";
 
@@ -87,8 +89,8 @@ public class UserTest {
         String password = "User";
         String email = "user@gmail.com";
         List<CartItem> cart = null;
-        List<PurchasedItem> purchases = null;
-        User user = new User(id, username, password, email, cart, purchases);
+        List<Order> orders = null;
+        User user = new User(id, username, password, email, cart, orders);
 
         String expectedEmail = "user@yahoo.com";
 
@@ -107,8 +109,8 @@ public class UserTest {
         String password = "User";
         String email = "user@gmail.com";
         List<CartItem> cart = null;
-        List<PurchasedItem> purchases = null;
-        User user = new User(id, username, password, email, cart, purchases);
+        List<Order> orders = null;
+        User user = new User(id, username, password, email, cart, orders);
 
         List<CartItem> expectedCart = new ArrayList<>();
         expectedCart.add(new CartItem(1, 100));
@@ -128,17 +130,21 @@ public class UserTest {
         String password = "User";
         String email = "user@gmail.com";
         List<CartItem> cart = null;
-        List<PurchasedItem> purchases = null;
-        User user = new User(id, username, password, email, cart, purchases);
+        List<Order> orders = null;
+        User user = new User(id, username, password, email, cart, orders);
 
-        List<PurchasedItem> expectedPurchases = new ArrayList<>();
-        expectedPurchases.add(new PurchasedItem(1, 100));
+        List<Order> expectedOrders = new ArrayList<>();
+        List<OrderItem> expectedOrderItems = new ArrayList<>();
+
+        expectedOrderItems.add(new OrderItem(2, 50));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        expectedOrders.add(new Order(LocalDateTime.parse("2024-02-26 00:00:00", formatter), expectedOrderItems));
 
         // Invoke
-        user.setPurchases(expectedPurchases);
+        user.setOrders(expectedOrders);
 
         // Analyze
-        assertEquals(expectedPurchases, user.getPurchases());
+        assertEquals(expectedOrders, user.getOrders());
     }
 
     @Test
@@ -149,10 +155,10 @@ public class UserTest {
         String password = "User";
         String email = "user@gmail.com";
         List<CartItem> cart = null;
-        List<PurchasedItem> purchases = null;
+        List<Order> orders = null;
 
         String expectedString = String.format(User.STRING_FORMAT, id, username, email);
-        User user = new User(id, username, password, email, cart, purchases);
+        User user = new User(id, username, password, email, cart, orders);
 
         // Invoke
         String actualString = user.toString();

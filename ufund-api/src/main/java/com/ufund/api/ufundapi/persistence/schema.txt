@@ -2,27 +2,33 @@ Designed by Howard Kong
 
 users
 {
-    _id: SERIAL,
+    id: SERIAL,
     username: STRING,
     password: STRING,
     email: STRING,
     cart: [
         {
-            item_id: SERIAL,
+            item_id: INT,
             amount: INT
         }
     ],
-    purchases: [
+    orders: [
         {
-            item_id: SERIAL,
-            amount: INT
+            id: SERIAL,
+            date: DATE,
+            items: [
+                {
+                    item_id: INT,
+                    amount: INT,
+                }
+            ]
         }
     ]
 }
 
 gifts
 {
-    _id: SERIAL,
+    id: SERIAL,
     name: STRING,
     description: STRING,
     price: DOUBLE,

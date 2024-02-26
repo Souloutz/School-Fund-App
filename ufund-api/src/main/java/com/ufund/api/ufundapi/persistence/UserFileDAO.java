@@ -178,7 +178,7 @@ public class UserFileDAO implements UserDAO {
                                     user.getPassword(), 
                                     user.getEmail(), 
                                     user.getCart(), 
-                                    user.getPurchases());
+                                    user.getOrders());
             users.put(newUser.getId(), newUser);
             save();
             return newUser;

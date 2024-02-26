@@ -28,7 +28,7 @@ public class User {
     @JsonProperty("password") private String password;
     @JsonProperty("email") private String email;
     @JsonProperty("cart") private List<CartItem> cart;
-    @JsonProperty("purchases") private List<PurchasedItem> purchases;
+    @JsonProperty("orders") private List<Order> orders;
 
     /**
      * Create a user with the given fields
@@ -37,7 +37,7 @@ public class User {
      * @param password The description of the user
      * @param email The email of the user
      * @param cart The cart of the user
-     * @param purchases The purchases the user has made
+     * @param orders The orders the user has made
      * 
      * {@literal @}JsonProperty is used in serialization and deserialization
      * of the JSON object to the Java object in mapping the fields.  If a field
@@ -49,13 +49,13 @@ public class User {
                 @JsonProperty("password") String password,
                 @JsonProperty("email") String email,
                 @JsonProperty("cart") List<CartItem> cart,
-                @JsonProperty("purchases") List<PurchasedItem> purchases) {
+                @JsonProperty("orders") List<Order> orders) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.cart = cart;
-        this.purchases = purchases;
+        this.orders = orders;
     }
 
     /**
@@ -99,11 +99,11 @@ public class User {
     }
 
     /**
-     * Retrieve the purchases of the user
-     * @return The purchases of the user
+     * Retrieve the orders of the user
+     * @return The orders of the user
      */
-    public List<PurchasedItem> getPurchases() {
-        return purchases;
+    public List<Order> getOrders() {
+        return orders;
     }
 
     /**
@@ -139,11 +139,11 @@ public class User {
     }
 
     /**
-     * Set the purchases of the user - necessary for JSON object to Java object deserialization
-     * @param purchases The purchases of the user
+     * Set the orders of the user - necessary for JSON object to Java object deserialization
+     * @param orders The purchases of the user
      */
-    public void setPurchases(List<PurchasedItem> purchases) {
-        this.purchases = purchases;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     /**

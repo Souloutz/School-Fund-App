@@ -198,7 +198,7 @@ public class GiftControllerTest {
     @Test
     public void testSearchGifts() throws IOException {
         // Setup
-        String searchString = "la";
+        String searchString = "e";
         Gift[] gifts = new Gift[2];
         gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 2, 1000);
         gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 2, 100);
@@ -222,6 +222,106 @@ public class GiftControllerTest {
 
         // Invoke
         ResponseEntity<Gift[]> response = giftController.searchGifts(searchString);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testSearchGiftsPriority() throws IOException {
+        // Setup
+        int priorityNumber = 3;
+        Gift[] gifts = new Gift[2];
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 3, 100);
+        // When findGifts is called with the search string, return the two gifts above
+        when(mockGiftDAO.findGifts(priorityNumber)).thenReturn(gifts);
+
+        // Invoke
+        ResponseEntity<Gift[]> response = giftController.searchGifts(priorityNumber);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(gifts, response.getBody());
+    }
+
+    @Test
+    public void testSearchGiftsPriorityHandleException() throws IOException {
+        // Setup
+        int priorityNumber = 1;
+        // When findGifts is called on the Mock Gift DAO, throw an IOException
+        doThrow(new IOException()).when(mockGiftDAO).findGifts(priorityNumber);
+
+        // Invoke
+        ResponseEntity<Gift[]> response = giftController.searchGifts(priorityNumber);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetAllGiftsByPriorityHighest() throws IOException {
+        // Setup
+        String sortPriority = "highest";
+        Gift[] gifts = new Gift[2];
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 4, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 3, 100);
+        // When getSortedGifts is called, return the two gifts above
+        when(mockGiftDAO.getSortedGifts(sortPriority)).thenReturn(gifts);
+
+        // Invoke
+        ResponseEntity<Gift[]> response = giftController.getAllGiftsByPriority(sortPriority);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(gifts, response.getBody());
+    }
+
+    @Test
+    public void testGetAllGiftsByPriorityLowest() throws IOException {
+        // Setup
+        String sortPriority = "lowest";
+        Gift[] gifts = new Gift[2];
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 4, 100);
+        // When getSortedGifts is called, return the two gifts above
+        when(mockGiftDAO.getSortedGifts(sortPriority)).thenReturn(gifts);
+
+        // Invoke
+        ResponseEntity<Gift[]> response = giftController.getAllGiftsByPriority(sortPriority);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(gifts, response.getBody());
+    }
+
+    @Test
+    public void testGetAllGiftsByPriorityHandleBadRequest() throws IOException {
+        // Setup
+        String sortPriority = "best";
+        Gift[] gifts = new Gift[2];
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 4, 100);
+
+        // Invoke
+        ResponseEntity<Gift[]> response = giftController.getAllGiftsByPriority(sortPriority);
+
+        // Analyze
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetAllGiftsByPriorityHandleException() throws IOException {
+        // Setup
+        String sortPriority = "lowest";
+        Gift[] gifts = new Gift[2];
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 4, 100);
+        // When getSortedGifts is called, throw an IOException
+        doThrow(new IOException()).when(mockGiftDAO).getSortedGifts(sortPriority);
+
+        // Invoke
+        ResponseEntity<Gift[]> response = giftController.getAllGiftsByPriority(sortPriority);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());

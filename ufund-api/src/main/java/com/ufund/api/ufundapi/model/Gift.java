@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author
  * @author
  */
-public class Gift {
+public class Gift implements Comparable<Gift> {
     
     private static final Logger LOG = Logger.getLogger(Gift.class.getName());
 
@@ -147,5 +147,18 @@ public class Gift {
     @Override
     public String toString() {
         return String.format(STRING_FORMAT, id, name, description, price, priority.toString(), amountNeeded);
+    }
+
+    /**
+     * Compare the priority of gifts
+     * @param otherGift The other gift item to compare with
+     */
+    @Override
+    public int compareTo(Gift otherGift) {
+        int thisPriority = priority.getNumber();
+        int otherPriority = otherGift.getPriority().getNumber();
+   
+        return (thisPriority < otherPriority) ? -1 : 
+                    (thisPriority > otherPriority) ? 1 : 0;
     }
 }

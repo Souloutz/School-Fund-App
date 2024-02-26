@@ -3,6 +3,7 @@ package com.ufund.api.ufundapi.persistence;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -90,6 +91,51 @@ public class GiftFileDAO implements GiftDAO {
     }
 
     /**
+     * Generate an array of {@linkplain Gift gifts} from the tree map for any
+     * {@linkplain Gift gifts} that match the priority number given
+     *
+     * If containsText is null, the array contains all of the {@linkplain Gift gifts} in the tree map
+     * 
+     * @return The array of {@link Gift gifts}, may be empty
+     */
+    private Gift[] getGiftsArray(int priorityNumber) {
+        ArrayList<Gift> giftsArrayList = new ArrayList<>();
+
+        for (Gift gift : gifts.values()) {
+            if (gift.getPriority().getNumber() == priorityNumber) {
+                giftsArrayList.add(gift);
+            }
+        }
+
+        Gift[] giftsArray = new Gift[giftsArrayList.size()];
+        giftsArrayList.toArray(giftsArray);
+        return giftsArray;
+    }
+
+    /**
+     * Generate an array of sorted {@linkplain Gift gifts} from the tree map based on priority
+     *
+     * @return The array of sorted {@link Gift gifts}, may be empty
+     */
+    private Gift[] getSortedGiftsArray(String sort) {
+        ArrayList<Gift> giftsArrayList = new ArrayList<>();
+
+        for (Gift gift : gifts.values())
+            giftsArrayList.add(gift);
+
+        if (sort.equals("lowest"))
+            Collections.sort(giftsArrayList);
+        else {
+            Collections.sort(giftsArrayList);
+            Collections.reverse(giftsArrayList);
+        }
+
+        Gift[] sortedGiftsArray = new Gift[giftsArrayList.size()];
+        giftsArrayList.toArray(sortedGiftsArray);
+        return sortedGiftsArray;
+    }
+
+    /**
      * Save the {@linkplain Gift gifts} from the map into the file as an array of JSON objects
      * 
      * @return true if the {@link Gift gifts} were written successfully
@@ -138,9 +184,32 @@ public class GiftFileDAO implements GiftDAO {
      * {@inheritDoc}
      */
     @Override
+    public Gift getGift(int id) throws IOException {
+        synchronized (gifts) {
+            if (gifts.containsKey(id))
+                return gifts.get(id);
+            else
+                return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Gift[] getGifts() throws IOException {
         synchronized (gifts) {
             return getGiftsArray();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Gift[] getSortedGifts(String sort) throws IOException {
+        synchronized (gifts) {
+            return getSortedGiftsArray(sort);
         }
     }
 
@@ -153,17 +222,14 @@ public class GiftFileDAO implements GiftDAO {
             return getGiftsArray(containsText);
         }
     }
-
+    
     /**
      * {@inheritDoc}
      */
     @Override
-    public Gift getGift(int id) throws IOException {
+    public Gift[] findGifts(int priorityNumber) throws IOException {
         synchronized (gifts) {
-            if (gifts.containsKey(id))
-                return gifts.get(id);
-            else
-                return null;
+            return getGiftsArray(priorityNumber);
         }
     }
 

@@ -14,23 +14,6 @@ import com.ufund.api.ufundapi.model.Gift;
  */
 public interface GiftDAO {
     /**
-     * Retrieve all {@linkplain Gift gifts}
-     * 
-     * @return An array of {@link Gift gift} objects, may be empty
-     * @throws IOException if an issue with underlying storage
-     */
-    Gift[] getGifts() throws IOException;
-    
-    /**
-     * Find all {@linkplain Gift gifts} whose name contains the given text
-     * 
-     * @param containsText The text to match against
-     * @return An array of {@link Gift gifts} whose names contains the given text, may be empty
-     * @throws IOException if an issue with underlying storage
-     */
-    Gift[] findGifts(String containsText) throws IOException;
-    
-    /**
      * Retrieve a {@linkplain Gift gift} with the given id
      * 
      * @param id The id of the {@link Gift gift} to get
@@ -39,6 +22,41 @@ public interface GiftDAO {
      * @throws IOException if an issue with underlying storage
      */
     Gift getGift(int id) throws IOException;
+
+    /**
+     * Retrieve all {@linkplain Gift gifts}
+     * 
+     * @return An array of {@link Gift gift} objects, may be empty
+     * @throws IOException if an issue with underlying storage
+     */
+    Gift[] getGifts() throws IOException;
+
+    /**
+     * Retrieve all {@linkplain Gift gifts} sorted in a particular order
+     * 
+     * @param sort How gifts should be sorted
+     * @return An array of {@link Gift gifts} sorted, may be empty
+     * @throws IOException if an issue with underlying storage
+     */
+    Gift[] getSortedGifts(String sort) throws IOException;
+
+    /**
+     * Find all {@linkplain Gift gifts} whose name contains the given text
+     * 
+     * @param containsText The text to match against
+     * @return An array of {@link Gift gifts} whose names contains the given text, may be empty
+     * @throws IOException if an issue with underlying storage
+     */
+    Gift[] findGifts(String containsText) throws IOException;
+
+    /**
+     * Find all {@linkplain Gift gifts} whose priority matches the given priority number
+     * 
+     * @param priorityNumber The number of the priority
+     * @return An array of {@link Gift gifts} whose priority matches the given number, may be empty
+     * @throws IOException if an issue with underlying storage
+     */
+    Gift[] findGifts(int priorityNumber) throws IOException;
 
     /**
      * Create and save a {@linkplain Gift gift}

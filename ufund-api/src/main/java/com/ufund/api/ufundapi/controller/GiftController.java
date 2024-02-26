@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -93,8 +96,36 @@ public class GiftController {
     }
 
     /**
-     * Respond to the GET request for all {@linkplain Gift gifts} whose name contains
-     * the text in name
+     * Respond to the GET request for all {@linkplain Gift gifts} sorted by priority
+     * 
+     * @return ResponseEntity with array of {@link Gift gift} objects (may be empty) and HTTP status of OK
+     *         ResponseEntity with HTTP status of BAD_REQUEST
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * 
+     * Example: Get all gifts sorted by highest priority
+     * GET http://localhost:8080/gifts/?sort=highest
+     */
+    @GetMapping(value="/", params="sort")
+    public ResponseEntity<Gift[]> getAllGiftsByPriority(@RequestParam("sort") String sort) {
+        LOG.info("GET /gifts");
+
+        try{
+            sort = sort.strip().toLowerCase();
+            if (!sort.equals("highest") && !sort.equals("lowest"))
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+            Gift[] sortedGifts = giftDAO.getSortedGifts(sort);
+
+            return new ResponseEntity<Gift[]>(sortedGifts, HttpStatus.OK);
+        }
+        catch(IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Respond to the GET request for all {@linkplain Gift gifts} whose name contains the text in name
      * 
      * @param name The name parameter which contains the text used to find the {@link Gift gifts}
      * @return ResponseEntity with array of {@link Gift gift} objects (may be empty) and HTTP status of OK
@@ -103,12 +134,37 @@ public class GiftController {
      * Example: Find all gifts that contain the text "ma"
      * GET http://localhost:8080/gifts/?name=ma
      */
-    @GetMapping("/")
-    public ResponseEntity<Gift[]> searchGifts(@RequestParam String name) {
+    @GetMapping(value="/", params="name")
+    public ResponseEntity<Gift[]> searchGifts(@RequestParam("name") String name) {
         LOG.info("GET /gifts/?name=" + name);
 
         try{
             Gift[] matchingGifts = giftDAO.findGifts(name);
+            return new ResponseEntity<Gift[]>(matchingGifts, HttpStatus.OK);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Respond to the GET request for all {@linkplain Gift gifts} whose name contains
+     * the text in name
+     * 
+     * @param name The name parameter which contains the text used to find the {@link Gift gifts}
+     * @return ResponseEntity with array of {@link Gift gift} objects (may be empty) and HTTP status of OK
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     *
+     * Example: Find all gifts that of priority level 3 ("HIGH")
+     * GET http://localhost:8080/gifts/?priority=3
+     */
+    @GetMapping(value="/", params="priority")
+    public ResponseEntity<Gift[]> searchGifts(@RequestParam("priority") int priorityNumber) {
+        LOG.info("GET /gifts/?priority=" + priorityNumber);
+
+        try{
+            Gift[] matchingGifts = giftDAO.findGifts(priorityNumber);
             return new ResponseEntity<Gift[]>(matchingGifts, HttpStatus.OK);
         }
         catch (IOException ioe) {

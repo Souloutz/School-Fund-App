@@ -14,6 +14,16 @@ import com.ufund.api.ufundapi.model.User;
  */
 public interface UserDAO {
     /**
+     * Retrieve a {@linkplain User users} with the given id
+     * 
+     * @param id The id of the {@link User user} to get
+     * @return a {@link User user} object with the matching id
+     *         null if no {@link User user} with a matching id is found
+     * @throws IOException if an issue with underlying storage
+     */
+    User getUser(int id) throws IOException;
+
+    /**
      * Retrieve all {@linkplain User users}
      * 
      * @return An array of {@link User user} objects, may be empty
@@ -29,16 +39,6 @@ public interface UserDAO {
      * @throws IOException if an issue with underlying storage
      */
     User[] findUsers(String containsText) throws IOException;
-    
-    /**
-     * Retrieve a {@linkplain User users} with the given id
-     * 
-     * @param id The id of the {@link User user} to get
-     * @return a {@link User user} object with the matching id
-     *         null if no {@link User user} with a matching id is found
-     * @throws IOException if an issue with underlying storage
-     */
-    User getUser(int id) throws IOException;
 
     /**
      * Create and save a {@linkplain User user}

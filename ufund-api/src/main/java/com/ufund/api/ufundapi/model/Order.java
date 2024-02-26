@@ -17,8 +17,8 @@ public class Order {
     private static int ID = 0;
 
     @JsonProperty("id") private int orderId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") // Used in serialization and deserialization of 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // date time of an order
     @JsonProperty("date") private LocalDateTime orderDate;
     @JsonProperty("items") private List<OrderItem> orderItems;
 

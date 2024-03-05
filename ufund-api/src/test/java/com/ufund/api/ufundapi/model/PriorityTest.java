@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
  * Test the Priority class
  * 
  * @author Howard Kong
+ * @author Austin Kunkel
  */
 @Tag("Model-tier")
 public class PriorityTest {

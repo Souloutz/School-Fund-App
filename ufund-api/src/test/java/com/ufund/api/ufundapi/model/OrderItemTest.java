@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
  * Test the Order Item class
  * 
  * @author Howard Kong
+ * @author Austin Kunkel
  */
 @Tag("Model-tier")
 public class OrderItemTest {

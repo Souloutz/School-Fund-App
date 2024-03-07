@@ -17,8 +17,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService,
-    private currentUser: User) { }
+    private messageService: MessageService) { }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersURL)
@@ -128,18 +127,5 @@ export class UserService {
     this.messageService.add(`UserService: ${message}`);
   }
 
-
-  ///////// Current User to be displayed //////////
-
-
-  setUser(user:User)
-  {
-    this.currentUser = user;
-  }
-
-  getCurrentUser()
-  {
-    return this.currentUser;
-  }
 }
 

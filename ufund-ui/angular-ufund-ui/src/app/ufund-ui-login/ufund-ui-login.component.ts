@@ -22,7 +22,7 @@ export class UfundUiLoginComponent {
           console.log('User data: ', emailResponse);
           const userResponse : User = emailResponse;
           if(userResponse) {
-            if(user.password == userResponse.password)
+            if(user.password.localeCompare( userResponse.password) == 0)//if they are the exact same
             {
               console.log("Success!");
               this.userService.setUser(user);

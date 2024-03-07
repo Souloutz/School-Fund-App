@@ -51,13 +51,13 @@ export class UserService {
   }
 
     /** GET user by email. Will 404 if id not found */
-    getUserByEmail(email: string): Observable<User> {
-      const url = `${this.usersURL}/${email}`;
-      return this.http.get<User>(url).pipe(
-        tap(_ => this.log(`fetched user id=${email}`)),
-        catchError(this.handleError<User>(`getUser id=${email}`))
-      );
-    }
+  getUserByEmail(email: string): Observable<User> {
+    const url = `${this.usersURL}/${email}`;
+    return this.http.get<User>(url).pipe(
+      tap(_ => this.log(`fetched user id=${email}`)),
+      catchError(this.handleError<User>(`getUser id=${email}`))
+    );
+  }
 
   /* GET users whose name contains search term */
   searchUsers(term: string): Observable<User[]> {

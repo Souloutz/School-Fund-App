@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from "../user.service";
 import { User } from '../model/user';
+import { CurrentUserService } from '../current.user.service';
 
 @Component({
   selector: 'app-ufund-ui-login',
@@ -9,7 +10,9 @@ import { User } from '../model/user';
 })
 export class UfundUiLoginComponent {
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private currentUserService : CurrentUserService,
+    private userService : UserService) {}
 
   
   signIn(user : User)
@@ -25,7 +28,7 @@ export class UfundUiLoginComponent {
             if(user.password.localeCompare( userResponse.password) == 0)//if they are the exact same
             {
               console.log("Success!");
-              this.userService.setUser(user);
+              this.currentUserService.setCurrentUser(user);
               window.location.href ='./home.html';
             }
           }

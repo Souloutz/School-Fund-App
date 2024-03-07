@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../user.service';
+import { CurrentUserService } from '../current.user.service';
 import { User } from '../model/user';
 import { RouteConfigLoadEnd } from '@angular/router';
 
@@ -12,11 +12,11 @@ import { RouteConfigLoadEnd } from '@angular/router';
 })
 export class UfundUiNavComponent {
 
-  constructor(private userservice : UserService) {}
+  constructor(private currentUserService : CurrentUserService) {}
 
   checkLogIn()
   {
-    return this.userservice.getCurrentUser() === null;//checks if there is a current user logged in
+    return this.currentUserService.getCurrentUser() === null;//checks if there is a current user logged in
   }
 
 

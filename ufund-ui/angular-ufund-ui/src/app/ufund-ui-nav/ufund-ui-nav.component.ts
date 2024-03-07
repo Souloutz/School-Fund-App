@@ -16,7 +16,7 @@ export class UfundUiNavComponent {
 
   checkLogIn()
   {
-    return this.userservice.getCurrentUser() === null;
+    return this.userservice.getCurrentUser() === null;//checks if there is a current user logged in
   }
 
 
@@ -24,11 +24,11 @@ export class UfundUiNavComponent {
   {
     if(this.checkLogIn())
     {
-      window.location.href = './account.html';
+      window.location.href = './account.html';//switches to their account dashboard
     }
     else
     {
-      window.location.href = './login.html';
+      window.location.href = './login.html';//switches to the log in screen if they are not logged in
     }
   }
 }

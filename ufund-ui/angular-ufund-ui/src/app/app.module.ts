@@ -10,6 +10,8 @@ import { UfundUiLoginComponent } from './ufund-ui-login/ufund-ui-login.component
 import { UfundUiHomeComponent } from './ufund-ui-home/ufund-ui-home.component';
 import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
 
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
     declarations: [
       AppComponent,
@@ -20,7 +22,8 @@ import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
     imports: [
       BrowserModule,
       AppRoutingModule,
-      HttpClientModule
+      HttpClientModule,
+      FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

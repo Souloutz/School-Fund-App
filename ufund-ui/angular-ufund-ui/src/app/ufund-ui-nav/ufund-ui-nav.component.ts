@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-ufund-ui-nav',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class UfundUiNavComponent {
 
+  constructor() {}
+
+  
 }

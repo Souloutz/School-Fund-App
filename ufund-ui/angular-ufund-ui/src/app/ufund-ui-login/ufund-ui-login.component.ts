@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService } from "../api.service";
+import { UserService } from "../user.service";
 import { User } from '../model/user';
 
 @Component({
@@ -9,14 +9,14 @@ import { User } from '../model/user';
 })
 export class UfundUiLoginComponent {
 
-  constructor(private apiService: ApiService) {}
+  constructor(private userService: UserService) {}
 
   
   signIn(user : User)
   {
     try {
       
-      this.apiService.getUserByEmail(user.email).subscribe(
+      this.userService.getUserByEmail(user.email).subscribe(
         (emailResponse: User) =>
         {
           console.log('User data: ', emailResponse);
@@ -24,7 +24,9 @@ export class UfundUiLoginComponent {
           if(userResponse) {
             if(user.password == userResponse.password)
             {
-              console.log("Sucess!");
+              console.log("Success!");
+              this.userService.setUser(user);
+              window.location.href ='./home.html';
             }
           }
         }

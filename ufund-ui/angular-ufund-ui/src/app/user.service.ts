@@ -8,7 +8,7 @@ import { User } from './model/user';
 import { MessageService } from './message.service';
 
 @Injectable({ providedIn: 'root', })
-export class ApiService {
+export class UserService {
   private usersURL = 'https://your-api-url.com'; // Replace with your API URL
 
   httpOptions = {
@@ -17,7 +17,8 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private currentUser: User) { }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersURL)
@@ -73,7 +74,6 @@ export class ApiService {
     );
   }
 
-
   //////// Save methods //////////
 
   /** POST: add a new user to the server */
@@ -126,6 +126,20 @@ export class ApiService {
   /** Log a userService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`UserService: ${message}`);
+  }
+
+
+  ///////// Current User to be displayed //////////
+
+
+  setUser(user:User)
+  {
+    this.currentUser = user;
+  }
+
+  getCurrentUser()
+  {
+    return this.currentUser;
   }
 }
 

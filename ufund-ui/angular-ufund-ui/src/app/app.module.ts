@@ -12,15 +12,15 @@ import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
 
 @NgModule({
     declarations: [
-      AppComponent
+      AppComponent,
+      UfundUiLoginComponent,
+      UfundUiHomeComponent,
+      UfundUiNavComponent
     ],
     imports: [
       BrowserModule,
       AppRoutingModule,
-      HttpClientModule,
-      UfundUiLoginComponent,
-      UfundUiHomeComponent,
-      UfundUiNavComponent
+      HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]

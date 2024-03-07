@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+
 import { UserService } from "../user.service";
-import { User } from '../model/user';
 import { CurrentUserService } from '../current.user.service';
+
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-ufund-ui-login',
@@ -14,8 +16,17 @@ export class UfundUiLoginComponent {
     private currentUserService : CurrentUserService,
     private userService : UserService) {}
 
+  userInfo = {//the base user that will be changed eventually
+    //so it can be used in the html component
+    id: -1,//initialized 
+    username: '',
+    password: '',
+    email: '',
+    cart: [],
+    orders: [],
+  }
   
-  signIn(user : User)
+  signIn(user : User) : void
   {
     try {
       

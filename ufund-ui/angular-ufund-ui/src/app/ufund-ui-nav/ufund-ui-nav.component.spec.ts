@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UfundUiHomeComponent } from './ufund-ui-nav.component';
+import { UfundUiNavComponent } from './ufund-ui-nav.component';
 
-describe('UfundUiHomeComponent', () => {
-  let component: UfundUiHomeComponent;
-  let fixture: ComponentFixture<UfundUiHomeComponent>;
+describe('UfundUiNavComponent', () => {
+  let component: UfundUiNavComponent;
+  let fixture: ComponentFixture<UfundUiNavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UfundUiHomeComponent]
+      declarations: [UfundUiNavComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UfundUiHomeComponent);
+    fixture = TestBed.createComponent(UfundUiNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

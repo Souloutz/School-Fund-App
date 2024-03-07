@@ -14,6 +14,8 @@ export class UfundUiNavComponent {
 
   constructor(private currentUserService : CurrentUserService) {}
 
+  title = 'Ufund Nav';
+
   checkLogIn()
   {
     return this.currentUserService.getCurrentUser() === null;//checks if there is a current user logged in

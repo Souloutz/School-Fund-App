@@ -6,6 +6,7 @@
     <title>{{title}}</title>
 </head>
 <body>
+  <div class="navbar">
     <div class="logo"></div>
 
     <div class="searchbar">
@@ -16,18 +17,16 @@
              placeholder="Search...">
 
       </form>
-
-      <div class="account-info">
-        <div class="user-cart">
-          <!--fill with angular-->
-        </div>
-        <div class="user-acc">
-          <div class="login" (click)="onClickAccount">Account</div>
-        </div>
-        <!--fill with angular-->
       </div>
-    </div>
+      <div class="account-info">
+        <div class="user-cart acc-item">
+          Hello
+        </div>
+        <div class="user-acc acc-item">
+          <a class="login" (click)="onClickAccount()">Account</a>
+        </div>
+      </div>
 
-
+  </div>
 </body>
 </html>

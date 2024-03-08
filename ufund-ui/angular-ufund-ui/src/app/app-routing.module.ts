@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UfundUiLoginComponent } from './ufund-ui-login/ufund-ui-login.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full'},
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'login', redirectTo:'/login',component: UfundUiLoginComponent},
     //{ path: 'account', component: UfundUiAccountComponent},
 ];

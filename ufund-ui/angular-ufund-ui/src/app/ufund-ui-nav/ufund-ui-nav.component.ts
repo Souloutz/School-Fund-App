@@ -18,19 +18,24 @@ export class UfundUiNavComponent {
 
   checkLogIn()
   {
-    return this.currentUserService.getCurrentUser()?.id == -1//checks if there is a current user logged in
+    return !(this.currentUserService.getCurrentUser().id == -1);
   }
 
 
   onClickAccount()
   {
-    if(this.checkLogIn())
+    try {
+      if(!this.checkLogIn())
     {
-      this.router.navigate(['/account'])//switches to their account dashboard
+      this.router.navigate(['/login']);
+      //switches to the log in screen if they are not logged in
     }
     else
     {
-      this.router.navigate(['/login']);//switches to the log in screen if they are not logged in
+      this.router.navigate(['/account'])//switches to their account dashboard
+    }
+    } catch (error) {
+      console.log("Error getting user info: ", error);
     }
   }
 }

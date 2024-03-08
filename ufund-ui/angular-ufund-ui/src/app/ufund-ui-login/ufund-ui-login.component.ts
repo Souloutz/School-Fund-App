@@ -16,15 +16,7 @@ export class UfundUiLoginComponent {
     private currentUserService : CurrentUserService,
     private userService : UserService) {}
 
-  userInfo = {//the base user that will be changed eventually
-    //so it can be used in the html component
-    id: -1,//initialized 
-    username: '',
-    password: '',
-    email: '',
-    cart: [],
-    orders: [],
-  }
+  userInfo = this.currentUserService.getCurrentUser();
   
   signIn(user : User) : void
   {

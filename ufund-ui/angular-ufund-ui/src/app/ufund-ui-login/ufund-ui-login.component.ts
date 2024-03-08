@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { UserService } from "../user.service";
 import { CurrentUserService } from '../current.user.service';
+import { Router } from '@angular/router';
 
 import { User } from '../model/user';
 
@@ -14,7 +15,8 @@ export class UfundUiLoginComponent {
 
   constructor(
     private currentUserService : CurrentUserService,
-    private userService : UserService) {}
+    private userService : UserService,
+    private router : Router) {}
 
   userInfo : User = this.currentUserService.getCurrentUser();
   
@@ -22,7 +24,8 @@ export class UfundUiLoginComponent {
   {
     try {
       
-      this.userService.getUserByEmail(user.email).subscribe(
+      this.userService.getUserByEmail(user.email).subscribe(//sends request for 
+      //to get the User with the email given by the input
         (emailResponse: User) =>
         {
           console.log('User data: ', emailResponse);
@@ -32,7 +35,7 @@ export class UfundUiLoginComponent {
             {
               console.log("Success!");
               this.currentUserService.setCurrentUser(user);
-              window.location.href ='/home';
+              this.router.navigate(['']);
             }
           }
         }

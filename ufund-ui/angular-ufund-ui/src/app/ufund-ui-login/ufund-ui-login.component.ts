@@ -16,7 +16,7 @@ export class UfundUiLoginComponent {
     private currentUserService : CurrentUserService,
     private userService : UserService) {}
 
-  userInfo = this.currentUserService.getCurrentUser();
+  userInfo : User = this.currentUserService.getCurrentUser();
   
   signIn(user : User) : void
   {

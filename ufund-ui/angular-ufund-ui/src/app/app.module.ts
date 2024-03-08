@@ -11,13 +11,15 @@ import { UfundUiHomeComponent } from './ufund-ui-home/ufund-ui-home.component';
 import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
 
 import { FormsModule } from '@angular/forms';
+import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
 
 @NgModule({
     declarations: [
       AppComponent,
       UfundUiLoginComponent,
       UfundUiHomeComponent,
-      UfundUiNavComponent
+      UfundUiNavComponent,
+      UfundUiAccountComponent
     ],
     imports: [
       BrowserModule,

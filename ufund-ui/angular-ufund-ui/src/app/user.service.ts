@@ -9,7 +9,7 @@ import { MessageService } from './message.service';
 
 @Injectable({ providedIn: 'root', })
 export class UserService {
-  private usersURL = 'https://your-api-url.com'; // Replace with your API URL
+  private usersURL = 'https://localhost:8080/'; // REST API link
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -52,10 +52,10 @@ export class UserService {
 
     /** GET user by email. Will 404 if id not found */
   getUserByEmail(email: string): Observable<User> {
-    const url = `${this.usersURL}/${email}`;
+    const url = `${this.usersURL}/users/?email=${email}`;
     return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${email}`)),
-      catchError(this.handleError<User>(`getUser id=${email}`))
+      tap(_ => this.log(`fetched user email=${email}`)),
+      catchError(this.handleError<User>(`getUser email=${email}`))
     );
   }
 

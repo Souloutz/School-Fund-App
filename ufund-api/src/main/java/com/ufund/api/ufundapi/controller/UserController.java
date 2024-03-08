@@ -79,6 +79,31 @@ public class UserController {
     }
 
     /**
+     * Respond to the GET request for a {@linkplain User user} for the given email
+     * 
+     * @param email The email used to locate the {@link User user}
+     * @return ResponseEntity with {@link User user} object and HTTP status of OK if found
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/email/")
+    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
+        LOG.info("GET /users/email/?email=" + email);
+        try {
+            User user = userDAO.getUserByEmail(email);
+
+            if (user != null)
+                return new ResponseEntity<User>(user, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Respond to the GET request for all {@linkplain User users}
      * 
      * @return ResponseEntity with array of {@link User user} objects (may be empty) and HTTP status of OK

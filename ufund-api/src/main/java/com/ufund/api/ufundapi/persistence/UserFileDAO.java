@@ -90,6 +90,28 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
+     * Generate an array of {@linkplain User users} from the tree map for any
+     * {@linkplain User users} that contains the email
+     * 
+     * If containsText is null, the array contains all of the {@linkplain User users} in the tree map
+     * 
+     * @return The array of {@link User users}, may be empty
+     */
+    private User[] getUsersArrayEmail(String email) { // if containsText == null, no filter
+        ArrayList<User> usersArrayList = new ArrayList<>();
+
+        for (User user : users.values()) {
+            if (email == null || user.getEmail().contains(email)) {
+                usersArrayList.add(user);
+            }
+        }
+
+        User[] usersArray = new User[usersArrayList.size()];
+        usersArrayList.toArray(usersArray);
+        return usersArray;
+    }
+
+    /**
      * Save the {@linkplain User users} from the map into the file as an array of JSON objects
      * 
      * @return true if the {@link User users} were written successfully
@@ -144,6 +166,21 @@ public class UserFileDAO implements UserDAO {
                 return users.get(id);
 
             return null;
+        }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User getUserByEmail(String email) throws IOException {
+        synchronized (users) {
+            User[] usersArr= getUsersArrayEmail(email);
+
+            User user = usersArr[0];
+
+            return user;
         }
     }
 

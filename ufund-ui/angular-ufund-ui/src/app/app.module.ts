@@ -9,9 +9,9 @@ import { HttpClientModule} from '@angular/common/http';
 import { UfundUiLoginComponent } from './ufund-ui-login/ufund-ui-login.component';
 import { UfundUiHomeComponent } from './ufund-ui-home/ufund-ui-home.component';
 import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
+import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
 
 import { FormsModule } from '@angular/forms';
-import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
 
 @NgModule({
     declarations: [

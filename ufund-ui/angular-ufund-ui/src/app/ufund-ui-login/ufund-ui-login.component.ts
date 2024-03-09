@@ -19,22 +19,30 @@ export class UfundUiLoginComponent {
     private userService : UserService,
     private router : Router) {}
 
-  userInfo : BehaviorSubject<User> = this.currentUserService.getCurrentUser();
+  userInfo : User = this.currentUserService.getCurrentUser().getValue();
   
-  signIn(user : BehaviorSubject<User>) : void
+  
+  signIn(user : User) : void
   {
-      this.userService.getUserByEmail(user.getValue().email).subscribe(//sends request for 
+    const userInput = user;
+
+      this.userService.getUserByEmail(userInput.email).subscribe(//sends request for 
       //to get the User with the email given by the input
         (emailResponse: User) =>
         {
           console.log('User data: ', emailResponse);
+          console.log(this.currentUserService.getCurrentUser());
           const userResponse : User = emailResponse;
           if(userResponse) {
-            if(user.getValue().password.localeCompare( userResponse.password) == 0)//if they are the exact same
+            if(userInput.password === userResponse.password)//if they are the exact same
             {
               console.log("Success!");
-              this.currentUserService.setCurrentUser(user);
+              this.currentUserService.setCurrentUser(userResponse);
+              console.log(this.currentUserService.getCurrentUser());
               this.router.navigate(['']);
+            }
+            else {
+              console.log("Wrong password");
             }
           }
         }

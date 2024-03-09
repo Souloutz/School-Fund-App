@@ -22,8 +22,10 @@ export class CurrentUserService {
 
   constructor() { }
 
-  setCurrentUser(user: BehaviorSubject<User>): void {
-    this.currentUser = user;
+  setCurrentUser(user: User): void {
+
+    this.currentUser.next(user);
+
   }
 
   getCurrentUser(): BehaviorSubject<User> {

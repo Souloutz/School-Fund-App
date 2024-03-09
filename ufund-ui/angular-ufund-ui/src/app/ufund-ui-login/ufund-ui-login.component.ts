@@ -5,6 +5,7 @@ import { CurrentUserService } from '../current.user.service';
 import { Router } from '@angular/router';
 
 import { User } from '../model/user';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-ufund-ui-login',
@@ -18,20 +19,18 @@ export class UfundUiLoginComponent {
     private userService : UserService,
     private router : Router) {}
 
-  userInfo : User = this.currentUserService.getCurrentUser();
+  userInfo : BehaviorSubject<User> = this.currentUserService.getCurrentUser();
   
-  signIn(user : User) : void
+  signIn(user : BehaviorSubject<User>) : void
   {
-    try {
-      
-      this.userService.getUserByEmail(user.email).subscribe(//sends request for 
+      this.userService.getUserByEmail(user.getValue().email).subscribe(//sends request for 
       //to get the User with the email given by the input
         (emailResponse: User) =>
         {
           console.log('User data: ', emailResponse);
           const userResponse : User = emailResponse;
           if(userResponse) {
-            if(user.password.localeCompare( userResponse.password) == 0)//if they are the exact same
+            if(user.getValue().password.localeCompare( userResponse.password) == 0)//if they are the exact same
             {
               console.log("Success!");
               this.currentUserService.setCurrentUser(user);
@@ -39,11 +38,7 @@ export class UfundUiLoginComponent {
             }
           }
         }
-      )
-    }
-    catch (error) {
-      console.error("Error logging in: ", error);
-    }
+      );
   }
-
 }
+

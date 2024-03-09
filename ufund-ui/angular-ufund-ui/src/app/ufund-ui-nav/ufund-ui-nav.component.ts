@@ -18,7 +18,8 @@ export class UfundUiNavComponent {
 
   checkLogIn()
   {
-    return !(this.currentUserService.getCurrentUser().id == -1);
+    console.log("Current User's id", this.currentUserService.getCurrentUser().getValue().id)
+    return !(this.currentUserService.getCurrentUser().getValue().id == -1);//if there is a user logged in
   }
 
 

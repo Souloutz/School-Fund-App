@@ -31,14 +31,14 @@ export class UfundUiLoginComponent {
         (emailResponse: User) =>
         {
           console.log('User data: ', emailResponse);
-          console.log(this.currentUserService.getCurrentUser());
+         // console.log(this.currentUserService.getCurrentUser());
           const userResponse : User = emailResponse;
           if(userResponse) {
             if(userInput.password === userResponse.password)//if they are the exact same
             {
               console.log("Success!");
               this.currentUserService.setCurrentUser(userResponse);
-              console.log(this.currentUserService.getCurrentUser());
+             // console.log(this.currentUserService.getCurrentUser());
               this.router.navigate(['']);
             }
             else {

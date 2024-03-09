@@ -18,7 +18,7 @@ export class UfundUiSignUpComponent {
     private userService : UserService,
     private router : Router) {}
 
-  userInfo : User = this.currentUserService.getCurrentUser().getValue();
+  userInfo : User = this.currentUserService.getCurrentUser();
   
   
   signUp(user : User) : void

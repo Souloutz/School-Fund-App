@@ -28,8 +28,8 @@ export class CurrentUserService {
 
   }
 
-  getCurrentUser(): BehaviorSubject<User> {
-    return this.currentUser;
+  getCurrentUser(): User {
+    return this.currentUser.getValue();
   }
 
   clearCurrentUser(): void {

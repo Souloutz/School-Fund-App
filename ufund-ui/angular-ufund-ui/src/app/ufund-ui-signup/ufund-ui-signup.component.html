@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Sign Up | Ufund</title>
+</head>
+<body>
+    <form (ngSubmit)="signUp(userInfo)" style="display:flex;flex-flow:column; align-items: center;justify-content: space-evenly;">
+
+        <input 
+            type="text" 
+            name="username" 
+            id="username" 
+            placeholder="Username" 
+            [(ngModel)]="userInfo.username">
+
+        <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            placeholder="Email" 
+            [(ngModel)]="userInfo.email">
+
+        <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            placeholder="Password" 
+            [(ngModel)]="userInfo.password">
+
+        <input type="submit" value="Submit">
+
+    </form>
+</body>
+</html>

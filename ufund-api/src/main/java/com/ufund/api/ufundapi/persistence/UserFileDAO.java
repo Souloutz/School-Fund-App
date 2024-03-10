@@ -30,6 +30,8 @@ public class UserFileDAO implements UserDAO {
     private static final Logger LOG = Logger.getLogger(UserFileDAO.class.getName());
 
     Map<Integer, User> users;     // Provides a local cache of the user object so that we don't need to read from the file each time
+    Map<String, User> usersByEmail;
+
     private ObjectMapper objectMapper;  // Provides conversion between User objects and JSON text format written to the file
     private static int nextId;  // The next Id to assign to a new user
     private String filename;    // Filename to read from and write to
@@ -90,28 +92,6 @@ public class UserFileDAO implements UserDAO {
     }
 
     /**
-     * Generate an array of {@linkplain User users} from the tree map for any
-     * {@linkplain User users} that contains the email
-     * 
-     * If containsText is null, the array contains all of the {@linkplain User users} in the tree map
-     * 
-     * @return The array of {@link User users}, may be empty
-     */
-    private User[] getUsersArrayEmail(String email) { // if containsText == null, no filter
-        ArrayList<User> usersArrayList = new ArrayList<>();
-
-        for (User user : users.values()) {
-            if (email == null || user.getEmail().contains(email)) {
-                usersArrayList.add(user);
-            }
-        }
-
-        User[] usersArray = new User[usersArrayList.size()];
-        usersArrayList.toArray(usersArray);
-        return usersArray;
-    }
-
-    /**
      * Save the {@linkplain User users} from the map into the file as an array of JSON objects
      * 
      * @return true if the {@link User users} were written successfully
@@ -151,6 +131,11 @@ public class UserFileDAO implements UserDAO {
                 nextId = user.getId();
         }
 
+        for (User user : usersArray) {//adds users to the email map
+            //for fast access when grabbing user info by email
+            usersByEmail.put(user.getEmail(), user);
+        }
+
         // Make the next id one greater than the maximum from the file
         ++nextId;
         return true;
@@ -176,11 +161,7 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User getUserByEmail(String email) throws IOException {
         synchronized (users) {
-            User[] usersArr= getUsersArrayEmail(email);
-
-            User user = usersArr[0];
-
-            return user;
+            return usersByEmail.get(email);
         }
     }
 

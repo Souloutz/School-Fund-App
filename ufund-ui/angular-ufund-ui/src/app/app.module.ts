@@ -14,6 +14,8 @@ import { UfundUiSignUpComponent } from './ufund-ui-signup/ufund-ui-signup.compon
 
 import { FormsModule } from '@angular/forms';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalServiceComponent } from './modal.service/modal.service.component';//for modal pop ups
 
 @NgModule({
     declarations: [
@@ -22,7 +24,9 @@ import { FormsModule } from '@angular/forms';
       UfundUiHomeComponent,
       UfundUiNavComponent,
       UfundUiAccountComponent,
-      UfundUiSignUpComponent
+      UfundUiSignUpComponent,
+      MatDialogModule,
+      ModalServiceComponent
     ],
     imports: [
       BrowserModule,

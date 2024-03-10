@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CurrentUserService {
 
-  private baseUser : BehaviorSubject<User> = new BehaviorSubject<User>({
+  private baseUser : User = {
   //the base user that will be changed eventually
   //so it can be used in the html component
   id: -1,//initialized 
@@ -16,9 +16,9 @@ export class CurrentUserService {
   email: '',
   cart: [],
   orders: [],
-  })
+  };
 
-  currentUser : BehaviorSubject<User> = this.baseUser;
+  currentUser : BehaviorSubject<User> = new BehaviorSubject<User>(this.baseUser);
 
   constructor() { }
 
@@ -33,7 +33,8 @@ export class CurrentUserService {
   }
 
   clearCurrentUser(): void {
-    this.currentUser = this.baseUser;
+    this.currentUser.next(this.baseUser);
+    console.log("Cleared current user, id is now: " + this.currentUser.getValue().id);
   }
 
       

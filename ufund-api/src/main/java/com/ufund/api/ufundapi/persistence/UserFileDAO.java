@@ -117,6 +117,7 @@ public class UserFileDAO implements UserDAO {
      */
     private boolean load() throws IOException {
         users = new TreeMap<>();
+        usersByEmail = new TreeMap<>();
         nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of users

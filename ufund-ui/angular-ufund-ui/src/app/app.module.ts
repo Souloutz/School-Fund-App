@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalServiceComponent } from './modal.service/modal.service.component';//for modal pop ups
 
+import { FormControl } from '@angular/forms';
+
 @NgModule({
     declarations: [
       AppComponent,
@@ -32,7 +34,8 @@ import { ModalServiceComponent } from './modal.service/modal.service.component';
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      MatDialogModule
+      MatDialogModule,
+      FormControl
     ],
     providers: [],
     bootstrap: [AppComponent]

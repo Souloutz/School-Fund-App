@@ -35,9 +35,10 @@ export class UfundUiSignUpComponent {
         }
         else
         {
-          console.log("Could not make account");
+          console.log("email already exists");
+          window.alert("Email already exists, please try again");
         }
-      }
+      },
     );
   }
 }

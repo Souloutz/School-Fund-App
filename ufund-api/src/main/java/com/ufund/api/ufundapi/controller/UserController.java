@@ -161,6 +161,10 @@ public class UserController {
         LOG.info("POST /users/" + user.getId());
 
         try {
+            if(userDAO.getUserByEmail(user.getEmail()) != null){//if there is a user with the email
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+                //returns conflict if there is the email in use.
+            }
             User newUser = userDAO.createUser(user);
 
             if (newUser != null)

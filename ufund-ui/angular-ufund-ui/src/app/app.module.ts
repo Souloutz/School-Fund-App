@@ -25,14 +25,14 @@ import { ModalServiceComponent } from './modal.service/modal.service.component';
       UfundUiNavComponent,
       UfundUiAccountComponent,
       UfundUiSignUpComponent,
-      MatDialogModule,
       ModalServiceComponent
     ],
     imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      MatDialogModule
     ],
     providers: [],
     bootstrap: [AppComponent]

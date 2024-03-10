@@ -24,22 +24,21 @@ export class UfundUiSignUpComponent {
   signUp(user : User) : void
   {
 
-    this.userService.addUser(user).subscribe(
-      (userInput : User) =>
-      {
-        console.log('User data: ', userInput);
-        if(userInput) {
-          console.log("Success!");
-          this.currentUserService.setCurrentUser(userInput);
-          this.router.navigate(['']);
-        }
-        else
-        {
-          console.log("email already exists");
-          window.alert("Email already exists, please try again");
-        }
-      },
-    );
+    this.userService.isEmailTaken(user.email).then((isTaken: boolean) => {
+      if(isTaken) {
+        console.log("email already exists");
+        window.alert("Email already exists, please try again");
+      } else {
+        this.userService.addUser(user).subscribe(
+        (userInput : User) => {
+            console.log('User data: ', userInput);
+              console.log("Success!");
+              this.currentUserService.setCurrentUser(userInput);
+              this.router.navigate(['']);
+        })
+      }
+    });
   }
 }
+
 

@@ -34,7 +34,6 @@ export class CurrentUserService {
 
   clearCurrentUser(): void {
     this.currentUser.next(this.baseUser);
-    console.log("Cleared current user, id is now: " + this.currentUser.getValue().id);
   }
 
 

@@ -14,6 +14,7 @@ import { UfundUiSignUpComponent } from './ufund-ui-signup/ufund-ui-signup.compon
 import { UfundUiCartComponent } from './ufund-ui-cart/ufund-ui-cart.component';
 
 import { FormsModule } from '@angular/forms';
+import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund-ui-admin-dashboard.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
       UfundUiNavComponent,
       UfundUiAccountComponent,
       UfundUiSignUpComponent,
-      UfundUiCartComponent
+      UfundUiCartComponent,
+      UfundUiAdminDashboardComponent
     ],
     imports: [
       BrowserModule,

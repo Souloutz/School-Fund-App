@@ -30,15 +30,19 @@ export class UfundUiLoginComponent {
         (emailResponse: User) =>
         {
           console.log('User data: ', emailResponse);
-         // console.log(this.currentUserService.getCurrentUser());
+
           const userResponse : User = emailResponse;
+
           if(userResponse) {
             if(userInput.password === userResponse.password)//if they are the exact same
             {
               console.log("Success!");
               this.currentUserService.setCurrentUser(userResponse);
-             // console.log(this.currentUserService.getCurrentUser());
-              this.router.navigate(['']);
+
+              //checks if the user is an admin
+              if(this.isAdmin(userResponse)) {
+                this.router.navigate(['/admin-dashboard'])
+              } else { this.router.navigate(['']); }
             }
             else {
               console.log("Wrong password");
@@ -46,6 +50,15 @@ export class UfundUiLoginComponent {
           }
         }
       );
+  }
+
+  /**
+   * 
+   * @param user 
+   * @returns true if the user is the admin
+   */
+  isAdmin(user : User) : boolean {
+    return (user.email == 'admin@google.com');
   }
 }
 

@@ -83,6 +83,22 @@ export class UserService {
     );
   }
 
+  isEmailTaken(email : string) : Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      this.getUserByEmail(email).subscribe(
+        (user : User) => {
+          if(user != null)
+          {
+            resolve(true);
+            reject("email taken");
+          } else {
+            resolve(false);
+            reject("email not taken");
+          }
+        })
+      })
+  }
+
   /** DELETE: delete the user from the server */
   deleteUser(id: number): Observable<User> {
     const url = `${this.usersURL}/${id}`;

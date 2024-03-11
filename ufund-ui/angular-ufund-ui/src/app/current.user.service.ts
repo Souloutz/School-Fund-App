@@ -37,5 +37,12 @@ export class CurrentUserService {
     console.log("Cleared current user, id is now: " + this.currentUser.getValue().id);
   }
 
-      
+
+  /**
+   * 
+   * @returns true if a user is logged in
+   */
+  isUserLoggedIn() : boolean {
+    return this.currentUser.getValue().id  != -1;
+  }
 }

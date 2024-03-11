@@ -16,27 +16,34 @@ export class UfundUiNavComponent {
 
   title = 'Ufund Nav';
 
-  checkLogIn()
-  {
-    console.log("Current User's id", this.currentUserService.getCurrentUser().id)
-    return !(this.currentUserService.getCurrentUser().id == -1);//if there is a user logged in
-  }
-
-
   onClickAccount()
   {
     try {
-      if(!this.checkLogIn())
-    {
-      this.router.navigate(['/login']);
-      //switches to the log in screen if they are not logged in
+    if(this.currentUserService.isUserLoggedIn()) {
+      //switches to their account dashboard
+      this.router.navigate(['/account']);
     }
     else
     {
-      this.router.navigate(['/account'])//switches to their account dashboard
+      //switches to the log in screen if they are not logged in
+      this.router.navigate(['/login']);
     }
     } catch (error) {
       console.log("Error getting user info: ", error);
+    }
+  }
+
+  onClickCart() {
+    try {
+      if(this.currentUserService.isUserLoggedIn()) {
+        //switches to the user's cart page when they're logged in
+        this.router.navigate(['/cart']);
+      } else {
+        //switches to log in page if no user is logged in
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }

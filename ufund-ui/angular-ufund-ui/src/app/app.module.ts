@@ -11,8 +11,10 @@ import { UfundUiHomeComponent } from './ufund-ui-home/ufund-ui-home.component';
 import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
 import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
 import { UfundUiSignUpComponent } from './ufund-ui-signup/ufund-ui-signup.component';
+import { UfundUiCartComponent } from './ufund-ui-cart/ufund-ui-cart.component';
 
 import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
     declarations: [
@@ -21,7 +23,8 @@ import { FormsModule } from '@angular/forms';
       UfundUiHomeComponent,
       UfundUiNavComponent,
       UfundUiAccountComponent,
-      UfundUiSignUpComponent
+      UfundUiSignUpComponent,
+      UfundUiCartComponent
     ],
     imports: [
       BrowserModule,

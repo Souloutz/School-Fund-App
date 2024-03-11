@@ -5,7 +5,6 @@ import { CurrentUserService } from '../current.user.service';
 import { Router } from '@angular/router';
 
 import { User } from '../model/user';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-ufund-ui-login',

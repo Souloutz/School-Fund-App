@@ -59,6 +59,7 @@ export class UfundUiSignUpComponent {
   }
 
   checkIfInfoValid(user : User) : boolean{
+
     return ( this.checkEmailValid(user.email) &&
              this.checkPassValid(user.password) &&
              user.username != '');
@@ -75,7 +76,12 @@ export class UfundUiSignUpComponent {
     const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     //returns true if email matches the regex
-    return res.test(String(email).toLowerCase());
+    if(res.test(String(email).toLowerCase())) {
+      return true;
+    } else {
+      window.alert("Invalid email, try again");
+      return false;
+    }
   }
 
   /**
@@ -90,13 +96,17 @@ export class UfundUiSignUpComponent {
    */
   checkPassValid(password : string) : boolean{
     //Regex for password with at least 8 characters,
-    //at least 1 uppercase.
-    //at least 1 lowercase
+    //one letter
     //at least 1 number
     //at least 1 special character
-    const res = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const res =/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
-    return res.test(String(password).toLowerCase());
+    if(res.test(String(password).toLowerCase())) {
+      return true;
+    } else {
+      window.alert("Invalid password, try again.\nMake sure that it is at least 8 characters long, and includes 1 letter, 1 number, 1 special");
+      return false;
+    }
   }
 }
 

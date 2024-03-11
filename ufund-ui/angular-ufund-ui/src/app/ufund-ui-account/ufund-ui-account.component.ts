@@ -24,9 +24,7 @@ export class UfundUiAccountComponent {
       try {
         this.currentUserService.clearCurrentUser();
         this.currUser = this.currentUserService.getCurrentUser();
-
-        console.log("Current user reset, id is now: ", this.currUser.id);
-
+        console.log("User logged out");
         this.router.navigate(['']);
       } catch (error) {
         console.log("Error logging out: ", error);

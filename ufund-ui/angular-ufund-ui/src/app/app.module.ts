@@ -14,6 +14,7 @@ import { UfundUiSignUpComponent } from './ufund-ui-signup/ufund-ui-signup.compon
 
 import { FormsModule } from '@angular/forms';
 
+import { FormControl } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { FormsModule } from '@angular/forms';
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      FormControl
     ],
     providers: [],
     bootstrap: [AppComponent]

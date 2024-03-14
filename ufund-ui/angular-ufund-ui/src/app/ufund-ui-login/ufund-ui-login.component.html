@@ -7,28 +7,37 @@
 </head>
 <body>
     <a routerLink="">Home</a>
-    <form (ngSubmit)="signIn(userInfo)" style="display:flex;flex-flow:column; align-items: center;justify-content: space-evenly;">
+    <form (ngSubmit)="signIn(userInfo)">
+        <h1>Log In</h1>
 
-        <input 
-            type="email" 
-            name="email" 
-            id="email" 
-            placeholder="Email" 
-            [(ngModel)]="userInfo.email">
+            <fieldset>
+                <div class="input-field">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        id="email" 
+                        placeholder="Email" 
+                        [(ngModel)]="userInfo.email">
+                </div>
 
-        <input 
-            type="password" 
-            name="password" 
-            id="password" 
-            placeholder="Password" 
-            [(ngModel)]="userInfo.password">
+                <div class="input-field">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        placeholder="Password" 
+                        [(ngModel)]="userInfo.password">
+                </div>
 
-        <input type="submit" value="Submit">
+                <input type="submit" value="Submit" id="submit">
+            </fieldset>
 
+        <p>
+            Don't have an account? | 
+            <a routerLink="/signup">Sign Up</a>
+        </p>
     </form>
-    <p>
-        Don't have an account? | 
-        <a routerLink="/signup">Sign Up</a>
-    </p>
 </body>
 </html>

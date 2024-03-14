@@ -25,6 +25,7 @@ export class UfundUiLoginComponent {
   {
     const userInput = user;
 
+    if(this.checkIfEmailValid(user.email)) {
       this.userService.getUserByEmail(userInput.email).subscribe(//sends request for 
       //to get the User with the email given by the input
         (emailResponse: User) =>
@@ -50,6 +51,17 @@ export class UfundUiLoginComponent {
           }
         }
       );
+    } else {
+    window.alert("Invalid Email, try again");
+    }
+  }
+
+
+  checkIfEmailValid(email: string) : boolean{
+
+    const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    return res.test(String(email).toLowerCase());
   }
 
   /**

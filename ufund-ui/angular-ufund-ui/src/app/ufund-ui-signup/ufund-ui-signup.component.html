@@ -6,37 +6,49 @@
     <title>User Sign Up | Ufund</title>
 </head>
 <body>
-
-    <a routerLink="">Home</a>
     <form (ngSubmit)="signUp(userInfo)" style="display:flex;flex-flow:column; align-items: center;justify-content: space-evenly;">
+        <h1>Sign Up</h1>
 
-        <input 
-            type="text" 
-            name="username" 
-            id="username" 
-            placeholder="Username" 
-            [(ngModel)]="userInfo.username">
+        <div class="container">
+            <div class="input-field">
+                <label for="username"><b>Username</b></label>
+                <input 
+                    type="text" 
+                    name="username" 
+                    id="username" 
+                    placeholder="Enter Username" 
+                    [(ngModel)]="userInfo.username">
+            </div>
 
-        <input 
-            type="email" 
-            name="email" 
-            id="email" 
-            placeholder="Email" 
-            [(ngModel)]="userInfo.email">
+            <div class="input-field">
+                <label for="email"><b>Email</b></label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    placeholder="Enter Email" 
+                    [(ngModel)]="userInfo.email">
+            </div>
 
-        <input 
-            type="password" 
-            name="password" 
-            id="password" 
-            placeholder="Password" 
-            [(ngModel)]="userInfo.password">
+            <div class="input-field">
+                <label for="password"><b>Password</b></label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    placeholder="Enter Password" 
+                    [(ngModel)]="userInfo.password">
+            </div>
 
-        <input type="submit" value="Submit">
+            <button type="submit" value="Submit">Submit</button>
+    </div>
+    <div class="lower-container">
+        <a routerLink="" class="home">Home</a>
+        <span class="login"><p>Already have an account? | <a routerLink="/login">Log In</a></p></span>
+    </div>
+
 
     </form>
-    <p>
-        Already have an account? | 
-        <a routerLink="/login">Log In</a>
-    </p>
+
 </body>
 </html>

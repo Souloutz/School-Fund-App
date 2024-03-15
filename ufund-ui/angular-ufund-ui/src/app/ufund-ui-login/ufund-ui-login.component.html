@@ -6,38 +6,35 @@
     <title>User Log In | Ufund</title>
 </head>
 <body>
-    <a routerLink="">Home</a>
     <form (ngSubmit)="signIn(userInfo)">
         <h1>Log In</h1>
 
-            <fieldset>
+            <div class="container">
                 <div class="input-field">
-                    <label for="email">Email</label>
+                    <label for="email"><b>Email</b></label>
                     <input 
                         type="email" 
                         name="email" 
                         id="email" 
-                        placeholder="Email" 
+                        placeholder="Enter Email" 
                         [(ngModel)]="userInfo.email">
                 </div>
 
                 <div class="input-field">
-                    <label for="password">Password</label>
+                    <label for="password"><b>Password</b></label>
                     <input 
                         type="password" 
                         name="password" 
                         id="password" 
-                        placeholder="Password" 
+                        placeholder="Enter Password" 
                         [(ngModel)]="userInfo.password">
                 </div>
-
-                <input type="submit" value="Submit" id="submit">
-            </fieldset>
-
-        <p>
-            Don't have an account? | 
-            <a routerLink="/signup">Sign Up</a>
-        </p>
+                <button type="submit" value="Submit" id="submit">Submit</button>
+            </div>
+        <div class="lower-container">
+            <a routerLink="" class="home">Home</a>
+            <span class="signup"><p>Don't have an account? | <a routerLink="/signup">Sign Up</a></p></span>
+        </div>
     </form>
 </body>
 </html>

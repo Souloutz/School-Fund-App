@@ -24,6 +24,16 @@ public interface UserDAO {
     User getUser(int id) throws IOException;
 
     /**
+     * Retrieve a {@linkplain User users} with the given email
+     * 
+     * @param id The email of the {@link User user} to get
+     * @return a {@link User user} object with the matching email
+     *         null if no {@link User user} with a matching email is found
+     * @throws IOException if an issue with underlying storage
+     */
+    User getUserByEmail(String email) throws IOException;
+
+    /**
      * Retrieve all {@linkplain User users}
      * 
      * @return An array of {@link User user} objects, may be empty

@@ -30,6 +30,8 @@ public class UserFileDAO implements UserDAO {
     private static final Logger LOG = Logger.getLogger(UserFileDAO.class.getName());
 
     Map<Integer, User> users;     // Provides a local cache of the user object so that we don't need to read from the file each time
+    Map<String, User> usersByEmail;
+
     private ObjectMapper objectMapper;  // Provides conversion between User objects and JSON text format written to the file
     private static int nextId;  // The next Id to assign to a new user
     private String filename;    // Filename to read from and write to
@@ -115,6 +117,7 @@ public class UserFileDAO implements UserDAO {
      */
     private boolean load() throws IOException {
         users = new TreeMap<>();
+        usersByEmail = new TreeMap<>();
         nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of users
@@ -127,6 +130,11 @@ public class UserFileDAO implements UserDAO {
             users.put(user.getId(), user);
             if (user.getId() > nextId)
                 nextId = user.getId();
+        }
+
+        for (User user : usersArray) {//adds users to the email map
+            //for fast access when grabbing user info by email
+            usersByEmail.put(user.getEmail(), user);
         }
 
         // Make the next id one greater than the maximum from the file
@@ -144,6 +152,17 @@ public class UserFileDAO implements UserDAO {
                 return users.get(id);
 
             return null;
+        }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User getUserByEmail(String email) throws IOException {
+        synchronized (users) {
+            return usersByEmail.get(email);
         }
     }
 

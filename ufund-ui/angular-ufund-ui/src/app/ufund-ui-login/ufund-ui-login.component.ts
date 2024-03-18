@@ -49,6 +49,7 @@ export class UfundUiLoginComponent {
             }
             else {
               console.log("Wrong password");
+              window.alert("Invalid Password");
             }
           }
         }

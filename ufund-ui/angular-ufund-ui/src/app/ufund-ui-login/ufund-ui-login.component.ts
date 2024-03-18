@@ -32,12 +32,14 @@ export class UfundUiLoginComponent {
         {
           console.log('User data: ', emailResponse);
 
-          const userResponse : User = emailResponse;
+          const userResponse : User = emailResponse;//creates a user from the response from the server
 
           if(userResponse) {
             if(userInput.password === userResponse.password)//if they are the exact same
             {
               console.log("Success!");
+
+              //sets current user to the response from the server
               this.currentUserService.setCurrentUser(userResponse);
 
               //checks if the user is an admin
@@ -56,7 +58,11 @@ export class UfundUiLoginComponent {
     }
   }
 
-
+  /**
+   * 
+   * @param email 
+   * @returns true if the email is a valid email address
+   */
   checkIfEmailValid(email: string) : boolean{
 
     const res = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;

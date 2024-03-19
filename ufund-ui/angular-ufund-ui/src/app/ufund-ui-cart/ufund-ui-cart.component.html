@@ -3,6 +3,6 @@
 
 <li *ngFor="let item of cart">
   <a routerLink="/detail/{{item.id}}">
-    <span class="badge">{{item.name}}</span> Amount: {{item.amount}}
+    <span class="badge">{{item.name}}: </span> Amount: {{item.amount}}
   </a>
 </li>

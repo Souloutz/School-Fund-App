@@ -94,22 +94,6 @@ export class GiftService {
     return {gift,amount};
   }
 
-  isEmailTaken(email : string) : Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      this.getGiftByEmail(email).subscribe(
-        (gift : Gift) => {
-          if(gift != null)
-          {
-            resolve(true);
-            reject("email taken");
-          } else {
-            resolve(false);
-            reject("email not taken");
-          }
-        })
-      })
-  }
-
   /** DELETE: delete the gift from the server */
   deleteGift(id: number): Observable<Gift> {
     const url = `${this.giftsURL}/${id}`;

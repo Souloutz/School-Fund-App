@@ -7,26 +7,30 @@ import { User } from '../model/user';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ufund-ui-account',
-  templateUrl: './ufund-ui-account.component.html',
-  styleUrl: './ufund-ui-account.component.css'
+  standalone: true,
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrl: './account.component.css'
 })
-export class UfundUiAccountComponent {
+export class AccountComponent {
 
   constructor(
-    private currentUserService : CurrentUserService,
-    private userService : UserService,
-    private router : Router) {}
+    private currentUserService: CurrentUserService,
+    private router: Router) {}
 
-    currUser : User = this.currentUserService.getCurrentUser();
+    currentUser: User = this.currentUserService.getCurrentUser();
 
-    logOut() : void {
+    /**
+     * Log out a user
+     */
+    logOut(): void {
       try {
         this.currentUserService.clearCurrentUser();
-        this.currUser = this.currentUserService.getCurrentUser();
+        this.currentUser = this.currentUserService.getCurrentUser();
         console.log("User logged out");
         this.router.navigate(['']);
-      } catch (error) {
+      } 
+      catch (error) {
         console.log("Error logging out: ", error);
       }
     }

@@ -28,11 +28,20 @@ export class GiftsComponent implements OnInit {
     .subscribe(gifts => this.gifts = gifts);
   }
 
-  //adds the selected gift to the cart
+  /**
+   * Adds the selected gift to the cart
+   * @param gift 
+   */
   addToCart(gift : Gift) {
     if(this.currUserService.isUserLoggedIn()) {
-      this.userService.addItemToCart(this.currUserService.getCurrentUser().id,
-                                     this.giftService.createItemFromGift(gift, 1));
+      console.log("Gift info: ", gift);
+
+      this.userService.addItemToCart(this.currUserService.getCurrentUser().email,
+                                     this.giftService.createItemFromGiftId(gift.id, 1)).subscribe(
+                                        user => {this.currUserService.setCurrentUser(user);
+                                                 console.log('Success!', user.id)});
+      
+      console.log(this.currUserService.getCurrentUser().cart.length);
     } else {
       this.router.navigate(['/login']);
     }

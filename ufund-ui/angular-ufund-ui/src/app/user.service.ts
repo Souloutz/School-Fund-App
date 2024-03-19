@@ -29,35 +29,12 @@ export class UserService {
       );
   }
 
-/** GET user by id. Return `undefined` when id not found */
-  getUserNo404<Data>(id: number): Observable<User> {
-    const url = `${this.usersURL}/?id=${id}`;
-    return this.http.get<User[]>(url)
-      .pipe(
-        map(users => users[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? 'fetched' : 'did not find';
-          this.log(`${outcome} user id=${id}`);
-        }),
-        catchError(this.handleError<User>(`getUser id=${id}`))
-      );
-  }
-
-  /** GET user by id. Will 404 if id not found */
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersURL}/${id}`;
+  /** GET user by email. Will 404 if email not found */
+  getUser(email : string): Observable<User> {
+    const url = `${this.usersURL}/${email}`;
     return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${id}`)),
-      catchError(this.handleError<User>(`getUser id=${id}`))
-    );
-  }
-
-    /** GET user by email. Will 404 if id not found */
-  getUserByEmail(email: string): Observable<User> {
-    const url = `${this.usersURL}/email/?email=${email}`;
-    return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user email=${email}`)),
-      catchError(this.handleError<User>(`getUser email=${email}`))
+      tap(_ => this.log(`fetched user id=${email}`)),
+      catchError(this.handleError<User>(`getUser id=${email}`))
     );
   }
 
@@ -87,7 +64,7 @@ export class UserService {
 
   isEmailTaken(email : string) : Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.getUserByEmail(email).subscribe(
+      this.getUser(email).subscribe(
         (user : User) => {
           if(user != null)
           {
@@ -101,8 +78,13 @@ export class UserService {
       })
   }
 
-  addItemToCart(userId: number, item: Item) {
-    
+  addItemToCart(userEmail: string, item: Item) {
+    console.log("Item put id: ", item.id);
+    console.log(`${this.usersURL}/${userEmail}/cart/`, item);
+    return this.http.put<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
+      tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
+      catchError(this.handleError<User>('addItem'))
+    );
   }
 
   /** DELETE: delete the user from the server */

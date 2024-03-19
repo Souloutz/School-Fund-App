@@ -162,7 +162,10 @@ public class UserFileDAO implements UserDAO {
     @Override
     public User getUserByEmail(String email) throws IOException {
         synchronized (users) {
-            return usersByEmail.get(email);
+            if (usersByEmail.containsKey(email))
+                return usersByEmail.get(email);
+
+            return null;
         }
     }
 

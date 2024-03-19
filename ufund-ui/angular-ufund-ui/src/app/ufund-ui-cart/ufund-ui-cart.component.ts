@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 
 import { CurrentUserService } from '../current.user.service';
 import { GiftService } from '../gift.service';
-import { Gift } from '../model/gift';
-import { Observable, map, tap } from 'rxjs';
+import { Item } from '../model/item';
+
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-ufund-ui-cart',
@@ -13,9 +14,22 @@ import { Observable, map, tap } from 'rxjs';
 export class UfundUiCartComponent {
 
   constructor (private currUserService : CurrentUserService,
-               private giftService : GiftService) {}
+               private giftService : GiftService,
+               private userService : UserService) {}
 
   gifts = this.giftService.getGifts();
 
-  cart = this.currUserService.getCurrentUser().cart;
+  currentUser = this.currUserService.getCurrentUser();
+
+  cart = this.currentUser.cart;
+
+
+  removeItem(item : Item) {
+    this.userService.removeItemFromCart(this.currentUser.email, item)
+    .subscribe(user => {
+      this.currUserService.setCurrentUser(user);
+      this.currentUser = this.currUserService.getCurrentUser();
+      console.log("Success!, ", this.currentUser.cart);
+    })
+  }
 }

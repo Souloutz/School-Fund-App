@@ -4,10 +4,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from './model/user';
+import { User } from '../model/user';
 import { MessageService } from './message.service';
 
-@Injectable({ providedIn: 'root', })
+@Injectable({ providedIn: 'root' })
 export class UserService {
   private usersURL = 'http://localhost:8080/users'; // REST API link
 
@@ -27,7 +27,7 @@ export class UserService {
       );
   }
 
-/** GET user by id. Return `undefined` when id not found */
+  /** GET user by id. Return `undefined` when id not found */
   getUserNo404<Data>(id: number): Observable<User> {
     const url = `${this.usersURL}/?id=${id}`;
     return this.http.get<User[]>(url)
@@ -50,7 +50,7 @@ export class UserService {
     );
   }
 
-    /** GET user by email. Will 404 if id not found */
+  /** GET user by email. Will 404 if id not found */
   getUserByEmail(email: string): Observable<User> {
     const url = `${this.usersURL}/email/?email=${email}`;
     return this.http.get<User>(url).pipe(
@@ -59,7 +59,7 @@ export class UserService {
     );
   }
 
-  /* GET users whose name contains search term */
+  /** GET users whose name contains search term */
   searchUsers(term: string): Observable<User[]> {
     if (!term.trim()) {
       // if not search term, return empty user array.
@@ -73,7 +73,7 @@ export class UserService {
     );
   }
 
-  //////// Save methods //////////
+  //////// CRUD methods //////////
 
   /** POST: add a new user to the server */
   addUser(user: User): Observable<User> {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { UserService } from "../user.service";
-import { CurrentUserService } from '../current.user.service';
+import { UserService } from "../services/user.service";
+import { CurrentUserService } from '../services/current.user.service';
 
 import { User } from '../model/user';
 import { Router } from '@angular/router';

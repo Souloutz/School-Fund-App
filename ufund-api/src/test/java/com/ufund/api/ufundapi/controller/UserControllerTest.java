@@ -40,10 +40,10 @@ public class UserControllerTest {
         // Setup
         User user = new User(99, "Howard", "password123", null, null, null);
         // When the same id is passed in, our mock User DAO will return the User object
-        when(mockUserDAO.getUser(user.getId())).thenReturn(user);
+        when(mockUserDAO.getUser(user.getEmail())).thenReturn(user);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(user.getId());
+        ResponseEntity<User> response = userController.getUser(user.getEmail());
 
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -53,12 +53,12 @@ public class UserControllerTest {
     @Test
     public void testGetUserNotFound() throws Exception {
         // Setup
-        int userId = 99;
+        String userEmail = "doesnt exist";
         // When the same id is passed in, our mock User DAO will return null, simulating no User found
-        when(mockUserDAO.getUser(userId)).thenReturn(null);
+        when(mockUserDAO.getUser(userEmail)).thenReturn(null);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(userId);
+        ResponseEntity<User> response = userController.getUser(userEmail);
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -66,12 +66,12 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserHandleException() throws Exception {
-        int userId = 99;
+        String userEmail = "doesnt exist";
         // When getUser is called on the Mock User DAO, throw an IOException
-        doThrow(new IOException()).when(mockUserDAO).getUser(userId);
+        doThrow(new IOException()).when(mockUserDAO).getUser(userEmail);
 
         // Invoke
-        ResponseEntity<User> response = userController.getUser(userId);
+        ResponseEntity<User> response = userController.getUser(userEmail);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
@@ -230,12 +230,12 @@ public class UserControllerTest {
     @Test
     public void testDeleteUser() throws IOException {
         // Setup
-        int userId = 99;
+        String userEmail = "doesnt exist";
         // when deleteUser is called return true, simulating successful deletion
-        when(mockUserDAO.deleteUser(userId)).thenReturn(true);
+        when(mockUserDAO.deleteUser(userEmail)).thenReturn(true);
 
         // Invoke
-        ResponseEntity<User> response = userController.deleteUser(userId);
+        ResponseEntity<User> response = userController.deleteUser(userEmail);
 
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -244,12 +244,12 @@ public class UserControllerTest {
     @Test
     public void testDeleteUserNotFound() throws IOException {
         // Setup
-        int userId = 99;
+        String userEmail = "doesnt exist";
         // when deleteUser is called return false, simulating failed deletion
-        when(mockUserDAO.deleteUser(userId)).thenReturn(false);
+        when(mockUserDAO.deleteUser(userEmail)).thenReturn(false);
 
         // Invoke
-        ResponseEntity<User> response = userController.deleteUser(userId);
+        ResponseEntity<User> response = userController.deleteUser(userEmail);
 
         // Analyze
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -258,12 +258,12 @@ public class UserControllerTest {
     @Test
     public void testDeleteUserHandleException() throws IOException {
         // Setup
-        int userId = 99;
+        String userEmail = "doesnt exist";
         // When deleteUser is called on the Mock User DAO, throw an IOException
-        doThrow(new IOException()).when(mockUserDAO).deleteUser(userId);
+        doThrow(new IOException()).when(mockUserDAO).deleteUser(userEmail);
 
         // Invoke
-        ResponseEntity<User> response = userController.deleteUser(userId);
+        ResponseEntity<User> response = userController.deleteUser(userEmail);
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());

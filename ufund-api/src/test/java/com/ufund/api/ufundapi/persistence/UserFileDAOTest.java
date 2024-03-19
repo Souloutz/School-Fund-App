@@ -39,9 +39,9 @@ public class UserFileDAOTest {
     public void setupUserFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testUsers = new User[3];
-        testUsers[0] = new User(99, "manager", "manager", null, null, null);
-        testUsers[1] = new User(100, "Howard", "iloveswen261", null, null, null);
-        testUsers[2] = new User(101, "Taeyong", "bounce", null, null, null);
+        testUsers[0] = new User(99, "manager", "manager", "manager@google", null, null);
+        testUsers[1] = new User(100, "Howard", "iloveswen261", "howard@google", null, null);
+        testUsers[2] = new User(101, "Taeyong", "bounce", "Taeyong@google", null, null);
 
         // When the object mapper is supposed to read from the file the mock object mapper will return the user array above
         when(mockObjectMapper
@@ -75,7 +75,7 @@ public class UserFileDAOTest {
     @Test
     public void testGetUser() throws IOException {
         // Invoke
-        User user = userFileDAO.getUser(99);
+        User user = userFileDAO.getUser("manager@google");
 
         // Analzye
         assertEquals(user, testUsers[0]);
@@ -84,7 +84,7 @@ public class UserFileDAOTest {
     @Test
     public void testDeleteUser() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser(99),
+        boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("manager@google"),
                             "Unexpected exception thrown");
 
         // Analzye
@@ -107,7 +107,7 @@ public class UserFileDAOTest {
 
         // Analyze
         assertNotNull(result);
-        User actual = userFileDAO.getUser(user.getId());
+        User actual = userFileDAO.getUser(user.getEmail());
         assertEquals(actual.getId(), user.getId());
         assertEquals(actual.getUsername(), user.getUsername());
     }
@@ -123,7 +123,7 @@ public class UserFileDAOTest {
 
         // Analyze
         assertNotNull(result);
-        User actual = userFileDAO.getUser(user.getId());
+        User actual = userFileDAO.getUser(user.getEmail());
         assertEquals(actual, user);
     }
 
@@ -143,7 +143,7 @@ public class UserFileDAOTest {
     @Test
     public void testGetUserNotFound() throws IOException {
         // Invoke
-        User user = userFileDAO.getUser(98);
+        User user = userFileDAO.getUser("DNE");
 
         // Analyze
         assertEquals(user, null);
@@ -152,7 +152,7 @@ public class UserFileDAOTest {
     @Test
     public void testDeleteUserNotFound() {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser(98),
+        boolean result = assertDoesNotThrow(() -> userFileDAO.deleteUser("DNE"),
                                                 "Unexpected exception thrown");
 
         // Analyze

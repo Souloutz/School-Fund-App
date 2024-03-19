@@ -8,7 +8,7 @@ import { GiftService } from '../gift.service';
   templateUrl: './gifts.component.html',
   styleUrls: ['./gifts.component.css']
 })
-export class HeroesComponent implements OnInit {
+export class GiftsComponent implements OnInit {
   gifts: Gift[] = [];
 
   constructor(private giftService: GiftService) { }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { UserService } from "../user.service";
 import { CurrentUserService } from '../current.user.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { User } from '../model/user';
 
@@ -16,7 +17,8 @@ export class UfundUiLoginComponent {
   constructor(
     private currentUserService : CurrentUserService,
     private userService : UserService,
-    private router : Router) {}
+    private router : Router,
+    private location : Location) {}
 
   userInfo : User = this.currentUserService.getCurrentUser();
   
@@ -78,6 +80,13 @@ export class UfundUiLoginComponent {
    */
   isAdmin(user : User) : boolean {
     return (user.email == 'admin@google.com');
+  }
+
+  /**
+   * sends user back to whatever page they were on
+   */
+  goBack() : void {
+    this.location.back();
   }
 }
 

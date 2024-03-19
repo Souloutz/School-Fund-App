@@ -31,10 +31,10 @@
                 </div>
                 <button type="submit" value="Submit" id="submit">Submit</button>
             </div>
-        <div class="lower-container">
-            <a routerLink="" class="home">Home</a>
-            <span class="signup"><p>Don't have an account? | <a routerLink="/signup">Sign Up</a></p></span>
-        </div>
     </form>
+    <div class="lower-container">
+        <button (click)="goBack()">Back</button>
+        <span class="signup"><p>Don't have an account? | <a routerLink="/signup">Sign Up</a></p></span>
+    </div>
 </body>
 </html>

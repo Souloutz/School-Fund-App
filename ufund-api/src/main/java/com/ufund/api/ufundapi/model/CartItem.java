@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Howard Kong
  */
 public class CartItem {
-    @JsonProperty("item_id") private int itemId;
+    @JsonProperty("id") private int itemId;
     @JsonProperty("amount") private int itemAmount; // Can not be less than 0
 
     /**
@@ -21,7 +21,7 @@ public class CartItem {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-    public CartItem(@JsonProperty("item_id") int itemId,
+    public CartItem(@JsonProperty("id") int itemId,
                     @JsonProperty("amount") int itemAmount) {
         this.itemId = itemId;
         this.itemAmount = itemAmount;

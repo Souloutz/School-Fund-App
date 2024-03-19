@@ -51,15 +51,6 @@ export class GiftService {
     );
   }
 
-    /** GET gift by email. Will 404 if id not found */
-  getGiftByEmail(email: string): Observable<Gift> {
-    const url = `${this.giftsURL}/email/?email=${email}`;
-    return this.http.get<Gift>(url).pipe(
-      tap(_ => this.log(`fetched gift email=${email}`)),
-      catchError(this.handleError<Gift>(`getGift email=${email}`))
-    );
-  }
-
   /* GET gifts whose name contains search term */
   searchGifts(term: string): Observable<Gift[]> {
     if (!term.trim()) {

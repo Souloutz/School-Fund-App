@@ -29,6 +29,14 @@ export class UserService {
       );
   }
 
+  getUserCart(email : string): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.usersURL}/${email}/cart`)
+      .pipe(
+        tap(_ => this.log('fetched cart')),
+        catchError(this.handleError<Item[]>('getCart', []))
+      );
+  }
+
   /** GET user by email. Will 404 if email not found */
   getUser(email : string): Observable<User> {
     const url = `${this.usersURL}/${email}`;

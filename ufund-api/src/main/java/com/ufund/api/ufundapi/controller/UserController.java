@@ -287,7 +287,14 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
             List<CartItem> userCart = user.getCart();
-            userCart.add(cartItem);
+
+            if (userCart.contains(cartItem)) {
+                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
+
+                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
+            } else {
+                userCart.add(cartItem);
+            }
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
             User updatedUser = userDAO.updateUser(newUser);

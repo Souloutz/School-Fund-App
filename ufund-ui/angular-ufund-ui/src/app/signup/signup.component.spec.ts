@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UfundUiSignUpComponent } from './ufund-ui-signup.component';
+import { UfundUiSignUpComponent } from './signup.component';
 
 describe('UfundUiLoginComponent', () => {
   let component: UfundUiSignUpComponent;

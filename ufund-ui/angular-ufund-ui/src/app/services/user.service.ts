@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '../model/user';
 import { MessageService } from './message.service';
+import { sha512 } from 'sha512-crypt-ts';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -77,6 +78,8 @@ export class UserService {
 
   /** POST: add a new user to the server */
   addUser(user: User): Observable<User> {
+    user.password = sha512.hex(user.password);
+
     return this.http.post<User>(this.usersURL, user, this.httpOptions).pipe(
       tap((newUser: User) => this.log(`added user w/ id=${newUser.id}`)),
       catchError(this.handleError<User>('addUser'))

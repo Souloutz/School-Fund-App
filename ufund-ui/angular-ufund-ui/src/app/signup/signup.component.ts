@@ -20,9 +20,9 @@ import { FormsModule } from '@angular/forms';
 export class SignUpComponent {
 
   constructor(
-    private currentUserService : CurrentUserService,
-    private userService : UserService,
-    private router : Router) {}
+    private currentUserService: CurrentUserService,
+    private userService: UserService,
+    private router: Router) {}
 
   userInfo: User = this.currentUserService.getCurrentUser();
   

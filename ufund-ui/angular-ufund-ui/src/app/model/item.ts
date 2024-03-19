@@ -2,7 +2,7 @@ import { Gift } from "./gift";
 
 export interface Item {
 
-    gift: Gift,
+    id: number,
     amount: number;
 
 }

@@ -26,7 +26,7 @@ export class UfundUiLoginComponent {
     const userInput = user;
 
     if(this.checkIfEmailValid(user.email)) {
-      this.userService.getUserByEmail(userInput.email).subscribe(//sends request for 
+      this.userService.getUser(userInput.email).subscribe(//sends request for 
       //to get the User with the email given by the input
         (emailResponse: User) =>
         {

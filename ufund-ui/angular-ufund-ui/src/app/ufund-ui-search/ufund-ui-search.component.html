@@ -1,0 +1,10 @@
+<div id="search-component">
+
+  <ul class="search-result">
+    <li *ngFor="let gift of gifts$ | async" >
+      <a routerLink="/detail/{{gift.id}}">
+        {{gift.name}}
+      </a>
+    </li>
+  </ul>
+</div>

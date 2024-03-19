@@ -78,10 +78,31 @@ export class UserService {
       })
   }
 
+  /**
+   * adds the specified item to the user's cart
+   * @param userEmail : email for the user
+   * @param item : item to be added
+   * @returns observable user object that was given by server
+   */
   addItemToCart(userEmail: string, item: Item) {
     console.log("Item put id: ", item.id);
     console.log(`${this.usersURL}/${userEmail}/cart/`, item);
     return this.http.put<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
+      tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
+      catchError(this.handleError<User>('addItem'))
+    );
+  }
+
+  /**
+   * Removes the specified item from the user's cart
+   * @param userEmail : email for the user
+   * @param item : item to be removed
+   * @returns observable user object given by server
+   */
+  removeItemFromCart(userEmail: string, item: Item) {
+    console.log("Item post id: ", item.id);
+    console.log(`${this.usersURL}/${userEmail}/cart/`, item);
+    return this.http.post<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
       tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
       catchError(this.handleError<User>('addItem'))
     );

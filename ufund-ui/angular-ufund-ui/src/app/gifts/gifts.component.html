@@ -1,21 +1,9 @@
 <h2>Gifts</h2>
 
-<div>
-  <label for="new-gift">gift name: </label>
-  <input id="new-gift" #giftName />
-
-  <!-- (click) passes input value to add() and then clears the input -->
-  <button type="button" class="add-button" (click)="add(giftName.value); giftName.value=''">
-    Add gift
-  </button>
-</div>
-
-<ul class="giftes">
+<ul class="gifts">
   <li *ngFor="let gift of gifts">
     <a routerLink="/detail/{{gift.id}}">
       <span class="badge">{{gift.id}}</span> {{gift.name}}
     </a>
-    <button type="button" class="delete" title="delete gift"
-      (click)="delete(gift)">x</button>
   </li>
 </ul>

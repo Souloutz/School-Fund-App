@@ -7,8 +7,8 @@ import { GiftService } from '../gift.service';
 
 @Component({
   selector: 'app-ufund-ui-detail',
-  templateUrl: './ufund-ui-detail.html',
-  styleUrls: [ './ufund-ui-detail.css' ]
+  templateUrl: './ufund-ui-detail.component.html',
+  styleUrls: [ './ufund-ui-detail.component.css' ]
 })
 export class GiftDetailComponent implements OnInit {
   gift: Gift | undefined;

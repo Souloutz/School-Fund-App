@@ -78,4 +78,11 @@ public class CartItem {
         if (this.itemAmount < 0)
             this.itemAmount = 0;
     }
+
+    @Override
+    public boolean equals(Object arg0) {
+
+        CartItem item = (CartItem) arg0;
+        return this.itemId == item.getItemId();
+    }
 }

@@ -16,6 +16,9 @@ import { UfundUiCartComponent } from './ufund-ui-cart/ufund-ui-cart.component';
 import { FormsModule } from '@angular/forms';
 import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund-ui-admin-dashboard.component';
 
+import { GiftService } from './gift.service';
+import { GiftsComponent } from './gifts/gifts.component';
+
 
 @NgModule({
     declarations: [
@@ -26,7 +29,8 @@ import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund
       UfundUiAccountComponent,
       UfundUiSignUpComponent,
       UfundUiCartComponent,
-      UfundUiAdminDashboardComponent
+      UfundUiAdminDashboardComponent,
+      GiftsComponent
     ],
     imports: [
       BrowserModule,

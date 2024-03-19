@@ -18,6 +18,7 @@ import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund
 
 import { GiftService } from './gift.service';
 import { GiftsComponent } from './gifts/gifts.component';
+import { GiftDetailComponent } from './ufund-ui-detail/ufund-ui-detail.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { GiftsComponent } from './gifts/gifts.component';
       UfundUiSignUpComponent,
       UfundUiCartComponent,
       UfundUiAdminDashboardComponent,
-      GiftsComponent
+      GiftsComponent,
+      GiftDetailComponent
     ],
     imports: [
       BrowserModule,

@@ -53,14 +53,15 @@ export class GiftService {
 
   /* GET gifts whose name contains search term */
   searchGifts(term: string): Observable<Gift[]> {
-    if (!term.trim()) {
+    const searchTerm = term.trim().toLowerCase();
+    if (!searchTerm.trim()) {
       // if not search term, return empty gift array.
       return of([]);
     }
-    return this.http.get<Gift[]>(`${this.giftsURL}/?name=${term}`).pipe(
+    return this.http.get<Gift[]>(`${this.giftsURL}/?name=${searchTerm}`).pipe(
       tap(x => x.length ?
-         this.log(`found gifts matching "${term}"`) :
-         this.log(`no gifts matching "${term}"`)),
+         this.log(`found gifts matching "${searchTerm}"`) :
+         this.log(`no gifts matching "${searchTerm}"`)),
       catchError(this.handleError<Gift[]>('searchGifts', []))
     );
   }

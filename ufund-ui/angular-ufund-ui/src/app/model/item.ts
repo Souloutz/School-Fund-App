@@ -1,6 +1,8 @@
+import { Gift } from "./gift";
+
 export interface Item {
 
-    id: number;
+    gift: Gift,
     amount: number;
 
 }

@@ -5,4 +5,5 @@
   <a routerLink="/detail/{{item.id}}">
     <span class="badge">{{item.name}}: </span> Amount: {{item.amount}}
   </a>
+  <button (click)="removeItem(item)">Remove from Cart</button>
 </li>

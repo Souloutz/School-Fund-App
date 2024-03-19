@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../model/user';
 import { FormsModule } from '@angular/forms';
 
+import { sha512 } from 'sha512-crypt-ts';
+
 @Component({
   standalone: true,
   selector: 'app-login',
@@ -20,9 +22,9 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
 
   constructor(
-    private currentUserService : CurrentUserService,
-    private userService : UserService,
-    private router : Router) { }
+    private currentUserService: CurrentUserService,
+    private userService: UserService,
+    private router: Router) { }
 
   userInfo: User = this.currentUserService.getCurrentUser();
   
@@ -31,25 +33,26 @@ export class LoginComponent {
    * @param user 
    */
   signIn(user: User): void {
-    const userInput = user;
+    const inputUser = user;
 
     if (this.checkIfEmailValid(user.email)) {
-      // //sends request for to get the User with the email given by the input
-      this.userService.getUserByEmail(userInput.email).subscribe(
-        (emailResponse: User) => {
-          console.log('User data: ', emailResponse);
+      this.userService.getUserByEmail(inputUser.email).subscribe( // sends request to get user associated with given mail
+        (userResponse: User) => {
+          console.log('User data: ', userResponse);
 
-          const userResponse: User = emailResponse; // creates a user from the response from the server
+          const fetchedUser: User = userResponse; // creates a user from server response
 
-          if (userResponse) {
-            if (userInput.password === userResponse.password) {
+          if (fetchedUser) {
+            const password_hash: string = sha512.hex(inputUser.password);
+            console.log(password_hash);
+            console.log(fetchedUser.password);
+
+            if (password_hash === fetchedUser.password) {
               console.log("Success!");
 
-              // sets current user to the response from the server
-              this.currentUserService.setCurrentUser(userResponse);
+              this.currentUserService.setCurrentUser(fetchedUser);
 
-              // checks if the user is an admin
-              if (this.isAdmin(userResponse))
+              if (this.isAdmin(fetchedUser))
                 this.router.navigate(['/admin-dashboard'])
               else 
                 this.router.navigate(['']);

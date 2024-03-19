@@ -91,7 +91,7 @@ export class GiftService {
    * @returns an Item object using the amount and the gift
    */
   createItemFromGift(gift : Gift, amount: number) : Item {
-    return {gift,amount};
+    return {id: gift.id,amount};
   }
 
   /** DELETE: delete the gift from the server */

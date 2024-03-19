@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
+import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './signup/signup.component';
-import { UfundUiCartComponent } from './ufund-ui-cart/ufund-ui-cart.component';
-import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund-ui-admin-dashboard.component';
+import { CartComponent } from './cart/cart.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home',pathMatch: 'full'},
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent},
-    { path: 'account', component: UfundUiAccountComponent},
+    { path: 'account', component: AccountComponent},
     { path: 'signup', component: SignUpComponent},
-    { path: 'cart', component: UfundUiCartComponent},
-    { path: 'admin-dashboard', component: UfundUiAdminDashboardComponent}
+    { path: 'cart', component: CartComponent},
+    { path: 'admin-dashboard', component: AdminDashboardComponent}
 ];
 
 @NgModule({

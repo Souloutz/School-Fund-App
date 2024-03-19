@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 
 import { UfundUiHomeComponent } from './ufund-ui-home/ufund-ui-home.component';
-import { UfundUiNavComponent } from './ufund-ui-nav/ufund-ui-nav.component';
 import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
 import { UfundUiCartComponent } from './ufund-ui-cart/ufund-ui-cart.component';
 
@@ -19,7 +18,6 @@ import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund
     declarations: [
       AppComponent,
       UfundUiHomeComponent,
-      UfundUiNavComponent,
       UfundUiAccountComponent,
       UfundUiCartComponent,
       UfundUiAdminDashboardComponent

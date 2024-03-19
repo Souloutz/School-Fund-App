@@ -17,7 +17,7 @@ form {
     margin: auto;
 
     border: 3px solid rgb(216, 216, 216);
-    border-radius: 5px;
+    border-radius:5px;
 }
 
 .container {
@@ -29,7 +29,6 @@ form {
 .input-field {
     display: flex;
     flex-direction: column;
-    padding: .25em;
 }
 
 input {
@@ -41,7 +40,7 @@ input {
 
 button {
     width: 100%;
-    border:none;
+    border: none;
     padding: .5em;
     background-color: #ccc;
     margin: .75em auto;
@@ -58,8 +57,8 @@ button:hover {
     align-items: center;
 }
 
-span.login {
-    display:inline-block;
+span.signup {
+    display: inline-block;
     margin-right: .5em;
 }
 

@@ -1,26 +1,25 @@
-*
-{
+* {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-body
-{
+
+body {
     margin: 0;
 }
-.navbar
-{
+
+.navbar {
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
-.account-info
-{
+
+.account-info {
     display: inline-flex;
 }
-.acc-item
-{
-    margin-right:1em;
-    padding:.3em;
+
+.acc-item {
+    margin-right: 1em;
+    padding: .3em;
     background-color: aliceblue;
     border-radius: 5px;
 }

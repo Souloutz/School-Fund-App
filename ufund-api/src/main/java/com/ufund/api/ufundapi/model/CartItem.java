@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CartItem {
     @JsonProperty("id") private int itemId;
     @JsonProperty("amount") private int itemAmount; // Can not be less than 0
+    @JsonProperty("name") private String itemName;
 
     /**
      * Create a cart item
@@ -22,9 +23,11 @@ public class CartItem {
      * value, i.e. 0 for int
      */
     public CartItem(@JsonProperty("id") int itemId,
-                    @JsonProperty("amount") int itemAmount) {
+                    @JsonProperty("amount") int itemAmount,
+                    @JsonProperty("name") String itemName) {
         this.itemId = itemId;
         this.itemAmount = itemAmount;
+        this.itemName = itemName;
     }
 
     /**
@@ -44,6 +47,14 @@ public class CartItem {
     }
 
     /**
+     * retrieve the name of item
+     * @return the item name
+     */
+    public String getItemName() {
+        return this.itemName;
+    }
+
+    /**
      * Set the id of the item
      * @param itemId The id of the item
      */
@@ -60,6 +71,14 @@ public class CartItem {
             itemAmount = 0;
 
         this.itemAmount = itemAmount;
+    }
+
+    /**
+     * sets the item name
+     * @param name the name to replace the old one with
+     */
+    public void setItemName(String name) {
+        this.itemName = name;
     }
 
     /**

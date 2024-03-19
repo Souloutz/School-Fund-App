@@ -81,9 +81,9 @@ export class GiftService {
    * @param amount 
    * @returns an Item object using the amount and the gift id
    */
-  createItemFromGiftId(id : number, amount: number) : Item {
+  createItemFromGiftId(id : number, amount: number, name: string) : Item {
     console.log("item id: ", id);
-    return {id,amount};
+    return {id,amount, name};
   }
 
   /** DELETE: delete the gift from the server */

@@ -3,6 +3,6 @@
 export interface Item {
 
     id: number,
-    amount: number;
-
+    amount: number,
+    name: string;
 }

@@ -248,13 +248,13 @@ public class UserController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("/{email}/cart")
-    public ResponseEntity<User> addItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+    public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
         /*
          * TODO
          * Does not work for admin as admin does not have a cart/purchases
          */
         
-        LOG.info("PUT /users/" + email + "/cart/" + cartItem.getItemId());
+        LOG.info("POST /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
             User user = userDAO.getUser(email);
@@ -264,11 +264,9 @@ public class UserController {
             List<CartItem> userCart = user.getCart();
 
             if (userCart.contains(cartItem)) {
-                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
-
-                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
+                userCart.remove(cartItem);
             } else {
-                userCart.add(cartItem);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
@@ -284,6 +282,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
 
 
     /**

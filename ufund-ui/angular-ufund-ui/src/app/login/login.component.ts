@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { UserService } from "../services/user.service";
 import { CurrentUserService } from '../services/current.user.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { User } from '../model/user';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,8 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   selector: 'app-login',
   imports: [
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

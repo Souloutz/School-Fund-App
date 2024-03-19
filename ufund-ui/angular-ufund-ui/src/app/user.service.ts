@@ -6,6 +6,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './model/user';
 import { MessageService } from './message.service';
+import { Gift } from './model/gift';
+import { Item } from './model/item';
 
 @Injectable({ providedIn: 'root', })
 export class UserService {
@@ -97,6 +99,10 @@ export class UserService {
           }
         })
       })
+  }
+
+  addItemToCart(userId: number, item: Item) {
+    
   }
 
   /** DELETE: delete the user from the server */

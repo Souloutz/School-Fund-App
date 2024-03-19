@@ -1,2 +1,8 @@
 <p>ufund-ui-cart works!</p>
 <a routerLink="">Home</a>
+
+<li *ngFor="let item of cart">
+  <a routerLink="/detail/{{item.id}}">
+    <span class="badge">{{item.id}}</span> {{item.amount}}
+  </a>
+</li>

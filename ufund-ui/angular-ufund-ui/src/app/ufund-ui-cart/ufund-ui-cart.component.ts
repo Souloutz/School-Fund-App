@@ -18,9 +18,4 @@ export class UfundUiCartComponent {
   gifts = this.giftService.getGifts();
 
   cart = this.currUserService.getCurrentUser().cart;
-
-  getGift(id : number) : Observable<string>{
-    return this.giftService.getGift(id).pipe(tap(gift => {console.log(gift.name);}),
-                                             map((gift : Gift) => gift.name));
-  }
 }

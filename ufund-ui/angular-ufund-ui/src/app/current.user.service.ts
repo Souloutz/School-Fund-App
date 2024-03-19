@@ -36,6 +36,10 @@ export class CurrentUserService {
     this.currentUser.next(this.baseUser);
   }
 
+  getBaseUser() : User {
+    return this.baseUser;
+  }
+
 
   /**
    * 

@@ -54,7 +54,7 @@ export class LoginComponent {
 
               this.currentUserService.setCurrentUser(fetchedUser);
 
-              if (this.isAdmin(fetchedUser))
+              if (this.currentUserService.isAdmin())
                 this.router.navigate(['/admin-dashboard'])
               else 
                 this.router.navigate(['']);

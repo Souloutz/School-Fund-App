@@ -81,7 +81,7 @@ public class Gift implements Comparable<Gift> {
      * Retrieve the price of the gift
      * @return The price of the gift
      */
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

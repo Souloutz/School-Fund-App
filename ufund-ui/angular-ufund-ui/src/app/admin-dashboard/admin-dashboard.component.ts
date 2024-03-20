@@ -4,6 +4,8 @@ import { NgFor } from '@angular/common';
 import { Gift } from '../model/gift';
 import { GiftService } from '../services/gift.service';
 import { CurrentUserService } from '../services/current.user.service';
+import { Router } from '@angular/router';
+
 @Component({
   standalone: true,
   selector: 'app-admin-dashboard',
@@ -17,17 +19,25 @@ import { CurrentUserService } from '../services/current.user.service';
 export class AdminDashboardComponent {
 
   constructor(private giftService : GiftService,
-              private currUserService : CurrentUserService) {}
+              private currUserService : CurrentUserService,
+              private router : Router) {}
 
   gifts : Gift[] = [];
 
   ngOnInit() :void {
+    this.checkUser();
     this.getGifts();
   }
 
   selected(object: any): void {
     console.log('Item clicked:', object);
   } 
+
+  checkUser() :void {
+    if(!this.currUserService.isAdmin()) {
+      this.router.navigate(['login']);
+    }
+  }
 
   getGifts()
   {
@@ -39,7 +49,7 @@ export class AdminDashboardComponent {
     if(!description){return;}
     if(!passedPrice){return;}
 
-    const price : number = parseInt(passedPrice);
+    const price : number = parseFloat(passedPrice);
 
     console.log("Passed info: ",name,description,price);
 

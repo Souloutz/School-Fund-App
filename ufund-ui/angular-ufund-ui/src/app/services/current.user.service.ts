@@ -70,4 +70,15 @@ export class CurrentUserService {
     this.clearCurrentUser();
     this.router.navigate(['']);
   }
+
+  
+  /**
+   * Check if a user is an admin
+   * @param user 
+   * @returns true if the user is the admin
+   */
+  isAdmin(): boolean {
+    // TODO - update getting of admin email through REST API call instead
+    return (this.getCurrentUser().email == 'admin@google.com');
+  }
 }

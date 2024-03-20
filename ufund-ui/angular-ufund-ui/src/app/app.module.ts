@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
     declarations: [
       AppComponent,
+      NotfoundComponent,
     ],
     imports: [
       BrowserModule,

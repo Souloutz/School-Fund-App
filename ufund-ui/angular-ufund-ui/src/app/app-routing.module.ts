@@ -8,6 +8,7 @@ import { SignUpComponent } from './signup/signup.component';
 import { CartComponent } from './cart/cart.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { GiftDetailComponent } from './gift-detail/gift-detail.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'signup', component: SignUpComponent},
     { path: 'cart', component: CartComponent},
     { path: 'admin-dashboard', component: AdminDashboardComponent},
-    { path: 'detail/:id', component: GiftDetailComponent }
+    { path: 'detail/:id', component: GiftDetailComponent },
+    { path: '**', pathMatch: 'full',  component: NotfoundComponent }
 ];
 
 @NgModule({

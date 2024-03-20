@@ -2,25 +2,33 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { Gift } from '../model/gift';
-import { GiftService } from '../gift.service';
+import { GiftService } from '../services/gift.service';
+import { AsyncPipe, NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-ufund-ui-search',
-  templateUrl: './ufund-ui-search.component.html',
-  styleUrls: [ './ufund-ui-search.component.css' ]
+  standalone: true,
+  selector: 'app-search',
+  imports: [
+    AsyncPipe,
+    NgFor,
+    RouterLink
+  ],
+  templateUrl: './gift-search.component.html',
+  styleUrls: [ './gift-search.component.css' ]
 })
 export class GiftSearchComponent implements OnInit {
+
   gifts$!: Observable<Gift[]>;
+
   private searchTerms = new Subject<string>();
 
   constructor(private GiftService: GiftService) {}
 
-  // Push a search term into the observable stream.
+  // push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }

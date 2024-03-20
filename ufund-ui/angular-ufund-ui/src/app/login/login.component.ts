@@ -36,7 +36,7 @@ export class LoginComponent {
     const inputUser = user;
 
     if (this.checkIfEmailValid(user.email)) {
-      this.userService.getUserByEmail(inputUser.email).subscribe( // sends request to get user associated with given mail
+      this.userService.getUser(inputUser.email).subscribe( // sends request to get user associated with given mail
         (userResponse: User) => {
           console.log('User data: ', userResponse);
 

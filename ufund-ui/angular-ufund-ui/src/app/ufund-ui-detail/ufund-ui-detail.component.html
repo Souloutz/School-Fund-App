@@ -1,9 +1,0 @@
-<div *ngIf="gift">
-  <h2>{{gift.name}} Details</h2>
-  <div><span>id: </span>{{gift.id}}</div>
-  <div>
-    <label for="gift-name">Gift name: </label>
-    <input id="gift-name" [(ngModel)]="gift.name" placeholder="Gift name"/>
-  </div>
-  <button type="button" (click)="goBack()">go back</button>
-</div>

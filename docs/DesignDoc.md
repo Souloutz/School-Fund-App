@@ -142,12 +142,19 @@ User: A U-Fund user. Has a username, password, email, and their cart. Their data
 > section will follow the same instructions that are given for the View
 > Tier above._
 
+**Sprint 2 ** 
+Order: Represents an order. This is a list of OrderItems that a user ordered. It has an ID, date of checkout, and the list of items. These are made per user.
+OrderItem: This represents and item ordered by user. A list of these are in Order.
+Priority: This is for a feature enhancement, where we will have a need priority. Just a placeholder for now.
+
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
 ![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
 
 ## OO Design Principles
+
+> _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
 Low Coupling: Each class should be as independent as possible. For example, the Gift and User CRUD operations are implemented in separate files to avoid conflict. Although the code actions are mostly the same, it would be best to keep them separated in case we need unique code for one.
 
@@ -160,8 +167,6 @@ Dependency Inversion/Injection: We abstracted certain parts of our code. A big e
 Open/Closed: We designed our classes to be able to extended easily. We could add more code/functionality to it if we wanted to. But we also kept it closed/avoided modification. This way, we can extend our classes if needed, but not change them completely.
 
 We also worked on separate files as much as possible. This helps us avoid merge conflicts. This made the code easier for the team to work on, since we didn't have to constantly worry about overwriting each others code.
-
-> _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
@@ -186,6 +191,21 @@ Video demo was created, tested componets manually.
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+Sprint 2:
+
+**User stories added during this sprint:**
+
+Login: All passed
+Logout: All passed
+Home page (where needs are listed): All passed
+Search: All passed
+
+Admin page: Failed, edit needs, remove needs, add needs. As of right now, this page is not done yet, so we have not completed this user story.
+
+Cart: Failed, Seems to be a bug with removing items from the cart. Removing an item appears to remove it, but when you go back into the cart it is still there. The quantity of the removed item actually seems to double. Everything else passed. Users can view their cart, remove items. etc.
+
+Details page: Failed: A small error where if a user accesses an item that doesn't exist (only way they could to this is by manually changing the URL) it doesn't display and error and just shows a blank page. However, everything else passed and you can view the details of an item.
+
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
@@ -199,5 +219,7 @@ Video demo was created, tested componets manually.
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
 
 2024-2-09 Sprint 1: Team decided School Supplies U-Fund idea and created sprint 1 plan.
+
 2024-2-20 Sprint 1: Team decided on using Gift for the needs.
+
 2024-3-20 Spring 2: Team decided to store password as a SHA512 hash instead of plaintext for better security.

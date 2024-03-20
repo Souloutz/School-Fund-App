@@ -13,11 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author
  */
 public class User {
-    /**
-     * TODO
-     * Add/remove fields and functions
-     */
-
     private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     // Package private for tests

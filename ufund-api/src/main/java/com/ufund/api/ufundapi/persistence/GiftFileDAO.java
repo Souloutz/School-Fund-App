@@ -80,7 +80,7 @@ public class GiftFileDAO implements GiftDAO {
         ArrayList<Gift> giftsArrayList = new ArrayList<>();
 
         for (Gift gift : gifts.values()) {
-            if (containsText == null || gift.getName().contains(containsText)) {
+            if (containsText == null || gift.getName().toLowerCase().contains(containsText)) {
                 giftsArrayList.add(gift);
             }
         }

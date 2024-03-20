@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Howard Kong
  */
 public class CartItem {
-    @JsonProperty("item_id") private int itemId;
+    @JsonProperty("id") private int itemId;
+    @JsonProperty("name") private String itemName;
     @JsonProperty("amount") private int itemAmount; // Can not be less than 0
 
     /**
      * Create a cart item
      * @param itemId The id of the gift
+     * @param itemName The name of the gift
      * @param itemAmount The amount of the gift in the cart
      * 
      * {@literal @}JsonProperty is used in serialization and deserialization
@@ -21,9 +23,11 @@ public class CartItem {
      * is not provided in the JSON object, the Java field gets the default Java
      * value, i.e. 0 for int
      */
-    public CartItem(@JsonProperty("item_id") int itemId,
+    public CartItem(@JsonProperty("id") int itemId,
+                    @JsonProperty("name") String itemName,
                     @JsonProperty("amount") int itemAmount) {
         this.itemId = itemId;
+        this.itemName = itemName;
         this.itemAmount = itemAmount;
     }
 
@@ -41,6 +45,14 @@ public class CartItem {
      */
     public int getItemAmount() {
         return itemAmount;
+    }
+
+    /**
+     * Retrieve the name of item
+     * @return The name of the item
+     */
+    public String getItemName() {
+        return itemName;
     }
 
     /**
@@ -63,6 +75,14 @@ public class CartItem {
     }
 
     /**
+     * Set the name of the item
+     * @param itemName The name of the item
+     */
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    /**
      * Increment the amount of the item
      */
     public void incrementItemAmount() {
@@ -77,5 +97,20 @@ public class CartItem {
 
         if (this.itemAmount < 0)
             this.itemAmount = 0;
+    }
+
+    /**
+     * Check if another object is the same cart item
+     * @param obj Other object to compare 
+     * @return True if item ids are the same
+     *         False otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CartItem))
+            return false;  
+
+        CartItem otherItem = (CartItem) obj;
+        return this.itemId == otherItem.getItemId();
     }
 }

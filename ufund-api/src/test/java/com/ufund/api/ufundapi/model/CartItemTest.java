@@ -18,14 +18,16 @@ public class CartItemTest {
         // Setup
         int expectedId = 1;
         int expectedItemAmount = 100;
+        String expectedItemName = "name";
 
         // Invoke
-        CartItem cartItem = new CartItem(expectedId, expectedItemAmount);
+        CartItem cartItem = new CartItem(expectedId, expectedItemName, expectedItemAmount);
 
         // Analyze
         assertNotEquals(cartItem, null);
         assertEquals(expectedId, cartItem.getItemId());
         assertEquals(expectedItemAmount, cartItem.getItemAmount());
+        assertEquals(expectedItemName, cartItem.getItemName());
     }
 
     @Test
@@ -33,7 +35,9 @@ public class CartItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        CartItem cartItem = new CartItem(id, itemAmount);
+        String itemName = "name";
+
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedId = 2;
 
@@ -49,7 +53,9 @@ public class CartItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        CartItem cartItem = new CartItem(id, itemAmount);
+        String itemName = "name";
+
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedItemAmount = 250;
 
@@ -61,11 +67,31 @@ public class CartItemTest {
     }
 
     @Test
+    public void testSetItemName() {
+        // Setup
+        int id = 1;
+        int itemAmount = 100;
+        String itemName = "name";
+
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
+
+        String expectedItemName = "name changed";
+
+        // Invoke
+        cartItem.setItemName("name changed");
+
+        // Analyze
+        assertEquals(expectedItemName, cartItem.getItemName());
+    }
+
+    @Test
     public void testSetItemAmountZero() {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        CartItem cartItem = new CartItem(id, itemAmount);
+        String itemName = "name";
+
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int newItemAmount = -10;
         int expectedItemAmount = 0;
@@ -82,7 +108,9 @@ public class CartItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        CartItem cartItem = new CartItem(id, itemAmount);
+        String itemName = "name";
+
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedItemAmount = 101;
 
@@ -98,7 +126,9 @@ public class CartItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        CartItem cartItem = new CartItem(id, itemAmount);
+        String itemName = "name";
+
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedItemAmount = 99;
 

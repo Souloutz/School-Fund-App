@@ -54,31 +54,6 @@ public class UserController {
     }
 
     /**
-     * Respond to the GET request for a {@linkplain User user} for the given id
-     * 
-     * @param id The id used to locate the {@link User user}
-     * @return ResponseEntity with {@link User user} object and HTTP status of OK if found
-     *         ResponseEntity with HTTP status of NOT_FOUND if not found
-     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id) {
-        LOG.info("GET /users/" + id);
-        try {
-            User user = userDAO.getUser(id);
-
-            if (user != null)
-                return new ResponseEntity<User>(user, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        catch (IOException ioe) {
-            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * Respond to the GET request for a {@linkplain User user} for the given email
      * 
      * @param email The email used to locate the {@link User user}
@@ -86,11 +61,11 @@ public class UserController {
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/email/")
-    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
-        LOG.info("GET /users/email/?email=" + email);
+    @GetMapping("/{email}")
+    public ResponseEntity<User> getUser(@PathVariable String email) {
+        LOG.info("GET /users/" + email);
         try {
-            User user = userDAO.getUserByEmail(email);
+            User user = userDAO.getUser(email);
 
             if (user != null)
                 return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -161,10 +136,9 @@ public class UserController {
         LOG.info("POST /users/" + user.getId());
 
         try {
-            if(userDAO.getUserByEmail(user.getEmail()) != null){//if there is a user with the email
+            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-                //returns conflict if there is the email in use.
-            }
+
             User newUser = userDAO.createUser(user);
 
             if (newUser != null)
@@ -191,6 +165,9 @@ public class UserController {
         LOG.info("PUT /users/" + user.getId());
 
         try {
+            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
             User updatedUser = userDAO.updateUser(user);
 
             if (updatedUser != null)
@@ -205,19 +182,19 @@ public class UserController {
     }
 
     /**
-     * Delete a {@linkplain User user} with the given id
+     * Delete a {@linkplain User user} with the given e,ail
      * 
      * @param id The id of the {@link User user} to delete
      * @return ResponseEntity HTTP status of OK if deleted
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id) {
-        LOG.info("DELETE /users/" + id);
+    @DeleteMapping("/{email}")
+    public ResponseEntity<User> deleteUser(@PathVariable String email) {
+        LOG.info("DELETE /users/" + email);
 
         try {
-            boolean deleted = userDAO.deleteUser(id);
+            boolean deleted = userDAO.deleteUser(email);
 
             if (deleted == true)
                 return new ResponseEntity<>(HttpStatus.OK);
@@ -233,22 +210,17 @@ public class UserController {
     /**
      * Respond to the GET request for the cart of the {@linkplain User user}
      * 
-     * @param id The id of the {@link User user}
+     * @param email The email of the {@link User user}
      * @return ResponseEntity with array of {@link CartItem cartItem} objects (may be empty) and HTTP status of OK
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/{id}/cart")
-    public ResponseEntity<CartItem[]> getUserCart(@PathVariable int id) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
-        LOG.info("GET /users/" + id + "/cart");
+    @GetMapping("/{email}/cart")
+    public ResponseEntity<CartItem[]> getUserCart(@PathVariable String email) {
+        LOG.info("GET /users/" + email + "/cart");
 
         try {
-            User user = userDAO.getUser(id);
+            User user = userDAO.getUser(email);
             if (user == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -264,30 +236,32 @@ public class UserController {
     }
 
     /**
-     * Update the cart of the {@linkplain User user} with the provided id and {@linkplain CartItem cartItem} object, if it exists
+     * Add a {@linkplain CartItem cartItem} object into the cart of the {@linkplain User user} with the provided email, if it exists
      * 
-     * @param id The id of the {@link User user} to update
+     * @param email The email of the {@link User user} to update
      * @param cartItem The cart item to update for the {@link User user}
      * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @PostMapping("/{id}/cart")
-    public ResponseEntity<User> addItemUserCart(@PathVariable int id, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
-        LOG.info("PUT /users/" + id + "/cart/" + cartItem.getItemId());
+    @PostMapping("/{email}/cart")
+    public ResponseEntity<User> addItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+        LOG.info("POST /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
-            User user = userDAO.getUser(id);
+            User user = userDAO.getUser(email);
             if (user == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
             List<CartItem> userCart = user.getCart();
-            userCart.add(cartItem);
+
+            if (userCart.contains(cartItem)) {
+                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
+
+                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
+            }
+            else
+                userCart.add(cartItem);
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
             User updatedUser = userDAO.updateUser(newUser);
@@ -303,54 +277,101 @@ public class UserController {
         }
     }
 
-
     /**
-     * Update the cart of the {@linkplain User user} with the provided id and {@linkplain CartItem cartItem} object, if it exists
+     * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
      * 
-     * @param id The id of the {@link User user} to update
+     * @param email The email of the {@link User user} to update
      * @param cartItem The cart item to update for the {@link User user}
      * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @PutMapping("/{id}/cart")
-    public ResponseEntity<User> updateItemUserCart(@PathVariable int id, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
-        LOG.info("PUT /users/" + id + "/cart/" + cartItem.getItemId());
+    @PutMapping("/{email}/cart")
+    public ResponseEntity<User> updateItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+        LOG.info("PUT /users/" + email + "/cart/" + cartItem.getItemId());
 
-        throw new UnsupportedOperationException("Unimplemented method");
-        // try {
-        //    
-        // }
-        // catch (IOException ioe) {
-        //     LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
-        //     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        // }
+        try {
+            User user = userDAO.getUser(email);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<CartItem> userCart = user.getCart();
+
+            if (userCart.contains(cartItem)) {
+                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
+
+                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
+            } else {
+                userCart.add(cartItem);
+            }
+
+            User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
+            User updatedUser = userDAO.updateUser(newUser);
+
+            if (updatedUser != null)
+                return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Delete the {@linkplain CartItem cartItem} object from the cart of the {@linkplain User user} with the provided email, if it exists
+     * 
+     * @param email The email of the {@link User user} to update
+     * @param cartItem The cart item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping("/{email}/cart")
+    public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+        LOG.info("DELETE /users/" + email + "/cart/" + cartItem.getItemId());
+
+        try {
+            User user = userDAO.getUser(email);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<CartItem> userCart = user.getCart();
+
+            if (userCart.contains(cartItem))
+                userCart.remove(cartItem);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
+            User updatedUser = userDAO.updateUser(newUser);
+
+            if (updatedUser != null)
+                return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
      * Respond to the GET request for the purchases of the {@linkplain User user}
      * 
-     * @param id The id of the {@link User user}
+     * @param email The email of the {@link User user}
      * @return ResponseEntity with array of {@link OrderItem purchasedItem} objects (may be empty) and HTTP status of OK
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/{id}/purchases")
-    public ResponseEntity<Order[]> getUserOrders(@PathVariable int id) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
-        LOG.info("GET /users/" + id + "/purchases");
+    @GetMapping("/{email}/purchases")
+    public ResponseEntity<Order[]> getUserOrders(@PathVariable String email) {
+        LOG.info("GET /users/" + email + "/purchases");
 
         try {
-            User user = userDAO.getUser(id);
+            User user = userDAO.getUser(email);
             if (user == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -368,23 +389,18 @@ public class UserController {
     /**
      * Checkout the cart of the {@linkplain User user} with the provided id and update the user's cart and purchases
      * 
-     * @param id The id of the {@link User user} to checkout cart
+     * @param email The email of the {@link User user} to checkout cart
      * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
      *         ResponseEntity with HTTP status of NOT_FOUND if user not found
      *         ResponseEntity with HTTP status of CONFLICT if cart is empty
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @PostMapping("/{id}/cart/checkout")
-    public ResponseEntity<Order> userCheckout(@PathVariable int id) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
-        LOG.info("POST /users/" + id + "/cart/checkout");
+    @PostMapping("/{email}/cart/checkout")
+    public ResponseEntity<Order> userCheckout(@PathVariable String email) {
+        LOG.info("POST /users/" + email + "/cart/checkout");
 
         try {
-            User user = userDAO.getUser(id);
+            User user = userDAO.getUser(email);
 
             if (user == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

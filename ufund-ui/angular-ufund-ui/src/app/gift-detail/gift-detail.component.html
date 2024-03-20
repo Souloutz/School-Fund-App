@@ -1,0 +1,15 @@
+<div *ngIf="gift">
+  <h1>{{gift.name}} Details</h1>
+  <div class="info-container">
+    <div class="desc-container">
+      <h2>Description: </h2>
+      <span class="description"><p>{{gift.description}}</p></span>
+    </div>
+
+    <div class="price-container">
+      <h2>Price: </h2>
+      <span class="price"><p>{{gift.price}}</p></span>
+    </div>
+  </div>
+  <button type="button" (click)="goBack()">Go Back</button>
+</div>

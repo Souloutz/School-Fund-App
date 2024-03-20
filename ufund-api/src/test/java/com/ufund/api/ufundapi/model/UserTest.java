@@ -113,7 +113,7 @@ public class UserTest {
         User user = new User(id, username, password, email, cart, orders);
 
         List<CartItem> expectedCart = new ArrayList<>();
-        expectedCart.add(new CartItem(1, 100));
+        expectedCart.add(new CartItem(1, "test", 100));
 
         // Invoke
         user.setCart(expectedCart);

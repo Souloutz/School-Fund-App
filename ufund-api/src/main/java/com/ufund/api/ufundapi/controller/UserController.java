@@ -190,6 +190,9 @@ public class UserController {
         LOG.info("PUT /users/" + user.getId());
 
         try {
+            if (userDAO.getUserByEmail(user.getEmail()) != null) // check if there is a user with the email
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
             User updatedUser = userDAO.updateUser(user);
 
             if (updatedUser != null)

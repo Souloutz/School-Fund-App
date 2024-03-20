@@ -86,15 +86,16 @@ export class UserService {
     );
   }
 
-  isEmailTaken(email : string) : Promise<boolean> {
+  isEmailTaken(email: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.getUserByEmail(email).subscribe(
-        (user : User) => {
-          if(user != null)
-          {
+        (user: User) => {
+          if(user != null) {
             resolve(true);
             reject("email taken");
-          } else {
+          } 
+          
+          else {
             resolve(false);
             reject("email not taken");
           }

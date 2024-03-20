@@ -80,8 +80,14 @@ public class UserFileDAO implements UserDAO {
     private User[] getUsersArray(String containsText) { // if containsText == null, no filter
         ArrayList<User> usersArrayList = new ArrayList<>();
 
+        // for (User user : users.values()) {
+        //     if (containsText == null || user.getUsername().contains(containsText)) {
+        //         usersArrayList.add(user);
+        //     }
+        // }
+
         for (User user : users.values()) {
-            if (containsText == null || user.getUsername().contains(containsText)) {
+            if (containsText == null || user.getEmail().contains(containsText)) {
                 usersArrayList.add(user);
             }
         }
@@ -202,6 +208,7 @@ public class UserFileDAO implements UserDAO {
                                     user.getCart(), 
                                     user.getOrders());
             users.put(newUser.getId(), newUser);
+            usersByEmail.put(newUser.getEmail(), newUser);
             save();
             return newUser;
         }
@@ -216,7 +223,14 @@ public class UserFileDAO implements UserDAO {
             if (users.containsKey(user.getId()) == false)
                 return null;
 
+            if (usersByEmail.containsKey(user.getEmail()) == false)
+                return null;
+
+            String previousEmail = users.get(user.getId()).getEmail();
             users.put(user.getId(), user);
+            usersByEmail.remove(previousEmail);
+            usersByEmail.put(user.getEmail(), user);
+
             save();
             return user;
         }
@@ -229,7 +243,9 @@ public class UserFileDAO implements UserDAO {
     public boolean deleteUser(int id) throws IOException {
         synchronized (users) {
             if (users.containsKey(id)) {
+                User user = users.get(id);
                 users.remove(id);
+                usersByEmail.remove(user.getEmail());
                 return save();
             }
 

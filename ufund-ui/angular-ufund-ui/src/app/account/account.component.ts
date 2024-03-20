@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 
-import { UserService } from "../services/user.service";
 import { CurrentUserService } from '../services/current.user.service';
 
 import { User } from '../model/user';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-account',
+  imports: [
+    RouterLink
+  ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })

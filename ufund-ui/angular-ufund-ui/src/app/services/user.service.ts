@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../model/user';
 import { MessageService } from './message.service';
 import { sha512 } from 'sha512-crypt-ts';
+import { Item } from '../model/item';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -42,18 +43,18 @@ export class UserService {
       );
   }
 
-  /** GET user by id. Will 404 if id not found */
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersURL}/${id}`;
-    return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${id}`)),
-      catchError(this.handleError<User>(`getUser id=${id}`))
-    );
-  }
+  // /** GET user by id. Will 404 if id not found */
+  // getUser(id: number): Observable<User> {
+  //   const url = `${this.usersURL}/${id}`;
+  //   return this.http.get<User>(url).pipe(
+  //     tap(_ => this.log(`fetched user id=${id}`)),
+  //     catchError(this.handleError<User>(`getUser id=${id}`))
+  //   );
+  // }
 
   /** GET user by email. Will 404 if id not found */
-  getUserByEmail(email: string): Observable<User> {
-    const url = `${this.usersURL}/email/?email=${email}`;
+  getUser(email: string): Observable<User> {
+    const url = `${this.usersURL}/${email}`;
     return this.http.get<User>(url).pipe(
       tap(_ => this.log(`fetched user email=${email}`)),
       catchError(this.handleError<User>(`getUser email=${email}`))
@@ -88,7 +89,7 @@ export class UserService {
 
   isEmailTaken(email: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      this.getUserByEmail(email).subscribe(
+      this.getUser(email).subscribe(
         (user: User) => {
           if(user != null) {
             resolve(true);
@@ -103,6 +104,14 @@ export class UserService {
       })
   }
 
+  /** PUT: update the user on the server */
+  updateUser(user: User): Observable<any> {
+    return this.http.put(this.usersURL, user, this.httpOptions).pipe(
+      tap(_ => this.log(`updated user id=${user.id}`)),
+      catchError(this.handleError<any>('updateUser'))
+    );
+  }
+
   /** DELETE: delete the user from the server */
   deleteUser(id: number): Observable<User> {
     const url = `${this.usersURL}/${id}`;
@@ -113,11 +122,35 @@ export class UserService {
     );
   }
 
-  /** PUT: update the user on the server */
-  updateUser(user: User): Observable<any> {
-    return this.http.put(this.usersURL, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated user id=${user.id}`)),
-      catchError(this.handleError<any>('updateUser'))
+  /**
+   * POST: add the specified item to the user's cart
+   * @param userEmail email for the user
+   * @param item item to be added
+   * @returns observable user object that was given by server
+   */
+  addItemToCart(userEmail: string, item: Item): Observable<User> {
+    console.log("Item put id: ", item.id);
+    console.log(`${this.usersURL}/${userEmail}/cart/`, item);
+
+    return this.http.put<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
+      tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
+      catchError(this.handleError<User>('addItem'))
+    );
+  }
+
+  /**
+   * DELTE: remove the specified item from the user's cart
+   * @param userEmail email for the user
+   * @param item item to be removed
+   * @returns observable user object given by server
+   */
+  removeItemFromCart(userEmail: string, item: Item): Observable<User> {
+    console.log("Item post id: ", item.id);
+    console.log(`${this.usersURL}/${userEmail}/cart/`, item);
+
+    return this.http.post<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
+      tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
+      catchError(this.handleError<User>('addItem'))
     );
   }
 

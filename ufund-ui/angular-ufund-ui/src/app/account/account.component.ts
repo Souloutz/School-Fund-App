@@ -26,14 +26,6 @@ export class AccountComponent {
      * Log out a user
      */
     logOut(): void {
-      try {
-        this.currentUserService.clearCurrentUser();
-        this.currentUser = this.currentUserService.getCurrentUser();
-        console.log("User logged out");
-        this.router.navigate(['']);
-      } 
-      catch (error) {
-        console.log("Error logging out: ", error);
-      }
+      this.currentUserService.logOut();
     }
 }

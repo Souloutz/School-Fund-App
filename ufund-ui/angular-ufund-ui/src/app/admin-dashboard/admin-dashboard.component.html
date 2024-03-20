@@ -33,10 +33,10 @@
     <ul class="gifts">
         <li *ngFor ="let gift of gifts" class="item">
             <div class="gift">
-                <div class="name">{{ gift.name }}</div> 
+                <div class="name"><h2>{{ gift.name }}</h2><span>{{gift.price}}</span></div> 
                 <div class="description">{{ gift.description }}</div>
+                <button (click)="deleteGift(gift)">Delete Gift</button>
             </div>
-            <button (click)="deleteGift(gift)">Delete Gift</button>
         </li>
     </ul>
     </div>

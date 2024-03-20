@@ -136,7 +136,7 @@ public class UserController {
         LOG.info("POST /users/" + user.getId());
 
         try {
-            if (userDAO.getUserByEmail(user.getEmail()) != null) // check if there is a user with the email
+            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
 
             User newUser = userDAO.createUser(user);
@@ -165,7 +165,7 @@ public class UserController {
         LOG.info("PUT /users/" + user.getId());
 
         try {
-            if (userDAO.getUserByEmail(user.getEmail()) != null) // check if there is a user with the email
+            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
 
             User updatedUser = userDAO.updateUser(user);
@@ -250,7 +250,7 @@ public class UserController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("/{email}/cart")
-    public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+    public ResponseEntity<User> addItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
         /*
          * TODO
          * Does not work for admin as admin does not have a cart/purchases
@@ -266,10 +266,12 @@ public class UserController {
             List<CartItem> userCart = user.getCart();
 
             if (userCart.contains(cartItem)) {
-                userCart.remove(cartItem);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
+
+                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
             }
+            else
+                userCart.add(cartItem);
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
             User updatedUser = userDAO.updateUser(newUser);
@@ -284,9 +286,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    
-
 
     /**
      * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
@@ -320,6 +319,50 @@ public class UserController {
             } else {
                 userCart.add(cartItem);
             }
+
+            User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
+            User updatedUser = userDAO.updateUser(newUser);
+
+            if (updatedUser != null)
+                return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
+     * 
+     * @param email The email of the {@link User user} to update
+     * @param cartItem The cart item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping("/{email}/cart")
+    public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+        /*
+         * TODO
+         * Does not work for admin as admin does not have a cart/purchases
+         */
+        
+        LOG.info("DELETE /users/" + email + "/cart/" + cartItem.getItemId());
+
+        try {
+            User user = userDAO.getUser(email);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<CartItem> userCart = user.getCart();
+
+            if (userCart.contains(cartItem))
+                userCart.remove(cartItem);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
             User updatedUser = userDAO.updateUser(newUser);

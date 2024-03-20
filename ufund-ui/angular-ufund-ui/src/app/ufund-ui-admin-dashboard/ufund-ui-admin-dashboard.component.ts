@@ -6,5 +6,24 @@ import { Component } from '@angular/core';
   styleUrl: './ufund-ui-admin-dashboard.component.css'
 })
 export class UfundUiAdminDashboardComponent {
+  objects = [
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"},
+    {name: "ITEM", description: "Replace these items with the acutal list once thats made"}
+  ]; 
 
+  selected(object: any){
+    console.log('Item clicked:', object);
+  } 
 }
+
+

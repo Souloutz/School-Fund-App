@@ -1,5 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
 
-<nav>
-    <a routerLink="../account">Account</a>
-</nav>
-<p>ufund-ui-admin-dashboard works!</p>
+    <nav>
+        <a routerLink="../account">Account</a>
+    </nav>
+    <h1>Admin</h1>
+    <p>ufund-ui-admin-dashboard works!</p>
+    
+    
+    <body>
+        <div class=box, style="margin:0 auto; text-align: center;">
+            <p>TODO</p>
+            <p>Add a delete fucntino from user component to admin component</p>
+            <p>All the gifts that exist</p>
+            <p>A function to select items</p>
+        </div>
+    </body>
+
+    <div class="list">
+    <ul class="gifts">
+        <li *ngFor ="let object of objects" class="item">
+            <button class="button" (click)="selected(object)">
+                <div class="name">{{ object.name }}</div> 
+                <div class="description">{{ object.description }}</div>
+            </button>
+        </li>
+    </ul>
+    </div>
+</body>
+</html>

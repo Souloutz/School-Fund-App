@@ -47,6 +47,14 @@ export class CurrentUserService {
   }
 
   /**
+   * Get the base user
+   * @returns base user 
+   */
+  getBaseUser(): User {
+    return this.baseUser;
+  }
+
+  /**
    * Check if a user is logged in
    * @returns true if a user is logged in
    *          false if not

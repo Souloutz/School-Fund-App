@@ -24,12 +24,23 @@ export class CartComponent {
                private giftService: GiftService,
                private userService: UserService) {}
 
+  cart: Item[] = [];
+  currentUser: User = this.currentUserService.getBaseUser();
+
   gifts = this.giftService.getGifts();
 
-  currentUser = this.currentUserService.getCurrentUser();
-  cart = this.currentUser.cart;
+  ngOnInit(): void {
+    this.currentUser = this.currentUserService.getCurrentUser();
+    this.getCartItems();
+  }
 
-  removeItem(item : Item) {
+  getCartItems() {
+    this.cart = this.currentUser.cart;
+  }
+
+  removeItem(item: Item) {
+    this.cart = this.cart.filter(i=> i !== item);
+
     this.userService.removeItemFromCart(this.currentUser.email, item)
       .subscribe((user: User) => {
         this.currentUserService.setCurrentUser(user);

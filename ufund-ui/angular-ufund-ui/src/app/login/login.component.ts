@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { User } from '../model/user';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
 
 import { sha512 } from 'sha512-crypt-ts';
 
@@ -24,7 +25,8 @@ export class LoginComponent {
   constructor(
     private currentUserService: CurrentUserService,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private location: Location) { }
 
   userInfo: User = this.currentUserService.getCurrentUser();
   
@@ -91,6 +93,13 @@ export class LoginComponent {
   isAdmin(user: User): boolean {
     // TODO - update getting of admin email through REST API call instead
     return (user.email == 'admin@google.com');
+  }
+
+  /**
+   * Change view to user's previous route
+   */
+  goBack(): void {
+    this.location.back();
   }
 }
 

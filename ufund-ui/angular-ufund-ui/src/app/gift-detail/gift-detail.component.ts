@@ -35,6 +35,9 @@ export class GiftDetailComponent implements OnInit {
       .subscribe(gift => this.gift = gift);
   }
 
+  /**
+   * Change view to user's previous route
+   */
   goBack(): void {
     this.location.back();
   }

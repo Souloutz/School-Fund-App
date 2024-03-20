@@ -35,10 +35,10 @@ export class GiftsComponent implements OnInit {
   }
 
   /**
-   * Adds the selected gift to the cart
+   * Add the selected gift to the cart
    * @param gift 
    */
-  addToCart(gift : Gift): void {
+  addToCart(gift: Gift): void {
     if(this.currUserService.isUserLoggedIn()) {
       console.log("Gift info: ", gift);
 

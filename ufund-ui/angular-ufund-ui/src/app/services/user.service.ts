@@ -132,14 +132,14 @@ export class UserService {
     console.log("Item put id: ", item.id);
     console.log(`${this.usersURL}/${userEmail}/cart/`, item);
 
-    return this.http.put<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
+    return this.http.post<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
       tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
       catchError(this.handleError<User>('addItem'))
     );
   }
 
   /**
-   * DELTE: remove the specified item from the user's cart
+   * DELETE: remove the specified item from the user's cart
    * @param userEmail email for the user
    * @param item item to be removed
    * @returns observable user object given by server
@@ -148,7 +148,7 @@ export class UserService {
     console.log("Item post id: ", item.id);
     console.log(`${this.usersURL}/${userEmail}/cart/`, item);
 
-    return this.http.post<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
+    return this.http.put<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
       tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
       catchError(this.handleError<User>('addItem'))
     );

@@ -278,48 +278,6 @@ public class UserController {
     }
 
     /**
-     * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
-     * 
-     * @param email The email of the {@link User user} to update
-     * @param cartItem The cart item to update for the {@link User user}
-     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
-     *         ResponseEntity with HTTP status of NOT_FOUND if not found
-     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     */
-    @PutMapping("/{email}/cart")
-    public ResponseEntity<User> updateItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
-        LOG.info("PUT /users/" + email + "/cart/" + cartItem.getItemId());
-
-        try {
-            User user = userDAO.getUser(email);
-            if (user == null)
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-            List<CartItem> userCart = user.getCart();
-
-            if (userCart.contains(cartItem)) {
-                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
-
-                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
-            } else {
-                userCart.add(cartItem);
-            }
-
-            User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
-            User updatedUser = userDAO.updateUser(newUser);
-
-            if (updatedUser != null)
-                return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
-            else 
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        catch (IOException ioe) {
-            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * Delete the {@linkplain CartItem cartItem} object from the cart of the {@linkplain User user} with the provided email, if it exists
      * 
      * @param email The email of the {@link User user} to update
@@ -328,7 +286,7 @@ public class UserController {
      *         ResponseEntity with HTTP status of NOT_FOUND if not found
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{email}/cart")
+    @PutMapping("/{email}/cart")
     public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
         LOG.info("DELETE /users/" + email + "/cart/" + cartItem.getItemId());
 

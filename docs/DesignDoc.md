@@ -24,12 +24,17 @@ Our project is U-Fund School Supplies. Many students are in need of school suppl
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
 
+Our project is Ufund: School Supplies. Many students are in need of school supplies. With our website, you can pick any supply and fund them for students. It will show you what supplies are needed, the cost, and a description of each one. With our website, you can help students who may not be able to afford these supplies. 
+
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
-| SPA | Single Page |
+| Gift | the item or supply to the funded |
+| Helpers | the uesrs who have an account and can purchase items for students |
+| Admin | a person who can edit the items in the cupboard |
+| Cupboard | where all the items to be funded are stored. Everything in the cupboard is able to be funded by Helpers |
 
 
 ## Requirements
@@ -50,6 +55,8 @@ Admins can edit the needs in the cupboard, edit amount, add/remove items, etc.
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
 
+Users should be able to login and logout, view all of the needs, search for needs, add needs to cart, and logout and have the items in the cart save.
+
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
 
@@ -67,6 +74,7 @@ This section describes the application domain.
 > can discuss the more important domain entities and their relationship
 > to each other._
 
+The domain for Ufund School supplies includes the users and the cupboard. Users include both the admin and the helper. Both of these have different tasks. The admin can add, edit, or remove needs, while the helper can add/remove needs to the cart and purchase needs. The cupboard contains the list of needs. Needs themselves have a cost, description, and quantity needed. All the needs in the cupboard are presented to the user. 
 
 ## Architecture and Design
 
@@ -76,7 +84,6 @@ This section describes the application architecture.
 
 The following Tiers/Layers model shows a high-level view of the webapp's architecture. 
 **NOTE**: detailed diagrams are required in later sections of this document.
-> _**[Sprint 1]** (Augment this diagram with your **own** rendition and representations of sample system classes, placing them into the appropriate M/V/VM (orange rectangle) tier section. Focus on what is currently required to support **Sprint 1 - Demo requirements**. Make sure to describe your design choices in the corresponding _**Tier Section**_ and also in the _**OO Design Principles**_ section below.)_
 
 ![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
@@ -193,3 +200,4 @@ Video demo was created, tested componets manually.
 
 2024-2-09 Sprint 1: Team decided School Supplies U-Fund idea and created sprint 1 plan.
 2024-2-20 Sprint 1: Team decided on using Gift for the needs.
+2024-3-20 Spring 2: Team decided to store password as a SHA512 hash instead of plaintext for better security.

@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { Gift } from '../model/gift';
 import { GiftService } from '../services/gift.service';
-
+import { CurrentUserService } from '../services/current.user.service';
 @Component({
   standalone: true,
   selector: 'app-admin-dashboard',
@@ -16,7 +16,8 @@ import { GiftService } from '../services/gift.service';
 })
 export class AdminDashboardComponent {
 
-  constructor(private giftService : GiftService) {}
+  constructor(private giftService : GiftService,
+              private currUserService : CurrentUserService) {}
 
   gifts : Gift[] = [];
 
@@ -57,5 +58,10 @@ export class AdminDashboardComponent {
   deleteGift(gift : Gift) {
     this.gifts = this.gifts.filter(g => g!== gift);
     this.giftService.deleteGift(gift.id).subscribe();
+  }
+
+
+  logOut() : void {
+    this.currUserService.logOut();
   }
 }

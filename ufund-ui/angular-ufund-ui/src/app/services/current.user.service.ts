@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 /**
  * As services are singleton and only one of it is instantiated
@@ -10,6 +11,8 @@ import { BehaviorSubject } from 'rxjs';
  */
 @Injectable({ providedIn: 'root' })
 export class CurrentUserService {
+
+  constructor(private router : Router) {}
   
   private baseUser: User = {
     //the base user that will be changed eventually so it can be used in the html component
@@ -61,5 +64,10 @@ export class CurrentUserService {
    */
   isUserLoggedIn() : boolean {
     return this.currentUser.getValue().id != -1;
+  }
+
+  logOut() : void {
+    this.clearCurrentUser();
+    this.router.navigate(['']);
   }
 }

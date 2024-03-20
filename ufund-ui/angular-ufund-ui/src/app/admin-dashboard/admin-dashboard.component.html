@@ -6,25 +6,44 @@
         <a routerLink="../account">Account</a>
     </nav>
     <h1>Admin</h1>
-    <p>ufund-ui-admin-dashboard works!</p>
     
-    
-    <body>
         <div class=box, style="margin:0 auto; text-align: center;">
             <p>TODO</p>
             <p>Add a delete function from user component to admin component</p>
             <p>All the gifts that exist</p>
             <p>A function to select items</p>
         </div>
-    </body>
+    
+    <div class="input-container">
+        <div class="input-item">
+            <label for="gift-name">Name</label>
+            <input name="gift-name" id="gift-name" #giftName />
+        </div>
+
+        <div class="input-item">
+        <label for="gift-desc">Description</label>
+        <input type="text" name="gift-desc" id="gift-desc" #giftDesc />
+        </div>
+
+        <div class="input-item">
+        <label for="gift-price">Price</label>
+        <input type="number" step="0.01" name="gift-price" id="gift-price" #giftPrice />
+        </div>
+
+        <button (click)="addGift(giftName.value, giftDesc.value, giftPrice.value);
+                      giftName.value='';
+                      giftDesc.value='';
+                      giftPrice.value=''">Add Gift</button>
+    </div>
 
     <div class="list">
     <ul class="gifts">
-        <li *ngFor ="let object of objects" class="item">
-            <button class="button" (click)="selected(object)">
-                <div class="name">{{ object.name }}</div> 
-                <div class="description">{{ object.description }}</div>
-            </button>
+        <li *ngFor ="let gift of gifts" class="item">
+            <div class="gift">
+                <div class="name">{{ gift.name }}</div> 
+                <div class="description">{{ gift.description }}</div>
+            </div>
+            <button (click)="deleteGift(gift)">Delete Gift</button>
         </li>
     </ul>
     </div>

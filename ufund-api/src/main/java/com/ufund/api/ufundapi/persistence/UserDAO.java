@@ -14,9 +14,19 @@ import com.ufund.api.ufundapi.model.User;
  */
 public interface UserDAO {
     /**
-     * Retrieve a {@linkplain User users} with the given id
+     * Retrieve a {@linkplain User user} with the given id
      * 
-     * @param email The id of the {@link User user} to get
+     * @param id The id of the {@link User user} to get
+     * @return a {@link User user} object with the matching id
+     *         null if no {@link User user} with a matching id is found
+     * @throws IOException if an issue with underlying storage
+     */
+    User getUser(int id) throws IOException;
+
+    /**
+     * Retrieve a {@linkplain User user} with the given email
+     * 
+     * @param id The email of the {@link User user} to get
      * @return a {@link User user} object with the matching email
      *         null if no {@link User user} with a matching email is found
      * @throws IOException if an issue with underlying storage

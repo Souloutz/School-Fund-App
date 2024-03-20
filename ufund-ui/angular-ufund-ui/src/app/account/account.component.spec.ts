@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UfundUiHomeComponent } from './ufund-ui-home.component';
+import { AccountComponent } from './account.component';
 
-describe('UfundUiHomeComponent', () => {
-  let component: UfundUiHomeComponent;
-  let fixture: ComponentFixture<UfundUiHomeComponent>;
+describe('AccountComponent', () => {
+  let component: AccountComponent;
+  let fixture: ComponentFixture<AccountComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UfundUiHomeComponent]
+      declarations: [AccountComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UfundUiHomeComponent);
+    fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

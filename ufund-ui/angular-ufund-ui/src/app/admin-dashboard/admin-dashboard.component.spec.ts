@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UfundUiCartComponent } from './ufund-ui-cart.component';
+import { AdminDashboardComponent } from './admin-dashboard.component';
 
-describe('UfundUiCartComponent', () => {
-  let component: UfundUiCartComponent;
-  let fixture: ComponentFixture<UfundUiCartComponent>;
+describe('AdminDashboardComponent', () => {
+  let component: AdminDashboardComponent;
+  let fixture: ComponentFixture<AdminDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UfundUiCartComponent]
+      declarations: [AdminDashboardComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UfundUiCartComponent);
+    fixture = TestBed.createComponent(AdminDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

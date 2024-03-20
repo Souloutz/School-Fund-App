@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UfundUiLoginComponent } from './ufund-ui-login.component';
+import { NavbarComponent } from './navbar.component';
 
-describe('UfundUiLoginComponent', () => {
-  let component: UfundUiLoginComponent;
-  let fixture: ComponentFixture<UfundUiLoginComponent>;
+describe('NavbarComponent', () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UfundUiLoginComponent]
+      declarations: [NavbarComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UfundUiLoginComponent);
+    fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

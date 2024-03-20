@@ -79,8 +79,14 @@ public class UserFileDAO implements UserDAO {
     private User[] getUsersArray(String containsText) { // if containsText == null, no filter
         ArrayList<User> usersArrayList = new ArrayList<>();
 
+        // for (User user : users.values()) {
+        //     if (containsText == null || user.getUsername().contains(containsText)) {
+        //         usersArrayList.add(user);
+        //     }
+        // }
+
         for (User user : users.values()) {
-            if (containsText == null || user.getUsername().contains(containsText)) {
+            if (containsText == null || user.getEmail().contains(containsText)) {
                 usersArrayList.add(user);
             }
         }
@@ -148,6 +154,20 @@ public class UserFileDAO implements UserDAO {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User getUserByEmail(String email) throws IOException {
+        synchronized (users) {
+            if (usersByEmail.containsKey(email))
+                return usersByEmail.get(email);
+
+            return null;
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -180,7 +200,8 @@ public class UserFileDAO implements UserDAO {
                                     user.getEmail(), 
                                     user.getCart(), 
                                     user.getOrders());
-            users.put(newUser.getEmail(), newUser);
+            users.put(newUser.getId(), newUser);
+            usersByEmail.put(newUser.getEmail(), newUser);
             save();
             return newUser;
         }
@@ -195,7 +216,14 @@ public class UserFileDAO implements UserDAO {
             if (users.containsKey(user.getEmail()) == false)
                 return null;
 
-            users.put(user.getEmail(), user);
+            if (usersByEmail.containsKey(user.getEmail()) == false)
+                return null;
+
+            String previousEmail = users.get(user.getId()).getEmail();
+            users.put(user.getId(), user);
+            usersByEmail.remove(previousEmail);
+            usersByEmail.put(user.getEmail(), user);
+
             save();
             return user;
         }
@@ -207,8 +235,10 @@ public class UserFileDAO implements UserDAO {
     @Override
     public boolean deleteUser(String email) throws IOException {
         synchronized (users) {
-            if (users.containsKey(email)) {
-                users.remove(email);
+            if (users.containsKey(id)) {
+                User user = users.get(id);
+                users.remove(id);
+                usersByEmail.remove(user.getEmail());
                 return save();
             }
 

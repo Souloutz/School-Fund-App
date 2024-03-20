@@ -136,10 +136,9 @@ public class UserController {
         LOG.info("POST /users/" + user.getId());
 
         try {
-            if(userDAO.getUser(user.getEmail()) != null){//if there is a user with the email
+            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
-                //returns conflict if there is the email in use.
-            }
+
             User newUser = userDAO.createUser(user);
 
             if (newUser != null)
@@ -166,6 +165,9 @@ public class UserController {
         LOG.info("PUT /users/" + user.getId());
 
         try {
+            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+
             User updatedUser = userDAO.updateUser(user);
 
             if (updatedUser != null)
@@ -215,11 +217,6 @@ public class UserController {
      */
     @GetMapping("/{email}/cart")
     public ResponseEntity<CartItem[]> getUserCart(@PathVariable String email) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("GET /users/" + email + "/cart");
 
         try {
@@ -239,7 +236,7 @@ public class UserController {
     }
 
     /**
-     * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
+     * Add a {@linkplain CartItem cartItem} object into the cart of the {@linkplain User user} with the provided email, if it exists
      * 
      * @param email The email of the {@link User user} to update
      * @param cartItem The cart item to update for the {@link User user}
@@ -248,12 +245,7 @@ public class UserController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("/{email}/cart")
-    public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
+    public ResponseEntity<User> addItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
         LOG.info("POST /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
@@ -264,10 +256,12 @@ public class UserController {
             List<CartItem> userCart = user.getCart();
 
             if (userCart.contains(cartItem)) {
-                userCart.remove(cartItem);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                int initialAmount = userCart.get(userCart.indexOf(cartItem)).getItemAmount();
+
+                userCart.get(userCart.indexOf(cartItem)).setItemAmount(initialAmount + cartItem.getItemAmount());
             }
+            else
+                userCart.add(cartItem);
 
             User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
             User updatedUser = userDAO.updateUser(newUser);
@@ -283,9 +277,6 @@ public class UserController {
         }
     }
 
-    
-
-
     /**
      * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
      * 
@@ -297,11 +288,6 @@ public class UserController {
      */
     @PutMapping("/{email}/cart")
     public ResponseEntity<User> updateItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("PUT /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
@@ -334,6 +320,45 @@ public class UserController {
     }
 
     /**
+     * Delete the {@linkplain CartItem cartItem} object from the cart of the {@linkplain User user} with the provided email, if it exists
+     * 
+     * @param email The email of the {@link User user} to update
+     * @param cartItem The cart item to update for the {@link User user}
+     * @return ResponseEntity with updated {@link User user} object and HTTP status of OK if updated
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping("/{email}/cart")
+    public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
+        LOG.info("DELETE /users/" + email + "/cart/" + cartItem.getItemId());
+
+        try {
+            User user = userDAO.getUser(email);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            List<CartItem> userCart = user.getCart();
+
+            if (userCart.contains(cartItem))
+                userCart.remove(cartItem);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            User newUser = new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(), userCart, user.getOrders());
+            User updatedUser = userDAO.updateUser(newUser);
+
+            if (updatedUser != null)
+                return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+            else 
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Respond to the GET request for the purchases of the {@linkplain User user}
      * 
      * @param email The email of the {@link User user}
@@ -343,11 +368,6 @@ public class UserController {
      */
     @GetMapping("/{email}/purchases")
     public ResponseEntity<Order[]> getUserOrders(@PathVariable String email) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("GET /users/" + email + "/purchases");
 
         try {
@@ -377,11 +397,6 @@ public class UserController {
      */
     @PostMapping("/{email}/cart/checkout")
     public ResponseEntity<Order> userCheckout(@PathVariable String email) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("POST /users/" + email + "/cart/checkout");
 
         try {

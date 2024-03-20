@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Gift } from '../model/gift';
-import { GiftService } from '../gift.service';
-import { UserService } from '../user.service';
-import { CurrentUserService } from '../current.user.service';
-import { Router } from '@angular/router';
+import { GiftService } from '../services/gift.service';
+import { UserService } from '../services/user.service';
+import { CurrentUserService } from '../services/current.user.service';
+import { Router, RouterLink } from '@angular/router';
+import { User } from '../model/user';
+import { NgFor } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-gifts',
+  imports: [
+    NgFor, RouterLink
+  ],
   templateUrl: './gifts.component.html',
   styleUrls: ['./gifts.component.css']
 })
@@ -29,22 +35,22 @@ export class GiftsComponent implements OnInit {
   }
 
   /**
-   * Adds the selected gift to the cart
+   * Add the selected gift to the cart
    * @param gift 
    */
-  addToCart(gift : Gift) {
+  addToCart(gift: Gift): void {
     if(this.currUserService.isUserLoggedIn()) {
       console.log("Gift info: ", gift);
 
       this.userService.addItemToCart(this.currUserService.getCurrentUser().email,
-                                     this.giftService.createItemFromGiftId(gift.id, 1, gift.name)).subscribe(
-                                        user => {this.currUserService.setCurrentUser(user);
+                                     this.giftService.createItemFromGiftId(gift.id, gift.name, 1)).subscribe(
+                                        (user: User) => {this.currUserService.setCurrentUser(user);
                                                  console.log('Success!', user.id)});
       
       console.log(this.currUserService.getCurrentUser().cart.length);
-    } else {
+    } 
+    
+    else 
       this.router.navigate(['/login']);
-    }
-
   }
 }

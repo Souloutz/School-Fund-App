@@ -21,7 +21,7 @@ public class CartItemTest {
         String expectedItemName = "name";
 
         // Invoke
-        CartItem cartItem = new CartItem(expectedId, expectedItemAmount, expectedItemName);
+        CartItem cartItem = new CartItem(expectedId, expectedItemName, expectedItemAmount);
 
         // Analyze
         assertNotEquals(cartItem, null);
@@ -37,7 +37,7 @@ public class CartItemTest {
         int itemAmount = 100;
         String itemName = "name";
 
-        CartItem cartItem = new CartItem(id, itemAmount, itemName);
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedId = 2;
 
@@ -55,7 +55,7 @@ public class CartItemTest {
         int itemAmount = 100;
         String itemName = "name";
 
-        CartItem cartItem = new CartItem(id, itemAmount, itemName);
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedItemAmount = 250;
 
@@ -73,7 +73,7 @@ public class CartItemTest {
         int itemAmount = 100;
         String itemName = "name";
 
-        CartItem cartItem = new CartItem(id, itemAmount, itemName);
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         String expectedItemName = "name changed";
 
@@ -91,7 +91,7 @@ public class CartItemTest {
         int itemAmount = 100;
         String itemName = "name";
 
-        CartItem cartItem = new CartItem(id, itemAmount, itemName);
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int newItemAmount = -10;
         int expectedItemAmount = 0;
@@ -110,7 +110,7 @@ public class CartItemTest {
         int itemAmount = 100;
         String itemName = "name";
 
-        CartItem cartItem = new CartItem(id, itemAmount, itemName);
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedItemAmount = 101;
 
@@ -128,7 +128,7 @@ public class CartItemTest {
         int itemAmount = 100;
         String itemName = "name";
 
-        CartItem cartItem = new CartItem(id, itemAmount, itemName);
+        CartItem cartItem = new CartItem(id, itemName, itemAmount);
 
         int expectedItemAmount = 99;
 

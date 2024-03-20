@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { UfundUiLoginComponent } from './ufund-ui-login/ufund-ui-login.component';
-import { UfundUiAccountComponent } from './ufund-ui-account/ufund-ui-account.component';
-import { UfundUiHomeComponent } from './ufund-ui-home/ufund-ui-home.component';
-import { UfundUiSignUpComponent } from './ufund-ui-signup/ufund-ui-signup.component';
-import { UfundUiCartComponent } from './ufund-ui-cart/ufund-ui-cart.component';
-import { UfundUiAdminDashboardComponent } from './ufund-ui-admin-dashboard/ufund-ui-admin-dashboard.component';
-import { GiftDetailComponent } from './ufund-ui-detail/ufund-ui-detail.component';
+import { LoginComponent } from './login/login.component';
+import { AccountComponent } from './account/account.component';
+import { HomeComponent } from './home/home.component';
+import { SignUpComponent } from './signup/signup.component';
+import { CartComponent } from './cart/cart.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { GiftDetailComponent } from './gift-detail/gift-detail.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home',pathMatch: 'full'},
-    { path: 'home', component: UfundUiHomeComponent},
-    { path: 'login',component: UfundUiLoginComponent},
-    { path: 'account', component: UfundUiAccountComponent},
-    { path: 'signup', component:UfundUiSignUpComponent},
-    { path: 'cart', component:UfundUiCartComponent},
-    { path: 'admin-dashboard', component: UfundUiAdminDashboardComponent},
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
+    { path: 'home', component: HomeComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'account', component: AccountComponent},
+    { path: 'signup', component: SignUpComponent},
+    { path: 'cart', component: CartComponent},
+    { path: 'admin-dashboard', component: AdminDashboardComponent},
     { path: 'detail/:id', component: GiftDetailComponent }
 ];
 

@@ -1,8 +1,7 @@
-
-
 export interface Item {
 
-    id: number,
-    amount: number,
+    id: number;
     name: string;
+    amount: number;
+
 }

@@ -29,7 +29,9 @@ public class UserFileDAO implements UserDAO {
     
     private static final Logger LOG = Logger.getLogger(UserFileDAO.class.getName());
 
-    Map<String, User> users;     // Provides a local cache of the user object so that we don't need to read from the file each time
+    // Provides a local cache of the user object so that we don't need to read from the file each time
+    Map<Integer, User> usersID;
+    Map<String, User> usersEmail;
 
     private ObjectMapper objectMapper;  // Provides conversion between User objects and JSON text format written to the file
     private static int nextId;  // The next Id to assign to a new user
@@ -79,8 +81,8 @@ public class UserFileDAO implements UserDAO {
     private User[] getUsersArray(String containsText) { // if containsText == null, no filter
         ArrayList<User> usersArrayList = new ArrayList<>();
 
-        for (User user : users.values()) {
-            if (containsText == null || user.getUsername().contains(containsText)) {
+        for (User user : usersEmail.values()) {
+            if (containsText == null || user.getEmail().contains(containsText)) {
                 usersArrayList.add(user);
             }
         }
@@ -115,7 +117,8 @@ public class UserFileDAO implements UserDAO {
      * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException {
-        users = new TreeMap<>();
+        usersID = new TreeMap<>();
+        usersEmail = new TreeMap<>();
         nextId = 0;
 
         // Deserializes the JSON objects from the file into an array of users
@@ -125,9 +128,14 @@ public class UserFileDAO implements UserDAO {
 
         // Add each user to the tree map and keep track of the greatest id
         for (User user : usersArray) {
-            users.put(user.getEmail(), user);
+            usersID.put(user.getId(), user);
             if (user.getId() > nextId)
                 nextId = user.getId();
+        }
+
+        // Add each user to the tree map by email
+        for (User user : usersArray) {
+            usersEmail.put(user.getEmail(), user);
         }
 
         // Make the next id one greater than the maximum from the file
@@ -139,10 +147,23 @@ public class UserFileDAO implements UserDAO {
      * {@inheritDoc}
      */
     @Override
+    public User getUser(int id) throws IOException {
+        synchronized (usersID) {
+            if (usersID.containsKey(id))
+                return usersID.get(id);
+
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public User getUser(String email) throws IOException {
-        synchronized (users) {
-            if (users.containsKey(email))
-                return users.get(email);
+        synchronized (usersEmail) {
+            if (usersEmail.containsKey(email))
+                return usersEmail.get(email);
 
             return null;
         }
@@ -153,7 +174,7 @@ public class UserFileDAO implements UserDAO {
      */
     @Override
     public User[] getUsers() throws IOException {
-        synchronized (users) {
+        synchronized (usersID) {
             return getUsersArray();
         }
     }
@@ -163,7 +184,7 @@ public class UserFileDAO implements UserDAO {
      */
     @Override
     public User[] findUsers(String containsText) throws IOException {
-        synchronized (users) {
+        synchronized (usersID) {
             return getUsersArray(containsText);
         }
     }
@@ -173,14 +194,16 @@ public class UserFileDAO implements UserDAO {
      */
     @Override
     public User createUser(User user) throws IOException {
-        synchronized (users) {
+        synchronized (usersID) {
             User newUser = new User(nextId(), 
                                     user.getUsername(), 
                                     user.getPassword(), 
                                     user.getEmail(), 
                                     user.getCart(), 
                                     user.getOrders());
-            users.put(newUser.getEmail(), newUser);
+
+            usersID.put(newUser.getId(), newUser);
+            usersEmail.put(newUser.getEmail(), newUser);
             save();
             return newUser;
         }
@@ -191,11 +214,18 @@ public class UserFileDAO implements UserDAO {
      */
     @Override
     public User updateUser(User user) throws IOException {
-        synchronized (users) {
-            if (users.containsKey(user.getEmail()) == false)
+        synchronized (usersID) {
+            if (usersID.containsKey(user.getId()) == false)
                 return null;
 
-            users.put(user.getEmail(), user);
+            if (usersEmail.containsKey(user.getEmail()) == false)
+                return null;
+
+            String previousEmail = usersID.get(user.getId()).getEmail();
+            usersID.put(user.getId(), user);
+            usersEmail.remove(previousEmail);
+            usersEmail.put(user.getEmail(), user);
+
             save();
             return user;
         }
@@ -206,9 +236,12 @@ public class UserFileDAO implements UserDAO {
      */
     @Override
     public boolean deleteUser(String email) throws IOException {
-        synchronized (users) {
-            if (users.containsKey(email)) {
-                users.remove(email);
+        synchronized (usersEmail) {
+            if (usersEmail.containsKey(email)) {
+                User user = usersEmail.get(email);
+
+                usersEmail.remove(email);
+                usersID.remove(user.getId());
                 return save();
             }
 

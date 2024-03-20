@@ -215,6 +215,11 @@ Details page: Failed: A small error where if a user accesses an item that doesn'
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
+**Sprint 2 Code Coverage Report**
+![Tests Report](sprint2tests.png)
+
+We are missing some coverage, especially in the controller and model.
+
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
 

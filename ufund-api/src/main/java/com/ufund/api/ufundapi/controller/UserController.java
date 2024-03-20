@@ -217,11 +217,6 @@ public class UserController {
      */
     @GetMapping("/{email}/cart")
     public ResponseEntity<CartItem[]> getUserCart(@PathVariable String email) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("GET /users/" + email + "/cart");
 
         try {
@@ -241,7 +236,7 @@ public class UserController {
     }
 
     /**
-     * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
+     * Add a {@linkplain CartItem cartItem} object into the cart of the {@linkplain User user} with the provided email, if it exists
      * 
      * @param email The email of the {@link User user} to update
      * @param cartItem The cart item to update for the {@link User user}
@@ -251,11 +246,6 @@ public class UserController {
      */
     @PostMapping("/{email}/cart")
     public ResponseEntity<User> addItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("POST /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
@@ -298,11 +288,6 @@ public class UserController {
      */
     @PutMapping("/{email}/cart")
     public ResponseEntity<User> updateItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("PUT /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
@@ -335,7 +320,7 @@ public class UserController {
     }
 
     /**
-     * Update the cart of the {@linkplain User user} with the provided email and {@linkplain CartItem cartItem} object, if it exists
+     * Delete the {@linkplain CartItem cartItem} object from the cart of the {@linkplain User user} with the provided email, if it exists
      * 
      * @param email The email of the {@link User user} to update
      * @param cartItem The cart item to update for the {@link User user}
@@ -345,11 +330,6 @@ public class UserController {
      */
     @DeleteMapping("/{email}/cart")
     public ResponseEntity<User> removeItemUserCart(@PathVariable String email, @RequestBody CartItem cartItem) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("DELETE /users/" + email + "/cart/" + cartItem.getItemId());
 
         try {
@@ -388,11 +368,6 @@ public class UserController {
      */
     @GetMapping("/{email}/purchases")
     public ResponseEntity<Order[]> getUserOrders(@PathVariable String email) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("GET /users/" + email + "/purchases");
 
         try {
@@ -422,11 +397,6 @@ public class UserController {
      */
     @PostMapping("/{email}/cart/checkout")
     public ResponseEntity<Order> userCheckout(@PathVariable String email) {
-        /*
-         * TODO
-         * Does not work for admin as admin does not have a cart/purchases
-         */
-        
         LOG.info("POST /users/" + email + "/cart/checkout");
 
         try {

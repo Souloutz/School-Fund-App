@@ -9,12 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class CartItem {
     @JsonProperty("id") private int itemId;
-    @JsonProperty("amount") private int itemAmount; // Can not be less than 0
     @JsonProperty("name") private String itemName;
+    @JsonProperty("amount") private int itemAmount; // Can not be less than 0
 
     /**
      * Create a cart item
      * @param itemId The id of the gift
+     * @param itemName The name of the gift
      * @param itemAmount The amount of the gift in the cart
      * 
      * {@literal @}JsonProperty is used in serialization and deserialization
@@ -23,11 +24,11 @@ public class CartItem {
      * value, i.e. 0 for int
      */
     public CartItem(@JsonProperty("id") int itemId,
-                    @JsonProperty("amount") int itemAmount,
-                    @JsonProperty("name") String itemName) {
+                    @JsonProperty("name") String itemName,
+                    @JsonProperty("amount") int itemAmount) {
         this.itemId = itemId;
-        this.itemAmount = itemAmount;
         this.itemName = itemName;
+        this.itemAmount = itemAmount;
     }
 
     /**
@@ -47,11 +48,11 @@ public class CartItem {
     }
 
     /**
-     * retrieve the name of item
-     * @return the item name
+     * Retrieve the name of item
+     * @return The name of the item
      */
     public String getItemName() {
-        return this.itemName;
+        return itemName;
     }
 
     /**
@@ -74,11 +75,11 @@ public class CartItem {
     }
 
     /**
-     * sets the item name
-     * @param name the name to replace the old one with
+     * Set the name of the item
+     * @param itemName The name of the item
      */
-    public void setItemName(String name) {
-        this.itemName = name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     /**
@@ -98,10 +99,18 @@ public class CartItem {
             this.itemAmount = 0;
     }
 
+    /**
+     * Check if another object is the same cart item
+     * @param obj Other object to compare 
+     * @return True if item ids are the same
+     *         False otherwise
+     */
     @Override
-    public boolean equals(Object arg0) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CartItem))
+            return false;  
 
-        CartItem item = (CartItem) arg0;
-        return this.itemId == item.getItemId();
+        CartItem otherItem = (CartItem) obj;
+        return this.itemId == otherItem.getItemId();
     }
 }

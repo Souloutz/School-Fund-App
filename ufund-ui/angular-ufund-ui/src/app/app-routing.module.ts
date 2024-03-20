@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { SignUpComponent } from './signup/signup.component';
 import { CartComponent } from './cart/cart.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { GiftDetailComponent } from './ufund-ui-detail/ufund-ui-detail.component';
+import { GiftDetailComponent } from './gift-detail/gift-detail.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},

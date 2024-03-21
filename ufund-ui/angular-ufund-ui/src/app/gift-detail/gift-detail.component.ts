@@ -38,7 +38,7 @@ export class GiftDetailComponent implements OnInit {
         if (gift) {
           this.gift = gift;
         } else {
-          this.router.navigate(['/404']);
+          this.router.navigate(['/404']); // /404 isn't actually a page, so in turn it goes to a 404 anyway. I guess it works.
         }
       })
   }

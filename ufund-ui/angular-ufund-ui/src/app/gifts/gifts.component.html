@@ -1,6 +1,6 @@
 <h2>Gifts</h2>
 
-<ul class="gifts">
+<ul *ngIf="gifts.length > 0; else noGiftsAvailbile" class="gifts">
   <li *ngFor="let gift of gifts">
     <a routerLink="/detail/{{gift.id}}">
       <span class="badge">{{gift.id}}</span> {{gift.name}}
@@ -8,3 +8,8 @@
     <button (click)="addToCart(gift)">Add to Cart</button>
   </li>
 </ul>
+
+<ng-template #noGiftsAvailbile>
+  <div>There are currently no needs availbile to fund. Good job helpers!</div>
+</ng-template> 
+

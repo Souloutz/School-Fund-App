@@ -6,19 +6,20 @@ import { UserService } from '../services/user.service';
 import { CurrentUserService } from '../services/current.user.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../model/user';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-gifts',
   imports: [
-    NgFor, RouterLink
+    NgFor, RouterLink, CommonModule
   ],
   templateUrl: './gifts.component.html',
   styleUrls: ['./gifts.component.css']
 })
 export class GiftsComponent implements OnInit {
   gifts: Gift[] = [];
+  noGiftsReturned = false; // if no gifts are returned
 
   constructor(private giftService: GiftService,
               private userService : UserService,
@@ -29,10 +30,13 @@ export class GiftsComponent implements OnInit {
     this.getGifts();
   }
 
-  getGifts(): void {
-    this.giftService.getGifts()
-    .subscribe(gifts => this.gifts = gifts);
-  }
+    getGifts(): void {
+      this.giftService.getGifts()
+      .subscribe(gifts => {
+        this.gifts = gifts;
+        this.noGiftsReturned = !gifts || gifts.length === 0;
+      })
+    }
 
   /**
    * Add the selected gift to the cart

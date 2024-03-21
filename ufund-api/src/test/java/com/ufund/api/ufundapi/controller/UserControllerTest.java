@@ -285,7 +285,7 @@ public class UserControllerTest {
 
         // Setup
         String email = "manager@manage.com";
-        CartItem newItem = new CartItem(1, "existing item", 1);
+        CartItem newItem = new CartItem(1, "item", 1);
         List<CartItem> cart = new ArrayList<>();
         
         User user = new User(99, "manager", "manager", email, cart, null);
@@ -349,7 +349,7 @@ public class UserControllerTest {
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-    
+
     @Test
     public void testUserCheckout() throws IOException {
         // Setup
@@ -367,6 +367,28 @@ public class UserControllerTest {
 
         // Invoke
         ResponseEntity<Order> response = userController.userCheckout(email);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    } 
+    @Test
+    public void testRemoveItemUserCart() throws IOException {
+
+        // Setup
+        String email = "manager@manage.com";
+        CartItem item = new CartItem(1, "item", 1);
+        List<CartItem> cart = new ArrayList<>();
+        User user = new User(99, "manager", "manager", email, cart, null);
+        
+        when(mockUserDAO.getUser(email)).thenReturn(user);
+        when(mockUserDAO.updateUser(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // First add an item to the cart
+        userController.addItemUserCart(email, item);
+
+        // Then test removing it
+        // Invoke
+        ResponseEntity<User> response = userController.removeItemUserCart(email, item);
 
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());

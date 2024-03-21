@@ -107,7 +107,7 @@ public class UserFileDAOTest {
     @Test
     public void testCreateUser() throws IOException {
         // Setup
-        User user = new User(102, "COM", "coms1123", null, null, null);
+        User user = new User(102, "COM", "coms1123", "coms@com.com", null, null);
 
         // Invoke
         User result = assertDoesNotThrow(() -> userFileDAO.createUser(user),
@@ -123,7 +123,7 @@ public class UserFileDAOTest {
     @Test
     public void testUpdateUser() throws IOException {
         // Setup
-        User user = new User(99, "Chris", "chris", null, null, null);
+        User user = new User(99, "Chris", "chris", "manager@google", null, null);
 
         // Invoke
         User result = assertDoesNotThrow(() -> userFileDAO.updateUser(user),
@@ -141,7 +141,7 @@ public class UserFileDAOTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class), any(User[].class));
 
-        User user = new User(102, "Dean", "dean", null, null, null);
+        User user = new User(102, "Dean", "dean", "dean@dean.com", null, null);
 
         assertThrows(IOException.class,
                         () -> userFileDAO.createUser(user),

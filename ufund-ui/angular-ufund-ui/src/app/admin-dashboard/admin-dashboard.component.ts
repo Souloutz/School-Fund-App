@@ -5,13 +5,15 @@ import { Gift } from '../model/gift';
 import { GiftService } from '../services/gift.service';
 import { CurrentUserService } from '../services/current.user.service';
 import { Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-admin-dashboard',
   imports: [
     NgFor,
-    RouterLink
+    RouterLink,
+    RouterOutlet
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
@@ -73,5 +75,10 @@ export class AdminDashboardComponent {
 
   logOut() : void {
     this.currUserService.logOut();
+  }
+
+  getDetail(gift : Gift) : void {
+    console.log("clicked on detail");
+    this.router.navigate(['/detail:'+gift.id]);
   }
 }

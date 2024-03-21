@@ -33,12 +33,17 @@
     <ul class="gifts">
         <li *ngFor ="let gift of gifts" class="item">
             <div class="gift">
-                <div class="name"><h2>{{ gift.name }}</h2><span>{{gift.price}}</span></div> 
-                <div class="description">{{ gift.description }}</div>
+                <a routerLink="/detail/{{gift.id}}">
+                    <div class="name"><h2>{{ gift.name }}</h2><span>{{gift.price}}</span></div> 
+                    <div class="description">{{ gift.description }}</div>
+                </a>
+                
                 <button (click)="deleteGift(gift)">Delete Gift</button>
             </div>
         </li>
     </ul>
     </div>
+
+    <router-outlet></router-outlet>
 </body>
 </html>

@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
  * Test the Gift File DAO class
  * 
  * @author Howard Kong
+ * @author Christopher Brooks
  */
 @Tag("Persistence-tier")
 public class GiftFileDAOTest {
@@ -190,5 +191,29 @@ public class GiftFileDAOTest {
         assertThrows(IOException.class,
                         () -> new GiftFileDAO("doesnt_matter.txt", mockObjectMapper),
                         "IOException not thrown");
+    }
+
+    @Test
+    public void testGetSortedGiftsLow() throws IOException{
+        // Setup
+        Gift[] sortedGifts = giftFileDAO.getSortedGifts("lowest");
+
+        // Assert
+        // Should be in this order: Projectors, Tables, Wifi Routers. Based on Priority
+        assertEquals(testGifts[2], sortedGifts[0]);
+        assertEquals(testGifts[1], sortedGifts[1]);
+        assertEquals(testGifts[0], sortedGifts[2]);
+    }
+
+    @Test
+    public void testGetSortedGiftsHigh() throws IOException{
+        // Setup
+        Gift[] sortedGifts = giftFileDAO.getSortedGifts("highest"); // doesn't matter what this is. Only checks if string == 'lowest'
+
+        // Assert
+        // Should be in this order: Wifi Routers, Tables, Projectors. Based on Priority
+        assertEquals(testGifts[0], sortedGifts[0]);
+        assertEquals(testGifts[1], sortedGifts[1]);
+        assertEquals(testGifts[2], sortedGifts[2]);
     }
 }

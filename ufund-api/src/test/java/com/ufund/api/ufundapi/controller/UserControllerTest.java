@@ -393,4 +393,23 @@ public class UserControllerTest {
         // Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+
+    @Test
+    public void testGetUserCart() throws IOException {
+
+        // Setup
+        String email = "manager@manage.com";
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(new CartItem(1, "Laptop", 1));
+        cartItems.add(new CartItem(2, "Pencil", 1));
+
+        User user = new User(1, "manager", "manager", email, cartItems, null);
+        when(mockUserDAO.getUser(email)).thenReturn(user);
+
+        // Invoke
+        ResponseEntity<CartItem[]> response = userController.getUserCart(email);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 }

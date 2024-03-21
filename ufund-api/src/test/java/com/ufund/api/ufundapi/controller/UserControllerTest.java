@@ -1,12 +1,21 @@
 package com.ufund.api.ufundapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.ufund.api.ufundapi.model.CartItem;
 import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.persistence.UserDAO;
 
@@ -267,5 +276,50 @@ public class UserControllerTest {
 
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void addItemUserCartNewItem() throws IOException {
+
+        // Setup
+        String email = "manager@manage.com";
+        CartItem newItem = new CartItem(1, "existing item", 1);
+        List<CartItem> cart = new ArrayList<>();
+        
+        User user = new User(1, "manager", "manager", email, cart, null);
+        when(mockUserDAO.getUser(email)).thenReturn(user);
+        when(mockUserDAO.updateUser(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Invoke
+        ResponseEntity<User> response = userController.addItemUserCart(email, newItem);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void addItemUserCartExistingItem() throws IOException {
+        
+        // Test for adding an existing item in the cart. It should increase the number of that item.
+        // Setup
+        String email = "manager@manage.com";
+        CartItem existingItem = new CartItem(1, "existing item", 5); // 5 items
+        List<CartItem> cart = new ArrayList<>();
+        cart.add(existingItem);
+
+        User user = new User(1, "manager", "manager", email, cart, null);
+        when(mockUserDAO.getUser(email)).thenReturn(user);
+        when(mockUserDAO.updateUser(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        CartItem addItem = new CartItem(1, "existing item", 1);
+
+        // Invoke
+        ResponseEntity<User> response = userController.addItemUserCart(email, addItem);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        User responseBody = response.getBody();
+        CartItem updatedItem = responseBody.getCart().get(0);
+        assertEquals(6, updatedItem.getItemAmount()); // 5 + 1 items added should be 6.
     }
 }

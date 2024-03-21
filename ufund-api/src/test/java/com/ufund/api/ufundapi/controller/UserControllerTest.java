@@ -1,9 +1,7 @@
 package com.ufund.api.ufundapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -12,10 +10,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ufund.api.ufundapi.model.CartItem;
+import com.ufund.api.ufundapi.model.Order;
+import com.ufund.api.ufundapi.model.OrderItem;
 import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.persistence.UserDAO;
 
@@ -29,6 +30,7 @@ import org.springframework.http.ResponseEntity;
  * Test the User Controller class
  * 
  * @author Howard Kong
+ * @author Christopher Brooks
  */
 @Tag("Controller-tier")
 public class UserControllerTest {
@@ -286,7 +288,7 @@ public class UserControllerTest {
         CartItem newItem = new CartItem(1, "existing item", 1);
         List<CartItem> cart = new ArrayList<>();
         
-        User user = new User(1, "manager", "manager", email, cart, null);
+        User user = new User(99, "manager", "manager", email, cart, null);
         when(mockUserDAO.getUser(email)).thenReturn(user);
         when(mockUserDAO.updateUser(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -307,7 +309,7 @@ public class UserControllerTest {
         List<CartItem> cart = new ArrayList<>();
         cart.add(existingItem);
 
-        User user = new User(1, "manager", "manager", email, cart, null);
+        User user = new User(99, "manager", "manager", email, cart, null);
         when(mockUserDAO.getUser(email)).thenReturn(user);
         when(mockUserDAO.updateUser(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -321,5 +323,30 @@ public class UserControllerTest {
         User responseBody = response.getBody();
         CartItem updatedItem = responseBody.getCart().get(0);
         assertEquals(6, updatedItem.getItemAmount()); // 5 + 1 items added should be 6.
+    }
+
+    @Test
+    public void testGetUserOrders() throws IOException {
+        // Setup
+        String email = "manager@manage.com";
+        User user = new User(1, "manager", "manager", email, null, null);
+
+        // Convoluted? Add items to an OrderItem list, create a new Order with those OrderItems, then set that to the user.
+        List<OrderItem> itemsToOrder = new ArrayList<>();
+        itemsToOrder.add(new OrderItem(1, 15));
+        itemsToOrder.add(new OrderItem(2, 15));
+        Order testOrder = new Order(LocalDateTime.now(), itemsToOrder);
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(testOrder);
+
+        user.setOrders(orderList);
+        
+        when(mockUserDAO.getUser(email)).thenReturn(user);
+
+        // Invoke
+        ResponseEntity<Order[]> response = userController.getUserOrders(email);
+
+        // Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

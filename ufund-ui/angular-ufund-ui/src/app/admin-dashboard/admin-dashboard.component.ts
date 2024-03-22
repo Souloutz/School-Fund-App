@@ -7,6 +7,10 @@ import { CurrentUserService } from '../services/current.user.service';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 
+import { GiftEditService } from '../services/gift-edit.service';
+
+import { Subscription } from 'rxjs';
+
 @Component({
   standalone: true,
   selector: 'app-admin-dashboard',
@@ -20,11 +24,16 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AdminDashboardComponent {
 
+  gifts : Gift[] = [];
+
+  giftSubscription : Subscription = new Subscription;
+
   constructor(private giftService : GiftService,
               private currUserService : CurrentUserService,
-              private router : Router) {}
+              private router : Router,
+              private giftEditService : GiftEditService) {}
 
-  gifts : Gift[] = [];
+
 
   ngOnInit() :void {
     this.checkUser();
@@ -46,12 +55,15 @@ export class AdminDashboardComponent {
     this.giftService.getGifts().subscribe((gifts : Gift[]) => this.gifts = gifts);
   }
 
-  addGift(name : string, description : string, passedPrice : string) : void{
+  addGift(name : string, description : string, passedPrice : string, passedAmount: string) : void{
     if(!name){return;}
     if(!description){return;}
     if(!passedPrice){return;}
+    if(!passedAmount){return;}
 
     const price : number = parseFloat(passedPrice);
+
+    const amount_needed : number = parseInt(passedAmount);
 
     console.log("Passed info: ",name,description,price);
 
@@ -60,7 +72,7 @@ export class AdminDashboardComponent {
                                description, 
                                price,
                                priority:0,
-                               amount_needed:0})
+                               amount_needed:amount_needed})
     .subscribe(gift => {
       this.gifts.push(gift);
       console.log(gift);
@@ -79,6 +91,21 @@ export class AdminDashboardComponent {
 
   getDetail(gift : Gift) : void {
     console.log("clicked on detail");
-    this.router.navigate(['/detail:'+gift.id]);
+    this.giftSubscription.unsubscribe();
+    this.giftEditService.setCurrentGift(gift);
+
+    const index = this.gifts.findIndex(element => element.id === gift.id);
+
+    if(index !== -1) {
+      this.giftSubscription = this.giftEditService.currentGift
+      .subscribe(currGift => this.gifts[index] = currGift);
+    }
+
+    this.router.navigate(['admin-dashboard/detail-edit',gift.id]);
+  }
+
+
+  ngOnDestroy() {
+    this.giftSubscription.unsubscribe();
   }
 }

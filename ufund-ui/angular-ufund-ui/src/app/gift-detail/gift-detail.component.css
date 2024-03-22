@@ -26,6 +26,11 @@ form {
     width:90%;
 }
 
+.desc-container
+{
+    overflow:scroll;
+}
+
 .input-field {
     display:flex;
     flex-direction: column;

@@ -1,7 +1,7 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location, NgIf } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Gift } from '../model/gift';
 import { GiftService } from '../services/gift.service';
@@ -9,6 +9,9 @@ import { CurrentUserService } from '../services/current.user.service';
 
 import { FormsModule } from '@angular/forms';
 
+import { Subscription } from 'rxjs';
+
+import { GiftEditService } from '../services/gift-edit.service';
 
 
 @Component({
@@ -21,24 +24,32 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './gift-edit.component.html',
   styleUrls: [ './gift-detail.component.css' ]
 })
-export class GiftDetailComponent implements OnInit {
-  gift: Gift | undefined;
+export class GiftEditComponent implements OnInit {
+
+  gift : Gift = this.giftEditService.getCurrentGift();
+
+  giftId : number = -1;
+
+  paramsSubscription: Subscription = new Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private giftService: GiftService,
     private location: Location,
     private router: Router,
-    private currUserService : CurrentUserService
-  ) {}
+    private currUserService : CurrentUserService,
+    private giftEditService : GiftEditService) {}
 
   ngOnInit(): void {
-    this.getGift();
+    this.paramsSubscription = this.route.params.subscribe(params=> {
+      this.giftId = params['id'];
+      this.getGift(this.giftId);
+    });
     this.checkUser();
   }
 
-  getGift(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
+  getGift(id : number) {
+  
     this.giftService.getGift(id)
       .subscribe(gift => {
         if (gift) {
@@ -60,6 +71,21 @@ export class GiftDetailComponent implements OnInit {
    * Change view to user's previous route
    */
   goBack(): void {
-    this.location.ngOnDestroy();
+    this.router.navigate(['/admin-dashboard']);
+  }
+
+  save(): void {
+    if (this.gift) {
+      this.giftService.updateGift(this.gift)
+        .subscribe(() => {
+          this.giftEditService.setCurrentGift(this.gift);
+          this.goBack();
+          console.log("Updated Gift");
+        });
+    }
+  }
+
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
   }
 }

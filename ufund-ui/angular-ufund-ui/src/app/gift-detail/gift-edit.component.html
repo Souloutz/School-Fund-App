@@ -1,0 +1,45 @@
+<div *ngIf="gift">
+  <h1>{{gift.name}} Details</h1>
+  <div class="info-container">
+
+    <div class="input-container">
+      <label for="gift-name"><h2>Name:</h2></label>
+      <input id="gift-name" [(ngModel)]="gift.name" placeholder="Gift name" />
+    </div>
+
+    <div class="input-container">
+      <label for="gift-desc"><h2>Description: </h2></label>
+      <textarea id="gift-desc" [(ngModel)]="gift.description" placeholder="Gift description"><p>{{gift.description}}</p></textarea>
+    </div>
+
+    <div class="input-container">
+      <label for="gift-price"><h2>Price:</h2></label>
+      <input type="number" 
+             step="0.01"
+             id="gift-price"
+             [(ngModel)]="gift.price" 
+             placeholder="Gift price" />
+    </div>
+
+    <div class="input-container">
+      <label for="gift-priority"><h2>Priority:</h2></label>
+      <input id="gift-priority" 
+             [(ngModel)]="gift.priority" 
+             placeholder="Gift priority" />
+    </div>
+  </div>
+
+    <div class="input-container">
+      <label for="gift-amount"><h2>Amount:</h2></label>
+      <input type="number" 
+             id="gift-amount" 
+             [(ngModel)]="gift.amount_needed" 
+             placeholder="Gift amount" />
+    </div>
+
+  <div class="button-container">
+    <button type="button" (click)="goBack()">Go Back</button>
+    <span class="save"><button type="submit" (click)="save()">Save</button></span>
+  </div>
+  
+</div>

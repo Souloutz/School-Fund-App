@@ -29,7 +29,7 @@ An online U-Fund system built in Java 17=> and Angular 17.1.3
 4. Open another terminal window. cd into ./ufund-ui/angular-ufund-ui/
 5. Execute `ng serve --open`. This will start the Angular frontend.
 6. Open in your browser `http://localhost:4200/home`
-7. You should see the project running succesfully.
+7. You should see the project running successfully.
 
 ## Known bugs and disclaimers
 (It may be the case that your implementation is not perfect.)

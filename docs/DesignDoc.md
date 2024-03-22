@@ -24,7 +24,7 @@ Our project is U-Fund School Supplies. Many students are in need of school suppl
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
 
-Our project is Ufund: School Supplies. Many students are in need of school supplies. With our website, you can pick any supply and fund them for students. It will show you what supplies are needed, the cost, and a description of each one. With our website, you can help students who may not be able to afford these supplies. 
+Many students are in need of school supplies. With our website, you can pick any supply and fund them for students. It will show you what supplies are needed, the cost, and a description of each one. With our website, you can help students who may not be able to afford these supplies. 
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
@@ -129,24 +129,28 @@ When you first enter the application, you are brought to the home page. This pag
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
+
+This tier contains the classes that represent different parts of our application. This is the tier where the logic for these classes are located. The User will interact with the View (or the website UI) which will user the model for its logic, manipulation, and more. The following bullets describe some of the classes in the model tier.
+
 **Gift:** Represents the gift (Need). It has a name, description, price, and the amount needed for funding.
+
 **User:** A U-Fund user. Has a username, password, email, and their cart. Their data will save in the cart.
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
 
-**Sprint 2** 
+**Model Tier classes added during Sprint 2:** 
+
 **Order:** Represents an order. This is a list of OrderItems that a user ordered. It has an ID, date of checkout, and the list of items. These are made per user.
 
 **OrderItem:** This represents and item ordered by user. A list of these are in Order.
 
 **Priority:** This is for a feature enhancement, where we will have a need priority. Just a placeholder for now.
 
-> _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
-> static models (UML class diagrams) with some details such as critical attributes and methods._
-> 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+The following UML diagram describes the Model Tier of our application.
+
+![sprint 2 model UML](sprint2modelUML.png)
 
 ## OO Design Principles
 
@@ -182,8 +186,10 @@ We also worked on separate files as much as possible. This helps us avoid merge 
 > criteria tests failing, and the number of user stories that
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
+> 
 
 **Sprint 2, User stories added during this sprint:**
+For more details, such as dates and comments, please see the Acceptance Testing document located in the /etc directory of this repo.
 
 **Login:** All passed
 
@@ -193,9 +199,9 @@ We also worked on separate files as much as possible. This helps us avoid merge 
 
 **Search**: All passed
 
-**Admin page**: All passed. As of 4-21-24 this page is done.
+**Admin page**: All passed. As of 3-21-24 this page is done.
 
-**Cart:** All passed. Fixed error with removing items on 4-21-24.
+**Cart:** All passed. Fixed error with removing items on 3-21-24.
 
 **Details page:** All passed.
 

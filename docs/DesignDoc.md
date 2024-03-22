@@ -41,10 +41,6 @@ Our project is Ufund: School Supplies. Many students are in need of school suppl
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
-
 Users can log in with their own account.
 Users can browse a list of needs (school supplies).
 Users can pick a need to support and pick the amount to support.
@@ -55,7 +51,7 @@ Admins can edit the needs in the cupboard, edit amount, add/remove items, etc.
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
 
-Users should be able to login and logout, view all of the needs, search for needs, add needs to cart, and logout and have the items in the cart save.
+Users should be able to login and logout, view all of the needs, search for needs, add needs to cart, and logout and have the items in the cart save. Admins should also be able to login and add/remove or edit items.
 
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
@@ -83,7 +79,6 @@ This section describes the application architecture.
 ### Summary
 
 The following Tiers/Layers model shows a high-level view of the webapp's architecture. 
-**NOTE**: detailed diagrams are required in later sections of this document.
 
 ![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
@@ -100,8 +95,7 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 
 This section describes the web interface flow; this is how the user views and interacts with the web application.
 
-> _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
-
+When you first enter the application, you are brought to the home page. This page shows all the needs that are available to fund. It gives you the option to add to cart, but since you are not logged in yet, clicking on add to cart will bring you to the login page. Here you can login or create an account. Logging in will bring you back into the home page where you can add items to your cart. You can also click on each item to view more details about it, such as cost, a description, etc.. If you are a admin you are brought to a separate page.
 
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
@@ -122,8 +116,8 @@ This section describes the web interface flow; this is how the user views and in
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-GiftController: Controls and implements the CRUD operations for the Gifts (Needs). Has update, delete, add, get all, retrieve, etc.
-UserController: COntrols and implements the CRUD operations for the Users. Same as gifts, can add users, delete, edit, etc.
+**GiftController:** Controls and implements the CRUD operations for the Gifts (Needs). Has update, delete, add, get all, retrieve, etc.
+**UserController:** COntrols and implements the CRUD operations for the Users. Same as gifts, can add users, delete, edit, etc.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -135,17 +129,19 @@ UserController: COntrols and implements the CRUD operations for the Users. Same 
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
-Gift: Represents the gift (Need). It has a name, description, price, and the amount needed for funding.
-User: A U-Fund user. Has a username, password, email, and their cart. Their data will save in the cart.
+**Gift:** Represents the gift (Need). It has a name, description, price, and the amount needed for funding.
+**User:** A U-Fund user. Has a username, password, email, and their cart. Their data will save in the cart.
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
 
-**Sprint 2 ** 
-Order: Represents an order. This is a list of OrderItems that a user ordered. It has an ID, date of checkout, and the list of items. These are made per user.
-OrderItem: This represents and item ordered by user. A list of these are in Order.
-Priority: This is for a feature enhancement, where we will have a need priority. Just a placeholder for now.
+**Sprint 2** 
+**Order:** Represents an order. This is a list of OrderItems that a user ordered. It has an ID, date of checkout, and the list of items. These are made per user.
+
+**OrderItem:** This represents and item ordered by user. A list of these are in Order.
+
+**Priority:** This is for a feature enhancement, where we will have a need priority. Just a placeholder for now.
 
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
@@ -179,10 +175,6 @@ We also worked on separate files as much as possible. This helps us avoid merge 
 > _**[Sprint 4]** Discuss **future** refactoring and other design improvements your team would explore if the team had additional time._
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
-
-Video demo was created, tested componets manually. 
 
 ### Acceptance Testing
 > _**[Sprint 2 & 4]** Report on the number of user stories that have passed all their
@@ -191,20 +183,21 @@ Video demo was created, tested componets manually.
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
-Sprint 2:
+**Sprint 2, User stories added during this sprint:**
 
-**User stories added during this sprint:**
+**Login:** All passed
 
-Login: All passed
-Logout: All passed
-Home page (where needs are listed): All passed
-Search: All passed
+**Logout**: All passed
 
-Admin page: Failed, edit needs, remove needs, add needs. As of right now, this page is not done yet, so we have not completed this user story.
+**Home page (where needs are listed):** All passed
 
-Cart: Failed, Seems to be a bug with removing items from the cart. Removing an item appears to remove it, but when you go back into the cart it is still there. The quantity of the removed item actually seems to double. Everything else passed. Users can view their cart, remove items. etc.
+**Search**: All passed
 
-Details page: Failed: A small error where if a user accesses an item that doesn't exist (only way they could to this is by manually changing the URL) it doesn't display and error and just shows a blank page. However, everything else passed and you can view the details of an item.
+**Admin page**: All passed. As of 4-21-24 this page is done.
+
+**Cart:** All passed. Fixed error with removing items on 4-21-24.
+
+**Details page:** All passed.
 
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
@@ -216,9 +209,10 @@ Details page: Failed: A small error where if a user accesses an item that doesn'
 > those._
 
 **Sprint 2 Code Coverage Report**
+
+We were able to achieve 90% test coverage for this sprint.
 ![Tests Report](sprint2tests.png)
 
-We are missing some coverage, especially in the controller and model.
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._

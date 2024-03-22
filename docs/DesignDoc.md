@@ -24,7 +24,7 @@ Our project is U-Fund School Supplies. Many students are in need of school suppl
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
 
-Many students are in need of school supplies. With our website, you can pick any supply and fund them for students. It will show you what supplies are needed, the cost, and a description of each one. With our website, you can help students who may not be able to afford these supplies. 
+With our website, you can pick any supply and fund them for students. It will show you what supplies are needed, the cost, and a description of each one. With our website, you can help students who may not be able to afford these supplies. 
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
@@ -32,7 +32,7 @@ Many students are in need of school supplies. With our website, you can pick any
 | Term | Definition |
 |------|------------|
 | Gift | the item or supply to the funded |
-| Helpers | the uesrs who have an account and can purchase items for students |
+| Helpers | the users who have an account and can purchase items for students |
 | Admin | a person who can edit the items in the cupboard |
 | Cupboard | where all the items to be funded are stored. Everything in the cupboard is able to be funded by Helpers |
 
@@ -84,7 +84,7 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 
 The web application, is built using the Model–View–ViewModel (MVVM) architecture pattern. 
 
-The Model stores the application data objects including any functionality to provide persistance. 
+The Model stores the application data objects including any functionality to provide persistence. 
 
 The View is the client-side SPA built with Angular utilizing HTML, CSS and TypeScript. The ViewModel provides RESTful APIs to the client (View) as well as any logic required to manipulate the data objects from the Model.
 
@@ -117,7 +117,7 @@ When you first enter the application, you are brought to the home page. This pag
 
 ### ViewModel Tier
 **GiftController:** Controls and implements the CRUD operations for the Gifts (Needs). Has update, delete, add, get all, retrieve, etc.
-**UserController:** COntrols and implements the CRUD operations for the Users. Same as gifts, can add users, delete, edit, etc.
+**UserController:** Controls and implements the CRUD operations for the Users. Same as gifts, can add users, delete, edit, etc.
 
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -158,7 +158,7 @@ The following UML diagram describes the Model Tier of our application.
 
 Low Coupling: Each class should be as independent as possible. For example, the Gift and User CRUD operations are implemented in separate files to avoid conflict. Although the code actions are mostly the same, it would be best to keep them separated in case we need unique code for one.
 
-Controller: We followed the Controller Model View model for creating our software. For example, GiftController nad UserController are separate, while Gift and Controller classes are in their own files in the model folder. We also have a separate folder for persistence, which deals with persistence.
+Controller: We followed the Controller Model View model for creating our software. For example, GiftController and UserController are separate, while Gift and Controller classes are in their own files in the model folder. We also have a separate folder for persistence, which deals with persistence.
 
 Law of Demeter: We separated the Gift and User classes, they cannot access each others data.
 
@@ -221,7 +221,7 @@ We were able to achieve 90% test coverage for this sprint.
 
 
 ## Ongoing Rationale
->_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
+>_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**major**_ team decisions or design milestones/changes and corresponding justification._
 
 2024-2-09 Sprint 1: Team decided School Supplies U-Fund idea and created sprint 1 plan.
 

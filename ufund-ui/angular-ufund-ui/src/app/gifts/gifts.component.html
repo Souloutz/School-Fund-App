@@ -1,13 +1,28 @@
-<h2>Gifts</h2>
-
-<ul *ngIf="gifts.length > 0; else noGiftsAvailable" class="gifts">
-  <li *ngFor="let gift of gifts">
+<div *ngIf="gifts.length > 0; else noGiftsAvailable"class="gift-container">
+  <div *ngFor="let gift of gifts" class="gift">
     <a routerLink="/detail/{{gift.id}}">
-      <span class="badge">{{gift.id}}</span> {{gift.name}}
+      <span class="name">{{gift.name}}</span>
     </a>
-    <button (click)="addToCart(gift)">Add to Cart</button>
-  </li>
-</ul>
+
+    <div class="badge price">${{gift.price}}</div>
+
+    <div class="description"><p>{{gift.description}}</p></div>
+
+    <div class="priority">
+      <div class="badge">Priority: </div>
+      <span>{{gift.priority}}</span>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="lower-container">
+      <span class="amount">{{gift.amount_needed}}</span>
+      <button (click)="addToCart(gift)" class="add">Add to Cart</button>
+    </div>
+
+    
+  </div>
+</div>
 
 <ng-template #noGiftsAvailable>
   <div>There are currently no needs available to fund. Good job helpers!</div>

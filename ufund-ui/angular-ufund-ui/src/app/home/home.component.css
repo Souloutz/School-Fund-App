@@ -1,0 +1,23 @@
+*
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body
+{
+    margin: 0;
+}
+
+app-search
+{
+  margin: 4em;
+  width:100%;
+  
+}
+
+app-gifts
+{
+  width:100%;
+  display:block;
+  margin: 6em auto;
+}

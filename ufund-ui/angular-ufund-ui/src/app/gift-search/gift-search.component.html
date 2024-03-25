@@ -1,14 +1,35 @@
 <div id="search-component">
 
-  <label for="search-box">Gift Search </label>
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  <div class="search-container">
+    <input #searchBox
+           id="search-box" 
+           (input)="search(searchBox.value)"
+           class="search-box"
+           placeholder="Search Gifts" />
+  </div>
 
-  <ul class="search-result">
-    <li *ngFor="let gift of gifts$ | async" >
+  <div class="gift-container">
+    <div *ngFor="let gift of gifts$ | async" class="gift">
       <a routerLink="/detail/{{gift.id}}">
-        {{gift.name}}
+        <span class="name">{{gift.name}}</span>
       </a>
-      <button (click)="addToCart(gift)"> Add to Cart</button>
-    </li>
-  </ul>
+  
+      <div class="badge price">${{gift.price}}</div>
+  
+      <div class="description"><p>{{gift.description}}</p></div>
+  
+      <div class="priority">
+        <div class="badge">Priority: </div>
+        <span>{{gift.priority}}</span>
+      </div>
+  
+      <div class="line"></div>
+  
+      <div class="lower-container">
+        <span class="amount">{{gift.amount_needed}}</span>
+        <button (click)="addToCart(gift)" class="add">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
 </div>

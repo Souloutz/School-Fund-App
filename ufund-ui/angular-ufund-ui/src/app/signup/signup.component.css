@@ -6,7 +6,7 @@ body {
     margin: 0;
 }
 
-form {
+.sign-up-container {
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -17,10 +17,13 @@ form {
     margin: auto;
 
     border: 3px solid rgb(216, 216, 216);
-    border-radius: 5px;
+    border-radius:5px;
+
+    cursor:default;
 }
 
-.container {
+form 
+{
     display: flex;
     flex-direction: column;
     width: 90%;
@@ -33,19 +36,27 @@ form {
 }
 
 input {
-  padding: .5em;
-  margin: .25em 0;
-  border: 1px solid #ccc;
+    width:100%;
+    padding: .5em;
+    margin: .25em 0;
+    border: 1px solid #ccc;
 }
 
-
-button {
+.submit {
     width: 100%;
-    border:none;
     padding: .5em;
-    background-color: #ccc;
     margin: .75em auto;
 }
+
+
+button
+{
+    border: none;
+    background-color: #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 
 button:hover {
     background-color: #dbdada;
@@ -58,11 +69,18 @@ button:hover {
     align-items: center;
 }
 
+.back
+{
+    width:fit-content;
+    padding: .5em .75em;
+}
+
 span.login {
     display:inline-block;
     margin-right: .5em;
 }
 
-.home {
-    margin-left: .5em;
+a
+{
+    text-decoration: none;
 }

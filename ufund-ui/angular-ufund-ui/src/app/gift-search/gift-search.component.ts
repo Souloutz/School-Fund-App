@@ -20,7 +20,7 @@ import { UserService } from '../services/user.service';
     RouterLink
   ],
   templateUrl: './gift-search.component.html',
-  styleUrls: [ './gift-search.component.css' ]
+  styleUrls: [ '../gifts/gifts.component.css' ]
 })
 export class GiftSearchComponent implements OnInit {
 

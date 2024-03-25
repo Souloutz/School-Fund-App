@@ -6,49 +6,46 @@
     <title>User Sign Up | Ufund</title>
 </head>
 <body>
-    <form (ngSubmit)="signUp(userInfo)" style="display:flex;flex-flow:column; align-items: center;justify-content: space-evenly;">
-        <h1>Sign Up</h1>
+    <div class="sign-up-container">
+        <form (ngSubmit)="signUp(userInfo)">
+            <h1>Sign Up</h1>
+                <div class="input-field">
+                    <label for="username"><b>Username</b></label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        id="username" 
+                        placeholder="Enter Username" 
+                        [(ngModel)]="userInfo.username">
+                </div>
 
-        <div class="container">
-            <div class="input-field">
-                <label for="username"><b>Username</b></label>
-                <input 
-                    type="text" 
-                    name="username" 
-                    id="username" 
-                    placeholder="Enter Username" 
-                    [(ngModel)]="userInfo.username">
-            </div>
+                <div class="input-field">
+                    <label for="email"><b>Email</b></label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        id="email" 
+                        placeholder="Enter Email" 
+                        [(ngModel)]="userInfo.email">
+                </div>
 
-            <div class="input-field">
-                <label for="email"><b>Email</b></label>
-                <input 
-                    type="email" 
-                    name="email" 
-                    id="email" 
-                    placeholder="Enter Email" 
-                    [(ngModel)]="userInfo.email">
-            </div>
+                <div class="input-field">
+                    <label for="password"><b>Password</b></label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        id="password" 
+                        placeholder="Enter Password" 
+                        [(ngModel)]="userInfo.password">
+                </div>
 
-            <div class="input-field">
-                <label for="password"><b>Password</b></label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    placeholder="Enter Password" 
-                    [(ngModel)]="userInfo.password">
-            </div>
-
-            <button type="submit" value="Submit">Submit</button>
+                <button type="submit" value="Submit" class="submit">Submit</button>
+        </form>
+        <div class="lower-container">
+            <button (click)="goBack()" class="back">Back</button>
+            <span class="login"><p>Already have an account? | <a routerLink="/login">Log In</a></p></span>
+        </div>
     </div>
-    <div class="lower-container">
-        <a routerLink="" class="home">Home</a>
-        <span class="login"><p>Already have an account? | <a routerLink="/login">Log In</a></p></span>
-    </div>
-
-
-    </form>
 
 </body>
 </html>

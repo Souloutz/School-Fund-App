@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../model/user';
 import { FormsModule } from '@angular/forms';
 
+import { Location } from '@angular/common';
+
 @Component({
   standalone: true,
   selector: 'app-signup',
@@ -22,7 +24,8 @@ export class SignUpComponent {
   constructor(
     private currentUserService: CurrentUserService,
     private userService: UserService,
-    private router: Router) {}
+    private router: Router,
+    private location: Location) {}
 
   userInfo: User = this.currentUserService.getCurrentUser();
   
@@ -106,6 +109,13 @@ export class SignUpComponent {
       return false;
     }
   }
+
+    /**
+   * Change view to user's previous route
+   */
+    goBack(): void {
+      this.location.back();
+    }
 }
 
 

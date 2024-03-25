@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.Priority;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -243,7 +244,7 @@ public class GiftFileDAO implements GiftDAO {
                                     item.getName(), 
                                     item.getDescription(), 
                                     item.getPrice(), 
-                                    item.getPriority().getNumber(),
+                                    item.getPriority(),
                                     item.getAmountNeeded());
             gifts.put(newGift.getId(), newGift);
             save(); 

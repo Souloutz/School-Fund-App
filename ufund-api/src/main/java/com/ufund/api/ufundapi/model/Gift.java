@@ -43,13 +43,13 @@ public class Gift implements Comparable<Gift> {
                 @JsonProperty("name") String name,
                 @JsonProperty("description") String description,
                 @JsonProperty("price") double price,
-                @JsonProperty("priority") int priorityNumber,
+                @JsonProperty("priority") Priority priority,
                 @JsonProperty("amount_needed") int amountNeeded) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.priority = Priority.getPriority(priorityNumber);
+        this.priority = priority;
         this.amountNeeded = amountNeeded;
     }
 
@@ -129,8 +129,8 @@ public class Gift implements Comparable<Gift> {
      * Set the priority of the gift - necessary for JSON object to Java object deserialization
      * @param priority The priority of the gift
      */
-    public void setPriority(int priorityNumber) {
-        this.priority = Priority.getPriority(priorityNumber);
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     /**

@@ -25,7 +25,7 @@ public class GiftTest {
         int expectedAmountNeeded = 100;
 
         // Invoke
-        Gift gift = new Gift(expectedId, expectedName, expectDescription, expectedPrice, expectedPriorityNumber, expectedAmountNeeded);
+        Gift gift = new Gift(expectedId, expectedName, expectDescription, expectedPrice, expectedPriority, expectedAmountNeeded);
 
         // Analyze
         assertNotEquals(gift, null);
@@ -45,9 +45,9 @@ public class GiftTest {
         String name = "Wifi Routers";
         String description = "Yummy internet";
         double price = 150.00;
-        int priorityNumber = 2;
+        Priority priority = Priority.MID;
         int amountNeeded = 100;
-        Gift gift = new Gift(id, name, description, price, priorityNumber, amountNeeded);
+        Gift gift = new Gift(id, name, description, price, priority, amountNeeded);
 
         String expectedName = "Ethernet Cables";
 
@@ -65,9 +65,9 @@ public class GiftTest {
         String name = "Wifi Routers";
         String description = "Yummy internet";
         double price = 150.00;
-        int priorityNumber = 2;
+        Priority priority = Priority.MID;
         int amountNeeded = 100;
-        Gift gift = new Gift(id, name, description, price, priorityNumber, amountNeeded);
+        Gift gift = new Gift(id, name, description, price, priority, amountNeeded);
 
         String expectedDescription = "Internet";
 
@@ -85,9 +85,9 @@ public class GiftTest {
         String name = "Wifi Routers";
         String description = "Yummy internet";
         double price = 150.00;
-        int priorityNumber = 2;
+        Priority priority = Priority.MID;
         int amountNeeded = 100;
-        Gift gift = new Gift(id, name, description, price, priorityNumber, amountNeeded);
+        Gift gift = new Gift(id, name, description, price, priority, amountNeeded);
 
         double expectedPrice = 500.00;
 
@@ -107,16 +107,16 @@ public class GiftTest {
         double price = 150.00;
         int priorityNumber = 2;
         int amountNeeded = 100;
-        Gift gift = new Gift(id, name, description, price, priorityNumber, amountNeeded);
+        Gift gift = new Gift(id, name, description, price, Priority.getPriority(priorityNumber), amountNeeded);
 
-        int expectedPriorityNumber = 1;
+        int expectedpriority = 1;
 
         // Invoke
-        gift.setPriority(expectedPriorityNumber);
+        gift.setPriority(Priority.getPriority(expectedpriority));
 
         // Analyze
-        assertEquals(expectedPriorityNumber, gift.getPriority().getNumber());
-        assertEquals(Priority.getPriority(expectedPriorityNumber), gift.getPriority());
+        assertEquals(expectedpriority, gift.getPriority().getNumber());
+        assertEquals(Priority.getPriority(expectedpriority), gift.getPriority());
     }
 
     @Test
@@ -126,9 +126,9 @@ public class GiftTest {
         String name = "Wifi Routers";
         String description = "Yummy internet";
         double price = 150.00;
-        int priorityNumber = 2;
+        Priority priority = Priority.MID;
         int amountNeeded = 100;
-        Gift gift = new Gift(id, name, description, price, priorityNumber, amountNeeded);
+        Gift gift = new Gift(id, name, description, price, priority, amountNeeded);
 
         int expectedAmountNeeded = 100;
 
@@ -150,7 +150,7 @@ public class GiftTest {
         int amountNeeded = 100;
 
         String expectedString = String.format(Gift.STRING_FORMAT, id, name, description, price, Priority.getPriority(priorityNumber), amountNeeded);
-        Gift gift = new Gift(id, name, description, price, priorityNumber, amountNeeded);
+        Gift gift = new Gift(id, name, description, price, Priority.getPriority(priorityNumber), amountNeeded);
 
         // Invoke
         String actualString = gift.toString();

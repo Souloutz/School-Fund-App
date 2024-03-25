@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.Priority;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -40,9 +41,9 @@ public class GiftFileDAOTest {
     public void setupGiftFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testGifts = new Gift[3];
-        testGifts[0] = new Gift(99, "Wifi Routers", "Internet", 150.99, 4, 50);
-        testGifts[1] = new Gift(100, "Tables", "To work on", 30.00, 3, 100);
-        testGifts[2] = new Gift(101, "Projectors", "To display screens", 350.99, 2, 75);
+        testGifts[0] = new Gift(99, "Wifi Routers", "Internet", 150.99, Priority.getPriority(4), 50);
+        testGifts[1] = new Gift(100, "Tables", "To work on", 30.00, Priority.getPriority(3), 100);
+        testGifts[2] = new Gift(101, "Projectors", "To display screens", 350.99, Priority.getPriority(2), 75);
 
         // When the object mapper is supposed to read from the file the mock object mapper will return the gift array above
         when(mockObjectMapper
@@ -100,7 +101,7 @@ public class GiftFileDAOTest {
     @Test
     public void testCreateGift() throws IOException {
         // Setup
-        Gift gift = new Gift(102, "Computers", "Labs", 250.00, 3, 500);
+        Gift gift = new Gift(102, "Computers", "Labs", 250.00, Priority.getPriority(3), 500);
 
         // Invoke
         Gift result = assertDoesNotThrow(() -> giftFileDAO.createGift(gift),
@@ -116,7 +117,7 @@ public class GiftFileDAOTest {
     @Test
     public void testUpdateGift() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Chairs", "To sit on", 10.99, 4, 250);
+        Gift gift = new Gift(99, "Chairs", "To sit on", 10.99, Priority.getPriority(4), 250);
 
         // Invoke
         Gift result = assertDoesNotThrow(() -> giftFileDAO.updateGift(gift),
@@ -134,7 +135,7 @@ public class GiftFileDAOTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class), any(Gift[].class));
 
-        Gift gift = new Gift(102, "Water Fountains", "Clean drinking water", 1000.00, 4, 50);
+        Gift gift = new Gift(102, "Water Fountains", "Clean drinking water", 1000.00, Priority.getPriority(4), 50);
 
         assertThrows(IOException.class,
                         () -> giftFileDAO.createGift(gift),
@@ -164,7 +165,7 @@ public class GiftFileDAOTest {
     @Test
     public void testUpdateGiftNotFound() {
         // Setup
-        Gift gift = new Gift(98, "Food", "Need to eat", 0.99, 4, 10000);
+        Gift gift = new Gift(98, "Food", "Need to eat", 0.99, Priority.getPriority(4), 10000);
 
         // Invoke
         Gift result = assertDoesNotThrow(() -> giftFileDAO.updateGift(gift),

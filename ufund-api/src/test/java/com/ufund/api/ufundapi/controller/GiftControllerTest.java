@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 
 import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.Priority;
 import com.ufund.api.ufundapi.persistence.GiftDAO;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,7 @@ public class GiftControllerTest {
     @Test
     public void testGetGift() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Backpacks", "A handy tool to store materials", 100.00, 2, 100);
+        Gift gift = new Gift(99, "Backpacks", "A handy tool to store materials", 100.00, Priority.MID, 100);
         // When the same id is passed in, our mock Gift DAO will return the Gift object
         when(mockGiftDAO.getGift(gift.getId())).thenReturn(gift);
 
@@ -80,7 +81,7 @@ public class GiftControllerTest {
     @Test
     public void testCreateGift() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Wifi Routers", "Internet access is essential for providing quality education and accessing resources", 150.99, 3, 500);
+        Gift gift = new Gift(99, "Wifi Routers", "Internet access is essential for providing quality education and accessing resources", 150.99, Priority.MID, 500);
         // when createGift is called, return true simulating successful creation and save
         when(mockGiftDAO.createGift(gift)).thenReturn(gift);
 
@@ -95,7 +96,7 @@ public class GiftControllerTest {
     @Test
     public void testCreateGiftFailed() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Notebooks", "A handy tool to jot down notes", 1.50, 4, 100);
+        Gift gift = new Gift(99, "Notebooks", "A handy tool to jot down notes", 1.50, Priority.MID, 100);
         // when createGift is called, return false simulating failed creation and save
         when(mockGiftDAO.createGift(gift)).thenReturn(null);
 
@@ -109,7 +110,7 @@ public class GiftControllerTest {
     @Test
     public void testCreateGiftHandleException() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Dance Studio Faculty", "Children need to exercise and explore their creative and artistic sides", 2500.00, 2, 10);
+        Gift gift = new Gift(99, "Dance Studio Faculty", "Children need to exercise and explore their creative and artistic sides", 2500.00, Priority.MID, 10);
         // When createGift is called on the Mock Gift DAO, throw an IOException
         doThrow(new IOException()).when(mockGiftDAO).createGift(gift);
 
@@ -123,7 +124,7 @@ public class GiftControllerTest {
     @Test
     public void testUpdateGift() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Wifi Routers", "Internet access is essential for providing quality education and accessing resources", 150.99, 3, 500);
+        Gift gift = new Gift(99, "Wifi Routers", "Internet access is essential for providing quality education and accessing resources", 150.99, Priority.MID, 500);
         // when updateGift is called, return true simulating successful update and save
         when(mockGiftDAO.updateGift(gift)).thenReturn(gift);
         ResponseEntity<Gift> response = giftController.updateGift(gift);
@@ -140,7 +141,7 @@ public class GiftControllerTest {
     @Test
     public void testUpdateGiftFailed() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Playground Court", "Children need a place to social and play around", 1000.00, 3, 30);
+        Gift gift = new Gift(99, "Playground Court", "Children need a place to social and play around", 1000.00, Priority.MID, 30);
         // when updateGift is called, return null simulating unsuccessful update and save
         when(mockGiftDAO.updateGift(gift)).thenReturn(null);
 
@@ -154,7 +155,7 @@ public class GiftControllerTest {
     @Test
     public void testUpdateGiftHandleException() throws IOException {
         // Setup
-        Gift gift = new Gift(99, "Playground Court", "Children need a place to social and play around", 1000.00, 3, 30);
+        Gift gift = new Gift(99, "Playground Court", "Children need a place to social and play around", 1000.00, Priority.MID, 30);
         // When updateGift is called on the Mock Gift DAO, throw an IOException
         doThrow(new IOException()).when(mockGiftDAO).updateGift(gift);
 
@@ -169,8 +170,8 @@ public class GiftControllerTest {
     public void testGetGifts() throws IOException {
         // Setup
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 2, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 2, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
         // When getGifts is called, return the gifts created above
         when(mockGiftDAO.getGifts()).thenReturn(gifts);
 
@@ -200,8 +201,8 @@ public class GiftControllerTest {
         // Setup
         String searchString = "e";
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 2, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 2, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
         // When findGifts is called with the search string, return the two gifts above
         when(mockGiftDAO.findGifts(searchString)).thenReturn(gifts);
 
@@ -232,8 +233,8 @@ public class GiftControllerTest {
         // Setup
         int priorityNumber = 3;
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 3, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
         // When findGifts is called with the search string, return the two gifts above
         when(mockGiftDAO.findGifts(priorityNumber)).thenReturn(gifts);
 
@@ -264,8 +265,8 @@ public class GiftControllerTest {
         // Setup
         String sortPriority = "highest";
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 4, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 3, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
         // When getSortedGifts is called, return the two gifts above
         when(mockGiftDAO.getSortedGifts(sortPriority)).thenReturn(gifts);
 
@@ -282,8 +283,8 @@ public class GiftControllerTest {
         // Setup
         String sortPriority = "lowest";
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 4, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
         // When getSortedGifts is called, return the two gifts above
         when(mockGiftDAO.getSortedGifts(sortPriority)).thenReturn(gifts);
 
@@ -300,8 +301,8 @@ public class GiftControllerTest {
         // Setup
         String sortPriority = "best";
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 4, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
 
         // Invoke
         ResponseEntity<Gift[]> response = giftController.getAllGiftsByPriority(sortPriority);
@@ -315,8 +316,8 @@ public class GiftControllerTest {
         // Setup
         String sortPriority = "lowest";
         Gift[] gifts = new Gift[2];
-        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, 3, 1000);
-        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, 4, 100);
+        gifts[0] = new Gift(99, "Folders", "A handy tool for storing papers", 3.99, Priority.MID, 1000);
+        gifts[1] = new Gift(100, "Colored Pencils", "Children need to explore their artistic sides", 54.99, Priority.MID, 100);
         // When getSortedGifts is called, throw an IOException
         doThrow(new IOException()).when(mockGiftDAO).getSortedGifts(sortPriority);
 

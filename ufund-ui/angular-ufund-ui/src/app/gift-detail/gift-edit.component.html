@@ -23,9 +23,16 @@
 
     <div class="input-container">
       <label for="gift-priority"><h2>Priority:</h2></label>
-      <input id="gift-priority" 
-             [(ngModel)]="gift.priority" 
-             placeholder="Gift priority" />
+      <select name="gift-priority" 
+              id="gift-priority"
+              [(ngModel)]="gift.priority" 
+              placeholder="Gift priority">
+        <option value="NONE">NONE</option>
+        <option value="LOW">LOW</option>
+        <option value="MID">MID</option>
+        <option value="HIGH">HIGH</option>
+        <option value="SEVERE">SEVERE</option>
+      </select>
     </div>
   </div>
 

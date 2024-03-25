@@ -4,7 +4,7 @@ export interface Gift {
     name: string;
     description: string;
     price: number;
-    priority: number;
+    priority: string;
     amount_needed:number;
 
 }

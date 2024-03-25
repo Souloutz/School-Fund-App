@@ -18,7 +18,7 @@ export class GiftEditService {
     name: '',
     description: '',
     price: 0,
-    priority: 0,
+    priority: 'NONE',
     amount_needed: 0
   };
 

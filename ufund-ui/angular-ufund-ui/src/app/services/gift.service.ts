@@ -104,41 +104,41 @@ export class GiftService {
   /** PUT: update the gift on the server */
   updateGift(gift: Gift): Observable<any> {
     
-    this.changePriorityToInt(gift)
-
+    // this.changePriorityToInt(gift);
+    
     return this.http.put(this.giftsURL, gift, this.httpOptions).pipe(
       tap(_ => this.log(`updated gift id=${gift.id}`)),
       catchError(this.handleError<any>('updateGift'))
     );
   }
 
-  changePriorityToInt(gift : Gift) : boolean{
-    const priority = gift.priority.toString();
+  // changePriorityToInt(gift : Gift) : boolean{
+  //   const priority = gift.priority.toString();
 
-    if(priority === 'NONE') {
-      gift.priority = 0;
-      return true;
+  //   if(priority === 'NONE') {
+  //     gift.priority = 0;
+  //     return true;
 
-    } else if(priority === 'LOW') {
-      gift.priority = 1;
-      return true;
+  //   } else if(priority === 'LOW') {
+  //     gift.priority = 1;
+  //     return true;
 
-    } else if(priority === 'MID') {
-      gift.priority = 2;
-      return true;
+  //   } else if(priority === 'MID') {
+  //     gift.priority = 2;
+  //     return true;
 
-    } else if(priority === 'HIGH') {
-      gift.priority = 3;
-      return true;
+  //   } else if(priority === 'HIGH') {
+  //     gift.priority = 3;
+  //     return true;
       
-    } else if(priority === 'SEVERE') {
-      gift.priority = 4;
-      return true;
+  //   } else if(priority === 'SEVERE') {
+  //     gift.priority = 4;
+  //     return true;
 
-    } else {
-      return false;
-    }
-  }
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   /**
    * Handle Http operation that failed.

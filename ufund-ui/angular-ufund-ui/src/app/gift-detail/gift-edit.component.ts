@@ -80,7 +80,7 @@ export class GiftEditComponent implements OnInit {
         .subscribe(() => {
           this.giftEditService.setCurrentGift(this.gift);
           this.goBack();
-          console.log("Updated Gift");
+          console.log("Updated Gift: ", this.giftEditService.getCurrentGift());
         });
     }
   }

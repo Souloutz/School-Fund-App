@@ -71,7 +71,7 @@ export class AdminDashboardComponent {
                                name, 
                                description, 
                                price,
-                               priority:0,
+                               priority:"NONE",
                                amount_needed:amount_needed})
     .subscribe(gift => {
       this.gifts.push(gift);

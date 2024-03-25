@@ -21,8 +21,6 @@ export class HomeComponent {
 
   name : string | undefined;
 
-  nameSelector = document.querySelector('name-selector');
-
   constructor(private currUserService : CurrentUserService){}
   
   

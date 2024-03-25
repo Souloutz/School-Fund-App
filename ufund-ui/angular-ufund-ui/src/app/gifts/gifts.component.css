@@ -140,6 +140,33 @@ a:hover
     background-color: #cacaca;
 }
 
+.add-container
+{
+    display: inline-block;
+}
+
+.input-amount
+{
+    width:fit-content;
+    min-width: 1em;
+    max-width: 3em;
+    overflow: hidden;
+    padding: .25em;
+    cursor:default;
+    caret-color: transparent;
+}
+
+.input-amount::placeholder
+{
+    color: var(--text-color);
+}
+
+.input-amount::-webkit-inner-spin-button
+{
+    opacity: 1;
+    cursor:pointer;
+}
+
 .search-container
 {
     display:flex;

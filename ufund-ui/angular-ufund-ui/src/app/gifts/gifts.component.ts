@@ -42,12 +42,14 @@ export class GiftsComponent implements OnInit {
    * Add the selected gift to the cart
    * @param gift 
    */
-  addToCart(gift: Gift): void {
+  addToCart(gift: Gift, passedAmount : string = "1"): void {
     if(this.currUserService.isUserLoggedIn()) {
       console.log("Gift info: ", gift);
 
+      const amount : number = parseInt(passedAmount);
+
       this.userService.addItemToCart(this.currUserService.getCurrentUser().email,
-                                     this.giftService.createItemFromGiftId(gift.id, gift.name, 1)).subscribe(
+                                     this.giftService.createItemFromGiftId(gift.id, gift.name, amount)).subscribe(
                                         (user: User) => {this.currUserService.setCurrentUser(user);
                                                  console.log('Success!', user.id)});
       

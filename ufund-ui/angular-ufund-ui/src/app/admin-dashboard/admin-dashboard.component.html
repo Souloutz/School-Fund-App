@@ -5,43 +5,78 @@
     <nav>
         <button (click)="logOut()">Log Out</button>
     </nav>
-    <h1>Admin</h1>
-    
-    <div class="input-container">
-        <div class="input-item">
-            <label for="gift-name">Name</label>
-            <input name="gift-name" id="gift-name" #giftName />
-        </div>
-
-        <div class="input-item">
-        <label for="gift-desc">Description</label>
-        <input type="text" name="gift-desc" id="gift-desc" #giftDesc />
-        </div>
-
-        <div class="input-item">
-        <label for="gift-price">Price</label>
-        <input type="number" step="0.01" name="gift-price" id="gift-price" #giftPrice />
-        </div>
-
-        <div class="input-item">
-            <label for="gift-amount">Amount</label>
-            <input type="number" name="gift-amount" id="gift-amount" #giftAmount/>
+    <h1>{{Title}}</h1>
+    <div class="input-group">
+            <h2>New Gift Creation</h2>
+            <div class="input-item">
+                <label for="gift-name">Name</label>
+                <input name="gift-name" 
+                    id="gift-name"
+                    class="name" 
+                    #giftName />
             </div>
 
-        <button (click)="addGift(giftName.value, giftDesc.value, giftPrice.value, giftAmount.value);
-                      giftName.value='';
-                      giftDesc.value='';
-                      giftPrice.value='';
-                      giftAmount.value='';">Add Gift</button>
-    </div>
+            <div class="input-item">
+            <label for="gift-desc">Description</label>
+            <textarea type="text"
+                name="gift-desc" 
+                id="gift-desc" 
+                class="description"
+                #giftDesc></textarea>
+            </div>
 
+            <div class="input-item">
+            <label for="gift-price">Price</label>
+            <input type="number" step="0.01" name="gift-price" id="gift-price" #giftPrice />
+            </div>
+
+            <div class="input-item">
+                <label for="gift-amount">Amount</label>
+                <input type="number" 
+                    name="gift-amount"
+                    id="gift-amount" 
+                    min="1"
+                    class="amount"
+                    #giftAmount/>
+                </div>
+
+            <div class="input-item">
+                <label for="gift-priority">Priority</label>
+                <select name="gift-priority" 
+                        id="gift-priority"
+                        placeholder="Gift priority"
+                        #giftPriority>
+                    <option value="NONE">NONE</option>
+                    <option value="LOW">LOW</option>
+                    <option value="MID">MID</option>
+                    <option value="HIGH">HIGH</option>
+                    <option value="SEVERE">SEVERE</option>
+                </select>
+            </div>
+
+            <div class="button-container">
+                <button (click)="addGift(giftName.value, giftDesc.value, giftPrice.value, giftAmount.value,giftPriority.value);
+                            giftName.value='';
+                            giftDesc.value='';
+                            giftPrice.value='';
+                            giftAmount.value='';
+                            giftPriority.value='';">Add Gift</button>
+                <button (click)="giftName.value='';
+                                giftDesc.value='';
+                                giftPrice.value='';
+                                giftAmount.value='';">Clear</button>
+            </div>
+    </div>
     <div class="list">
     <ul class="gifts">
-        <li *ngFor ="let gift of gifts" class="item">
+        <li *ngFor ="let gift of gifts">
             <div class="gift">
-                    <div class="name"><h2>{{ gift.name }}</h2><span>{{gift.price}}</span></div> 
+                    <div class="name"><h2>{{ gift.name }}</h2><span>${{gift.price}}</span></div> 
                     <div class="description">{{ gift.description }}</div>
-                    <div class="amount">Amount: <span>{{ gift.amount_needed }}</span></div>
+                <div class="lower-container">
+                    <div class="amount">Amount: {{ gift.amount_needed }}</div>
+                    <span>Priority: <b>{{gift.priority}}</b></span>
+                </div>
                 <div class="button-container">
                     <button (click)="getDetail(gift)">Details</button>
                     <button (click)="deleteGift(gift)">Delete Gift</button>

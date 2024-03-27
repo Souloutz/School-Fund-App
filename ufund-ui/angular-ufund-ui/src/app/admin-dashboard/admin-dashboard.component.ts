@@ -20,9 +20,12 @@ import { Subscription } from 'rxjs';
     RouterOutlet
   ],
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+  styleUrls: ['./admin-dashboard.component.css',
+              '../gifts/gifts.component.css']
 })
 export class AdminDashboardComponent {
+
+  Title = "Admin Dashboard";
 
   gifts : Gift[] = [];
 
@@ -36,7 +39,7 @@ export class AdminDashboardComponent {
 
 
   ngOnInit() :void {
-    this.checkUser();
+    //this.checkUser();
     this.getGifts();
   }
 
@@ -55,7 +58,7 @@ export class AdminDashboardComponent {
     this.giftService.getGifts().subscribe((gifts : Gift[]) => this.gifts = gifts);
   }
 
-  addGift(name : string, description : string, passedPrice : string, passedAmount: string) : void{
+  addGift(name : string, description : string, passedPrice : string, passedAmount: string, priority: string) : void{
     if(!name){return;}
     if(!description){return;}
     if(!passedPrice){return;}
@@ -71,7 +74,7 @@ export class AdminDashboardComponent {
                                name, 
                                description, 
                                price,
-                               priority:"NONE",
+                               priority: priority,
                                amount_needed:amount_needed})
     .subscribe(gift => {
       this.gifts.push(gift);

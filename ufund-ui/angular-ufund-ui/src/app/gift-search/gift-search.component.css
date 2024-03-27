@@ -1,0 +1,21 @@
+
+.search-container
+{
+    display:flex;
+    justify-content: center;
+}
+
+.search-box
+{
+    width: 400px;
+    height: 2em;
+    border:2px solid rgb(170, 170, 170);
+    border-radius: 10px;
+    padding:.5em;
+}
+
+.search-box::placeholder
+{
+    font-size: 17px;
+    color:rgb(151, 151, 151)
+}

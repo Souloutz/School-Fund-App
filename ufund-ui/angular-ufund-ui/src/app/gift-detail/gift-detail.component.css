@@ -26,10 +26,18 @@ form {
     width:90%;
 }
 
-.desc-container
+
+.description
 {
-    overflow:scroll;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    padding:.25em;
+    height:fit-content;
+    width:20em;
+    max-height: 10em;
+    overflow-y: scroll;
 }
+
 
 .input-field {
     display:flex;
@@ -55,18 +63,13 @@ button:hover {
     background-color: #dbdada;
 }
 
+.back {
+    width: fit-content;
+    padding:.5em 1em;
+    border-radius: 5px;
+}
 .lower-container {
-    width:100%;
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-}
-
-span.signup {
-    display:inline-block;
-    margin-right:.5em;
-}
-
-.home {
-    margin-left:.5em;
 }

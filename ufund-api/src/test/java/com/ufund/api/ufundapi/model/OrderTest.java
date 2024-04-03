@@ -1,16 +1,14 @@
 package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * Test the Order class
@@ -18,20 +16,14 @@ import org.junit.jupiter.api.TestMethodOrder;
  * @author Christopher Brooks
  */
 @Tag("Model-tier")
-@TestMethodOrder(MethodOrderer.MethodName.class) // This is kind of a hack. Read below:
-    //
-    // The getOrderID test below checks if the order ID is equal to 0 and 1. Since the order ID increases by
-    // 1 starting at 0, it is expected that the first two orders ID's are 0 and 1. However, JUnit can run tests in
-    // any order, so the rest of the tests in this file can be run first, which will make the ID something else.
 
-    // This makes the tests run in alphabetical order, the reason for the 'A' in the name before this.
-    // 
+// OrderTest fix to not rely on fixed values, now should work for any OrderID.
 public class OrderTest {
     
     @Test
-    public void AtestGetOrderID(){
+    public void testGetOrderID(){
         // Setup
-        int expectedID = 0;
+
         List<OrderItem> orderItems = new ArrayList<OrderItem>();
         Order orderTest = new Order(LocalDateTime.now(), orderItems);
         Order orderTest2 = new Order(LocalDateTime.now(), orderItems);
@@ -42,8 +34,12 @@ public class OrderTest {
         // Each time you create a new order, it's given an ID incremented by 1, starting from 0.
 
         // Analyze
-        assertEquals(expectedID, orderID); // Test if first order has ID 0.
-        assertEquals(expectedID + 1, orderID2); // Test if second order has ID 1.
+        // Test if the first order is one greater than the previous, showing it incremented by one.
+        assertEquals(orderID + 1, orderID2);
+        
+        // Test if orderis is greater then previous
+        boolean result = orderID2 > orderID; 
+        assertTrue(result); 
     }
 
     @Test

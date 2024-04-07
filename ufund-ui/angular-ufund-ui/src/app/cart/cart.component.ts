@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 import { CurrentUserService } from '../services/current.user.service';
 import { UserService } from '../services/user.service';
@@ -22,7 +22,8 @@ export class CartComponent {
 
   constructor (private currentUserService: CurrentUserService,
                private giftService: GiftService,
-               private userService: UserService) {}
+               private userService: UserService,
+               private router : Router) {}
 
   cart: Item[] = [];
   currentUser: User = this.currentUserService.getBaseUser();
@@ -30,6 +31,10 @@ export class CartComponent {
   gifts = this.giftService.getGifts();
 
   ngOnInit(): void {
+    if(!this.currentUserService.isUserLoggedIn())//if theyre not a user (or not logged in)
+    {
+      this.router.navigate(['login']);
+    }
     this.currentUser = this.currentUserService.getCurrentUser();
     this.getCartItems();
   }
@@ -48,4 +53,15 @@ export class CartComponent {
         console.log("Success!, ", this.currentUser.cart);
     })
   }
+
+  goHome()
+  {
+    this.router.navigate(['']);
+  }
+
+  getDetail(id : number) {
+    this.router.navigate([`/detail/${id}`])
+  }
 }
+
+

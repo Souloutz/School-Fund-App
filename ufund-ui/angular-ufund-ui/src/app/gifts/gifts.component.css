@@ -58,7 +58,8 @@ body
 }
 
 .name {
-    overflow-x: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
     display:flex;
     align-items: center;
     white-space: nowrap;

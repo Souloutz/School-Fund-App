@@ -1,0 +1,44 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 1em;
+}
+
+.item-container {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding:.5em;
+  margin: 0 1em;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+}
+
+.detail {
+  border: none;
+  background-color: #ccc;
+  border-radius: 3px;
+  width: fit-content;
+  padding: .25em .5em;
+  cursor: pointer;
+}
+
+.detail:hover {
+  background-color: #dbdada;
+}
+
+.badge {
+  font-size: 20px;
+}
+
+.lower-container {
+
+}

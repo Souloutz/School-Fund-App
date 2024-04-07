@@ -20,13 +20,12 @@
       <span class="amount">{{gift.amount_needed}}</span>
       <div class="add-container">
         <input type="number" 
-               step="1"
+               step=1
                name="gift-amount" 
                id="gift-amount" 
-               min="1" 
+               min=1 
                max={{gift.amount_needed}}
                onKeyDown="return false"
-               placeholder="0" 
                class="input-amount" 
                #giftAmount/>
         <button (click)="addToCart(gift, giftAmount.value); giftAmount.value=''" class="add">Add to Cart</button>

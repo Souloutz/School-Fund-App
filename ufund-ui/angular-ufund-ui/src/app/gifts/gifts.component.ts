@@ -7,12 +7,13 @@ import { CurrentUserService } from '../services/current.user.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../model/user';
 import { CommonModule, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-gifts',
   imports: [
-    NgFor, RouterLink, CommonModule
+    NgFor, RouterLink, CommonModule, FormsModule
   ],
   templateUrl: './gifts.component.html',
   styleUrls: ['./gifts.component.css']
@@ -20,6 +21,16 @@ import { CommonModule, NgFor } from '@angular/common';
 export class GiftsComponent implements OnInit {
   gifts: Gift[] = [];
   noGiftsReturned = false; // if no gifts are returned
+  sortBy: string = 'none';
+
+  // Gifts are sorted on frontend. Priority is represented again here.
+  private priorityOrder: { [priority: string]: number } = {
+    'NONE' : 0,
+    'LOW' : 1,
+    'MID' : 2,
+    'HIGH' : 3,
+    'SEVERE' : 4
+  };
 
   constructor(private giftService: GiftService,
               private userService : UserService,
@@ -36,6 +47,17 @@ export class GiftsComponent implements OnInit {
         this.gifts = gifts;
         this.noGiftsReturned = !gifts || gifts.length === 0;
       })
+    }
+
+  /**
+   * Sort the gifts by the priorty specified in the drop down menu.
+   */
+    sortGifts(): void {
+      if (this.sortBy === 'ascending') {
+        this.gifts.sort((a, b) => this.priorityOrder[a.priority] - this.priorityOrder[b.priority]);
+      } else if (this.sortBy === 'descending') {
+        this.gifts.sort((a, b) => this.priorityOrder[b.priority] - this.priorityOrder[a.priority]);
+      }
     }
 
   /**

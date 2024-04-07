@@ -1,3 +1,12 @@
+<div class="sort-container">
+  <select [(ngModel)]="sortBy" class="sort-select">
+    <option value="none">None</option>
+    <option value="ascending">Least Needed (Ascending)</option>
+    <option value="descending">Most Needed (Descending)</option>
+  </select>
+  <button (click)="sortGifts()" class="sort-button">Sort</button>
+</div>
+
 <div *ngIf="gifts.length > 0; else noGiftsAvailable"class="gift-container">
   <div *ngFor="let gift of gifts" class="gift">
     <a routerLink="/detail/{{gift.id}}">

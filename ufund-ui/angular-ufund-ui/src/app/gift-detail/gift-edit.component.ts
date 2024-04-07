@@ -46,6 +46,7 @@ export class GiftEditComponent implements OnInit {
       this.getGift(this.giftId);
     });
     this.checkUser();
+    
   }
 
   getGift(id : number) {

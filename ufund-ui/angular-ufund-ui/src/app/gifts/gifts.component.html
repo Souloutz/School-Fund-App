@@ -1,20 +1,21 @@
 <div *ngIf="gifts.length > 0; else noGiftsAvailable"class="gift-container">
   <div *ngFor="let gift of gifts" class="gift">
-    <a routerLink="/detail/{{gift.id}}">
-      <span class="name">{{gift.name}}</span>
-    </a>
+    <div class="upper-container">
+      <a routerLink="/detail/{{gift.id}}"class="name">
+        <div>{{gift.name}}</div>
+      </a>
 
-    <div class="badge price">${{gift.price}}</div>
+      <div class="badge price">${{gift.price}}</div>
 
-    <div class="description"><p>{{gift.description}}</p></div>
+      <div class="description"><p>{{gift.description}}</p></div>
 
-    <div class="priority">
-      <div class="badge">Priority: </div>
-      <span>{{gift.priority}}</span>
+      <div class="priority">
+        <div class="badge">Priority: </div>
+        <span>{{gift.priority}}</span>
+      </div>
+
+      <div class="line"></div>
     </div>
-
-    <div class="line"></div>
-
     <div class="lower-container">
       <span class="amount">{{gift.amount_needed}}</span>
       <div class="add-container">

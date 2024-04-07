@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Gift } from '../model/gift';
 import { GiftService } from '../services/gift.service';
 import { CurrentUserService } from '../services/current.user.service';
@@ -11,13 +11,18 @@ import { GiftEditService } from '../services/gift-edit.service';
 
 import { Subscription } from 'rxjs';
 
+import { FormsModule } from '@angular/forms';
+
+
 @Component({
   standalone: true,
   selector: 'app-admin-dashboard',
   imports: [
     NgFor,
+    NgIf,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    FormsModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css',
@@ -28,6 +33,18 @@ export class AdminDashboardComponent {
   Title = "Admin Dashboard";
 
   gifts : Gift[] = [];
+
+  editFlag : boolean | undefined;
+
+  giftEdit : Gift = {
+    //the base gift that will be changed eventually so it can be used in the html component
+    id: -1, // uninitialized 
+    name: '',
+    description: '',
+    price: 0,
+    priority: 'NONE',
+    amount_needed: 0
+  };
 
   giftSubscription : Subscription = new Subscription;
 
@@ -41,11 +58,8 @@ export class AdminDashboardComponent {
   ngOnInit() :void {
     //this.checkUser();
     this.getGifts();
+    this.editFlag = false;
   }
-
-  selected(object: any): void {
-    console.log('Item clicked:', object);
-  } 
 
   checkUser() :void {
     if(!this.currUserService.isAdmin()) {
@@ -93,6 +107,7 @@ export class AdminDashboardComponent {
   }
 
   getDetail(gift : Gift) : void {
+    /* 
     console.log("clicked on detail");
     this.giftSubscription.unsubscribe();
     this.giftEditService.setCurrentGift(gift);
@@ -105,10 +120,35 @@ export class AdminDashboardComponent {
     }
 
     this.router.navigate(['admin-dashboard/detail-edit',gift.id]);
+    */
+  this.editFlag = true;
+  this.giftEdit = gift;
   }
 
 
   ngOnDestroy() {
     this.giftSubscription.unsubscribe();
   }
+
+  
+  /**
+   * hides the page
+   */
+  goBack(): void {
+    this.editFlag = false;
+  }
+
+  saveUpdatedGift(): void {
+    if (this.giftEdit.id != -1) {
+      this.giftService.updateGift(this.giftEdit)
+        .subscribe((returned) => {
+          console.log("Updated Gift: ", returned);
+        });
+    } else {
+      console.log("Invalid Gift", this.giftEdit);
+      window.alert("Invalid Gift credentials");
+    }
+    this.editFlag = false;
+  }
+
 }

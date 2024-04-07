@@ -1,4 +1,10 @@
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
  /* styles the input group */ 
 .input-group {
     --width: 300px;
@@ -37,12 +43,6 @@
 }
 
 
-.list .name {
-    font-weight: bold;
-    text-align: center;
-    font-size: large;
-}
-
 .list .description {
     padding-top: 10px;
     font-weight: bold;
@@ -67,6 +67,10 @@ input, textarea, select{
  width: 90%;
  border: 3px solid #ccc;
  border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
 }
 .add 
 {

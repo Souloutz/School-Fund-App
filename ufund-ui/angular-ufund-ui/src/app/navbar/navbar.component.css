@@ -23,3 +23,11 @@ body {
     background-color: aliceblue;
     border-radius: 5px;
 }
+
+.logo {
+    text-align: left;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    padding: 5px;
+    font-weight: bold;
+}

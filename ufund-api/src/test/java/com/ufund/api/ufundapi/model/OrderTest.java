@@ -76,7 +76,7 @@ public class OrderTest {
         // Setup
 
         List<OrderItem> orderItems = new ArrayList<OrderItem>();
-        orderItems.add(new OrderItem(1, 1));
+        orderItems.add(new OrderItem(1,"", 1));
         Order orderTest = new Order(LocalDateTime.now(), orderItems);
 
         // Invoke

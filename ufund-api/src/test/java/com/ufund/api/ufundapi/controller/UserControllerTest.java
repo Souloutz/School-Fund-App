@@ -333,8 +333,8 @@ public class UserControllerTest {
 
         // Convoluted? Add items to an OrderItem list, create a new Order with those OrderItems, then set that to the user.
         List<OrderItem> itemsToOrder = new ArrayList<>();
-        itemsToOrder.add(new OrderItem(1, 15));
-        itemsToOrder.add(new OrderItem(2, 15));
+        itemsToOrder.add(new OrderItem(1, "",15));
+        itemsToOrder.add(new OrderItem(2, "",15));
         Order testOrder = new Order(LocalDateTime.now(), itemsToOrder);
         List<Order> orderList = new ArrayList<>();
         orderList.add(testOrder);

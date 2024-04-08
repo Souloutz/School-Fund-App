@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class OrderItem {
     @JsonProperty("item_id") private int itemId;
     @JsonProperty("amount") private int itemAmount; // Can not be less than 0
+    @JsonProperty("name") private String name;
 
     /**
      * Create an order item
@@ -22,8 +23,10 @@ public class OrderItem {
      * value, i.e. 0 for int
      */
     public OrderItem(@JsonProperty("item_id") int itemId,
+                     @JsonProperty("name") String name,
                      @JsonProperty("amount") int itemAmount) {
         this.itemId = itemId;
+        this.name = name;
         this.itemAmount = itemAmount;
     }
 
@@ -60,5 +63,9 @@ public class OrderItem {
             itemAmount = 0;
 
         this.itemAmount = itemAmount;
+    }
+
+    public String getItemName() {
+        return this.name;
     }
 }

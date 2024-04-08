@@ -21,7 +21,7 @@ public class OrderItemTest {
         int expectedItemAmount = 150;
 
         // Invoke
-        OrderItem orderItem = new OrderItem(expectedId, expectedItemAmount);
+        OrderItem orderItem = new OrderItem(expectedId, "",expectedItemAmount);
 
         // Analyze
         assertNotEquals(orderItem, null);
@@ -34,7 +34,7 @@ public class OrderItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        OrderItem orderItem = new OrderItem(id, itemAmount);
+        OrderItem orderItem = new OrderItem(id, "",itemAmount);
 
         int expectedId = 2;
 
@@ -50,7 +50,7 @@ public class OrderItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        OrderItem orderItem = new OrderItem(id, itemAmount);
+        OrderItem orderItem = new OrderItem(id, "",itemAmount);
 
         int expectedItemAmount = 250;
 
@@ -66,7 +66,7 @@ public class OrderItemTest {
         // Setup
         int id = 1;
         int itemAmount = 100;
-        OrderItem orderItem = new OrderItem(id, itemAmount);
+        OrderItem orderItem = new OrderItem(id, "",itemAmount);
 
         int newItemAmount = -10;
         int expectedItemAmount = 0;

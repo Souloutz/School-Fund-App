@@ -18,9 +18,7 @@ const routes: Routes = [
     { path: 'account', component: AccountComponent},
     { path: 'signup', component: SignUpComponent},
     { path: 'cart', component: CartComponent},
-    { path: 'admin-dashboard', component: AdminDashboardComponent, children: [
-        {path: 'detail-edit/:id', component: GiftEditComponent} 
-    ]},
+    { path: 'admin-dashboard', component: AdminDashboardComponent},
     { path: 'detail/:id', component: GiftDetailComponent },
     { path: '**', pathMatch: 'full',  component: NotfoundComponent }
 ];

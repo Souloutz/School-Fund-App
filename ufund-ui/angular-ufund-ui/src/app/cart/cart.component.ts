@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 
@@ -7,12 +7,14 @@ import { UserService } from '../services/user.service';
 import { GiftService } from '../services/gift.service';
 import { Item } from '../model/item';
 import { User } from '../model/user';
+import { Order } from '../model/order';
 
 @Component({
   standalone: true,
   selector: 'app-cart',
   imports: [
     NgFor,
+    NgIf,
     RouterLink
   ],
   templateUrl: './cart.component.html',
@@ -27,6 +29,8 @@ export class CartComponent {
 
   cart: Item[] = [];
   currentUser: User = this.currentUserService.getBaseUser();
+
+  order : Order | undefined;
 
   gifts = this.giftService.getGifts();
 
@@ -60,8 +64,28 @@ export class CartComponent {
   }
 
   getDetail(id : number) {
-    this.router.navigate([`/detail/${id}`])
+    console.log("id: ", id);
+    this.router.navigateByUrl(`/detail/${id}`);
   }
+
+  checkout() {
+
+      this.userService.userCheckout(this.currentUser.email)
+      .subscribe(newOrder => {
+        this.order = newOrder
+        this.cart = [];//resets cart
+        this.currentUser.cart = this.cart;//resets this users cart
+
+        //resets currentUser service's cart
+        this.currentUserService.setCurrentUser(this.currentUser);
+      });
+
+  }
+
+  hideOrderInfo() {
+    this.order = undefined;
+  }
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.ufund.api.ufundapi.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -133,6 +134,12 @@ public class User {
         this.cart = cart;
     }
 
+    /**
+     * clears the user's cart 
+     */
+    public void clearCart() {
+        this.cart = new ArrayList<>();
+    }
     /**
      * Set the orders of the user - necessary for JSON object to Java object deserialization
      * @param orders The purchases of the user

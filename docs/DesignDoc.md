@@ -53,6 +53,8 @@ Admins can edit the needs in the cupboard, edit amount, add/remove items, etc.
 
 Users should be able to login and logout, view all of the needs, search for needs, add needs to cart, and logout and have the items in the cart save. Admins should also be able to login and add/remove or edit items.
 
+Feature Enhancement 1: Sort by priority
+
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
 
@@ -140,13 +142,13 @@ This tier contains the classes that represent different parts of our application
 > section will follow the same instructions that are given for the View
 > Tier above._
 
-**Model Tier classes added during Sprint 2:** 
+**Model Tier classes added during Sprint 2/3:** 
 
 **Order:** Represents an order. This is a list of OrderItems that a user ordered. It has an ID, date of checkout, and the list of items. These are made per user.
 
 **OrderItem:** This represents and item ordered by user. A list of these are in Order.
 
-**Priority:** This is for a feature enhancement, where we will have a need priority. Just a placeholder for now.
+**Priority:** This represents a prority of an Gift, from LOW to SEVERE. This represents how much the item is wanted. Helpers should focus on the higher level priority items. For a feature enhancement, we added an option to sort by prority, so the Helper can easily see where to direct their attention to.
 
 The following UML diagram describes the Model Tier of our application.
 
@@ -205,6 +207,8 @@ For more details, such as dates and comments, please see the Acceptance Testing 
 
 **Details page:** All passed.
 
+**Sort by priority:** All passed. Implemented 4-7-24.
+
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
@@ -214,9 +218,9 @@ For more details, such as dates and comments, please see the Acceptance Testing 
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
-**Sprint 2 Code Coverage Report**
+**Sprint 2 and 3 Code Coverage Report**
 
-We were able to achieve 90% test coverage for this sprint.
+We were able to achieve 90% test coverage for both sprints 2 and 3. 
 ![Tests Report](sprint2tests.png)
 
 
@@ -227,4 +231,5 @@ We were able to achieve 90% test coverage for this sprint.
 
 2024-2-20 Sprint 1: Team decided on using Gift for the needs.
 
-2024-3-20 Spring 2: Team decided to store password as a SHA512 hash instead of plaintext for better security.
+2024-3-20 Sprint 2: Team decided to store password as a SHA512 hash instead of plaintext for better security.
+

@@ -88,7 +88,7 @@ export class GiftService {
    */
   createItemFromGiftId(id: number, name: string, amount: number,): Item {
     console.log("item id: ", id);
-    return {id, name, amount};
+    return {item_id: id, name, amount};
   }
 
   /** DELETE: delete the gift from the server */
@@ -111,34 +111,6 @@ export class GiftService {
       catchError(this.handleError<any>('updateGift'))
     );
   }
-
-  // changePriorityToInt(gift : Gift) : boolean{
-  //   const priority = gift.priority.toString();
-
-  //   if(priority === 'NONE') {
-  //     gift.priority = 0;
-  //     return true;
-
-  //   } else if(priority === 'LOW') {
-  //     gift.priority = 1;
-  //     return true;
-
-  //   } else if(priority === 'MID') {
-  //     gift.priority = 2;
-  //     return true;
-
-  //   } else if(priority === 'HIGH') {
-  //     gift.priority = 3;
-  //     return true;
-      
-  //   } else if(priority === 'SEVERE') {
-  //     gift.priority = 4;
-  //     return true;
-
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   /**
    * Handle Http operation that failed.

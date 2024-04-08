@@ -136,7 +136,7 @@ public class UserTest {
         List<Order> expectedOrders = new ArrayList<>();
         List<OrderItem> expectedOrderItems = new ArrayList<>();
 
-        expectedOrderItems.add(new OrderItem(2, 50));
+        expectedOrderItems.add(new OrderItem(2, "",50));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         expectedOrders.add(new Order(LocalDateTime.parse("2024-02-26 00:00:00", formatter), expectedOrderItems));
 

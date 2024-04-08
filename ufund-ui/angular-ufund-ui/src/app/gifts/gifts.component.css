@@ -24,13 +24,13 @@ body
 
 .gift 
 {
-    display: inherit;
-    flex-flow: column;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     --width: 300px;
     width: var(--width);
-    height: fit-content;
+    height: 300px;
 
     padding: .5em;
     margin: 1.5em;
@@ -40,6 +40,38 @@ body
     border-radius: 10px;
 
 }
+
+.upper-container
+{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 85%;
+}
+
+.lower-container
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display:flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 30px;
+    height:10%;
+    max-width:90%
+}
+
+.name::-webkit-scrollbar{
+    display: none;
+}
+
 
 a
  {
@@ -62,7 +94,7 @@ a:hover
 
 .description
 {
-    height: 100px;
+    height: 30%;
     width: calc(var(--width) - .5em);
     overflow-y: scroll;
     margin: .5em 0;
@@ -105,15 +137,6 @@ a:hover
 {
     font-size: 20px;
     font-weight: 500;
-}
-
-
-.lower-container
-{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .lower-container span 

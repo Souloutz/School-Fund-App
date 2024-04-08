@@ -369,9 +369,11 @@ public class UserController {
             
             List<OrderItem> orderItems = new ArrayList<>(userCart.size());
             for (CartItem item : userCart) {
-                OrderItem newOrderItem = new OrderItem(item.getItemId(), item.getItemAmount());
+                OrderItem newOrderItem = new OrderItem(item.getItemId(),item.getItemName(), item.getItemAmount());
                 orderItems.add(newOrderItem);
             }
+
+            user.clearCart();
 
             // Create new order and add it to a user's orders
             Order newOrder = new Order(LocalDateTime.now(), orderItems);

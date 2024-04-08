@@ -8,6 +8,8 @@ import { User } from '../model/user';
 import { MessageService } from './message.service';
 import { sha512 } from 'sha512-crypt-ts';
 import { Item } from '../model/item';
+import { Order } from '../model/order';
+import { CartComponent } from '../cart/cart.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -129,11 +131,11 @@ export class UserService {
    * @returns observable user object that was given by server
    */
   addItemToCart(userEmail: string, item: Item): Observable<User> {
-    console.log("Item put id: ", item.id);
+    console.log("Item put id: ", item.item_id);
     console.log(`${this.usersURL}/${userEmail}/cart/`, item);
 
     return this.http.post<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
-      tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
+      tap((updatedUser: User) => this.log(`added item w/ id=${item.item_id}`)),
       catchError(this.handleError<User>('addItem'))
     );
   }
@@ -145,13 +147,16 @@ export class UserService {
    * @returns observable user object given by server
    */
   removeItemFromCart(userEmail: string, item: Item): Observable<User> {
-    console.log("Item post id: ", item.id);
-    console.log(`${this.usersURL}/${userEmail}/cart/`, item);
-
     return this.http.put<User>(`${this.usersURL}/${userEmail}/cart/`, item, this.httpOptions).pipe(
-      tap((updatedUser: User) => this.log(`added item w/ id=${item.id}`)),
+      tap((updatedUser: User) => this.log(`added item w/ id=${item.item_id}`)),
       catchError(this.handleError<User>('addItem'))
     );
+  }
+
+  userCheckout(email : string) : Observable<Order> {
+    return this.http.post<Order>(`${this.usersURL}/${email}/cart/checkout`, this.httpOptions).pipe(
+      tap((order : Order) => catchError(this.handleError<Order>('checkout'))
+    ));
   }
 
   /**

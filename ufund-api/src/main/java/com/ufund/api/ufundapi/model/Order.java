@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi.model;
+    package com.ufund.api.ufundapi.model;
 
 import java.time.LocalDateTime;
 import java.util.List;

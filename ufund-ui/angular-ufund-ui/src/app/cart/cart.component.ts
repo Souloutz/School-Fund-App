@@ -1,18 +1,20 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 import { CurrentUserService } from '../services/current.user.service';
 import { UserService } from '../services/user.service';
 import { GiftService } from '../services/gift.service';
 import { Item } from '../model/item';
 import { User } from '../model/user';
+import { Order } from '../model/order';
 
 @Component({
   standalone: true,
   selector: 'app-cart',
   imports: [
     NgFor,
+    NgIf,
     RouterLink
   ],
   templateUrl: './cart.component.html',
@@ -22,14 +24,21 @@ export class CartComponent {
 
   constructor (private currentUserService: CurrentUserService,
                private giftService: GiftService,
-               private userService: UserService) {}
+               private userService: UserService,
+               private router : Router) {}
 
   cart: Item[] = [];
   currentUser: User = this.currentUserService.getBaseUser();
 
+  order : Order | undefined;
+
   gifts = this.giftService.getGifts();
 
   ngOnInit(): void {
+    if(!this.currentUserService.isUserLoggedIn())//if theyre not a user (or not logged in)
+    {
+      this.router.navigate(['login']);
+    }
     this.currentUser = this.currentUserService.getCurrentUser();
     this.getCartItems();
   }
@@ -48,4 +57,35 @@ export class CartComponent {
         console.log("Success!, ", this.currentUser.cart);
     })
   }
+
+  goHome()
+  {
+    this.router.navigate(['']);
+  }
+
+  getDetail(id : number) {
+    console.log("id: ", id);
+    this.router.navigateByUrl(`/detail/${id}`);
+  }
+
+  checkout() {
+
+      this.userService.userCheckout(this.currentUser.email)
+      .subscribe(newOrder => {
+        this.order = newOrder
+        this.cart = [];//resets cart
+        this.currentUser.cart = this.cart;//resets this users cart
+
+        //resets currentUser service's cart
+        this.currentUserService.setCurrentUser(this.currentUser);
+      });
+
+  }
+
+  hideOrderInfo() {
+    this.order = undefined;
+  }
+
 }
+
+

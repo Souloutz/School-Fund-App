@@ -20,8 +20,20 @@ body {
 .acc-item {
     margin-right: 1em;
     padding: .3em;
-    background-color: aliceblue;
     border-radius: 5px;
+    font-size: 20px;
+}
+button {
+    cursor: pointer;
+    background-color: #ccc;
+    border: none;
+    border-radius: 3px;
+    width: fit-content;
+    padding: .25em .5em;
+}
+
+button:hover {
+    background-color: #dbdada;
 }
 
 .logo {

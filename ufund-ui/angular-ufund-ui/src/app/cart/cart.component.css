@@ -1,13 +1,29 @@
 * {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.header {
+  font-size: 30px;
+  font-weight: 600;
+}
 
+button {
+  cursor: pointer;
+  background-color: #ccc;
+  border: none;
+  border-radius: 3px;
+  width: fit-content;
+  padding: .25em .5em;
+}
+
+button:hover {
+  background-color:#dbdada ;
+}
 
 .items {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 1em;
+  margin: 1em 0 ;
 }
 
 .item-container {
@@ -20,19 +36,6 @@
   margin: 0 1em;
   border: 3px solid #ccc;
   border-radius: 5px;
-}
-
-.detail {
-  border: none;
-  background-color: #ccc;
-  border-radius: 3px;
-  width: fit-content;
-  padding: .25em .5em;
-  cursor: pointer;
-}
-
-.detail:hover {
-  background-color: #dbdada;
 }
 
 .badge {

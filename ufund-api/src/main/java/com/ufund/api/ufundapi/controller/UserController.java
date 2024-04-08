@@ -23,6 +23,8 @@ import com.ufund.api.ufundapi.model.CartItem;
 import com.ufund.api.ufundapi.model.Order;
 import com.ufund.api.ufundapi.model.OrderItem;
 import com.ufund.api.ufundapi.model.User;
+import com.ufund.api.ufundapi.persistence.GiftDAO;
+import com.ufund.api.ufundapi.persistence.GiftFileDAO;
 import com.ufund.api.ufundapi.persistence.UserDAO;
 
 /**
@@ -42,6 +44,7 @@ public class UserController {
 
     private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserDAO userDAO;
+    private GiftDAO giftDAO;
 
     /**
      * Create a REST API controller to respond to requests
@@ -49,8 +52,9 @@ public class UserController {
      * @param userDAO The {@link UserDAO User Data Access Object} to perform CRUD operations
      *                 This dependency is injected by the Spring Framework
      */
-    public UserController(UserDAO userDAO){
+    public UserController(UserDAO userDAO, GiftDAO giftDAO){
         this.userDAO = userDAO;
+        this.giftDAO = giftDAO;
     }
 
     /**
@@ -369,6 +373,9 @@ public class UserController {
             
             List<OrderItem> orderItems = new ArrayList<>(userCart.size());
             for (CartItem item : userCart) {
+
+                giftDAO.removeGiftQuantity(item.getItemId(), item.getItemAmount());
+
                 OrderItem newOrderItem = new OrderItem(item.getItemId(),item.getItemName(), item.getItemAmount());
                 orderItems.add(newOrderItem);
             }

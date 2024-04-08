@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -281,5 +282,27 @@ public class GiftFileDAO implements GiftDAO {
 
             return false;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeGiftQuantity(int id, int amount) throws IOException {
+        synchronized(gifts) {
+            if(gifts.containsKey(id)) {
+                //a lot here, just sets the amount to the orig. amount - amount deleted
+                gifts.get(id).setAmountNeeded(gifts.get(id).getAmountNeeded() - amount);
+
+                if(gifts.get(id).getAmountNeeded() < 0 ) {
+                    gifts.get(id).setAmountNeeded(0);
+                }
+                LOG.log(Level.FINE, "",gifts.get(id).getAmountNeeded());
+                return save();
+            } else {
+                LOG.log(Level.SEVERE, "does not contain id");
+            }
+        }
+        return false;
     }
 }

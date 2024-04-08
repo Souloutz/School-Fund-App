@@ -88,4 +88,15 @@ public interface GiftDAO {
      * @throws IOException if underlying storage cannot be accessed
      */
     boolean deleteGift(int id) throws IOException;
+
+    /**
+     * 
+     * @param id id of gift to be removed
+     * @param amount amount of gift to be removed
+     * @return true if gift successfully removed
+     * false otherwise
+     * 
+     * @throws IOException if storage cannot be accessed
+     */
+    boolean removeGiftQuantity(int id, int amount) throws IOException;
 }

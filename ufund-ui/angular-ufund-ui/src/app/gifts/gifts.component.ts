@@ -71,7 +71,11 @@ export class GiftsComponent implements OnInit {
     if(this.currUserService.isUserLoggedIn()) {
       console.log("Gift info: ", gift);
 
-      const amount : number = parseInt(passedAmount);
+      let amount = parseInt(passedAmount);
+  
+      if(this.isAmountOver(gift, amount)) {
+        amount = gift.amount_needed;
+      }
 
       this.userService.addItemToCart(this.currUserService.getCurrentUser().email,
                                      this.giftService.createItemFromGiftId(gift.id, gift.name, amount)).subscribe(
@@ -83,5 +87,9 @@ export class GiftsComponent implements OnInit {
     
     else 
       this.router.navigate(['/login']);
+  }
+
+  isAmountOver(gift: Gift, amount: number) {
+    return gift.amount_needed < amount;
   }
 }

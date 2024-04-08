@@ -18,6 +18,7 @@ import com.ufund.api.ufundapi.model.CartItem;
 import com.ufund.api.ufundapi.model.Order;
 import com.ufund.api.ufundapi.model.OrderItem;
 import com.ufund.api.ufundapi.model.User;
+import com.ufund.api.ufundapi.persistence.GiftDAO;
 import com.ufund.api.ufundapi.persistence.UserDAO;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,7 @@ import org.springframework.http.ResponseEntity;
 public class UserControllerTest {
     private UserController userController;
     private UserDAO mockUserDAO;
+    private GiftDAO mockGiftDAO;
 
     /**
      * Before each test, create a new User Controller object and inject a mock User DAO
@@ -43,7 +45,7 @@ public class UserControllerTest {
     @BeforeEach
     public void setupUserController() {
         mockUserDAO = mock(UserDAO.class);
-        userController = new UserController(mockUserDAO);
+        userController = new UserController(mockUserDAO, mockGiftDAO);
     }
 
     @Test

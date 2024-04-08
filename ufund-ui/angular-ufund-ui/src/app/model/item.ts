@@ -1,6 +1,6 @@
 export interface Item {
 
-    id: number;
+    item_id: number;
     name: string;
     amount: number;
 

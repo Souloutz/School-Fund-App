@@ -55,7 +55,7 @@ export class AdminDashboardComponent {
 
 
   ngOnInit() :void {
-    //this.checkUser();
+    this.checkUser();
     this.getGifts();
     this.editFlag = false;
   }
@@ -106,22 +106,8 @@ export class AdminDashboardComponent {
   }
 
   getDetail(gift : Gift) : void {
-    /* 
-    console.log("clicked on detail");
-    this.giftSubscription.unsubscribe();
-    this.giftEditService.setCurrentGift(gift);
-
-    const index = this.gifts.findIndex(element => element.id === gift.id);
-
-    if(index !== -1) {
-      this.giftSubscription = this.giftEditService.currentGift
-      .subscribe(currGift => this.gifts[index] = currGift);
-    }
-
-    this.router.navigate(['admin-dashboard/detail-edit',gift.id]);
-    */
-  this.editFlag = true;
-  this.giftEdit = gift;
+    this.editFlag = true;
+    this.giftEdit = gift;
   }
 
 
@@ -129,10 +115,7 @@ export class AdminDashboardComponent {
     this.giftSubscription.unsubscribe();
   }
 
-  
-  /**
-   * hides the page
-   */
+
   goBack(): void {
     this.editFlag = false;
   }

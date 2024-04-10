@@ -5,11 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>user-account</title>
     </head>
-    <body>
-        <a routerLink="">Home</a>
-        Account page works!
+    <header>
+        <button (click)="goHome()">Home</button>
 
         <button class="log-out" (click)="logOut()">Log Out</button>
+    </header>
+    <body>
+        <div class="user-container" *ngIf="currentUser.id > 0">
+            <h1>Hi, {{currentUser.username}}</h1>
 
+            <div class="info-container">
+                <h2>Email: {{currentUser.email}}</h2>
+                <div class="input-container">
+                    <label for="username">Username:</label>
+                    <input type="text" 
+                           name="username" 
+                           [(ngModel)]="currentUser.username"
+                           value="currentUser.username"
+                           #username>
+                    <button type="submit" (click)="saveUser(username.value); username.value=currentUser.username">Save</button>
+                </div>
+                <button>Change Password</button>
+            </div>
+        </div>
     </body>
 </html>

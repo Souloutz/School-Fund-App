@@ -21,15 +21,7 @@ export class NavbarComponent {
    * Update view when "account" button is clicked
    */
   onClickAccount(): void {
-    try {
-      if (this.currentUserService.isUserLoggedIn())
-        this.router.navigate(['/account']); // switch to their account dashboard if logged in
-      else
-        this.router.navigate(['/login']); // switch to the log in screen if user not logged in
-    }
-    catch (error) {
-      console.log("Error getting user info: ", error);
-    }
+    this.router.navigate(['/account']); // switch to their account dashboard if logged in
   }
 
   /**

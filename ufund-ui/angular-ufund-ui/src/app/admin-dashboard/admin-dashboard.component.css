@@ -16,7 +16,6 @@ nav {
 
     --gift-prim-color : rgb(230, 230, 230);
     border: 3px solid var(--gift-prim-color);
-    background-color: var(--gift-prim-color);
 
     border-radius: 10px;
 

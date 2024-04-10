@@ -50,8 +50,7 @@ export class AdminDashboardComponent {
 
   constructor(private giftService : GiftService,
               private currUserService : CurrentUserService,
-              private router : Router,
-              private giftEditService : GiftEditService) {}
+              private router : Router) {}
 
 
 

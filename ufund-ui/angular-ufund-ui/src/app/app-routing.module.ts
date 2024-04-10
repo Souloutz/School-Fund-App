@@ -9,7 +9,6 @@ import { CartComponent } from './cart/cart.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { GiftDetailComponent } from './gift-detail/gift-detail.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { GiftEditComponent } from './gift-detail/gift-edit.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},

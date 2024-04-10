@@ -122,21 +122,19 @@
   <!--List of gifts-->
     <div class="list">
     <ul class="gifts">
-        <li *ngFor ="let gift of gifts">
-            <div class="gift">
-                    <div class="name">{{ gift.name }}</div> 
-                    <div class="price">{{gift.price}}</div>
-                    <div class="description">{{ gift.description }}</div>
-                <div class="lower-container">
-                    <div class="amount">Amount: {{ gift.amount_needed }}</div>
-                    <span>Priority: <b>{{gift.priority}}</b></span>
-                </div>
-                <div class="button-container">
-                    <button (click)="getDetail(gift)">Details</button>
-                    <button (click)="deleteGift(gift)">Delete Gift</button>
-                </div>
+        <div *ngFor ="let gift of gifts" class="gift">
+                <div class="name">{{ gift.name }}</div> 
+                <div class="price">{{gift.price}}</div>
+                <div class="description">{{ gift.description }}</div>
+            <div class="lower-container">
+                <div class="amount">Amount: {{ gift.amount_needed }}</div>
+                <span>Priority: <b>{{gift.priority}}</b></span>
             </div>
-        </li>
+            <div class="button-container">
+                <button (click)="getDetail(gift)">Details</button>
+                <button (click)="deleteGift(gift)">Delete Gift</button>
+            </div>
+        </div>
     </ul>
     </div>
 

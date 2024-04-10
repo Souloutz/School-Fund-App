@@ -169,8 +169,15 @@ public class UserController {
         LOG.info("PUT /users/" + user.getId());
 
         try {
-            if (userDAO.getUser(user.getEmail()) != null) // check if there is a user with the email
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            User userWithEmail = userDAO.getUser(user.getEmail());
+
+            if (userWithEmail == null) // check if there is a user with the email
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            
+            //means that there is a conflict if emails are same but id's do not match
+            if(userWithEmail.getId() != user.getId()) {
+               return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
 
             User updatedUser = userDAO.updateUser(user);
 

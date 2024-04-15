@@ -8,6 +8,8 @@ import { Router, RouterLink } from '@angular/router';
 
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Order } from '../model/order';
+import { Item } from '../model/item';
 
 @Component({
   standalone: true,
@@ -27,12 +29,20 @@ export class AccountComponent {
               private router: Router,
               private userService : UserService) {}
 
+  orders : Order[] | undefined;
+
     currentUser: User = this.currentUserService.getBaseUser(); 
 
     ngOnInit() {
     if(!this.currentUserService.isUserLoggedIn()) {
       this.router.navigate(["login"]);
+      return;
     }
+    this.userService.getUserOrders(this.currentUserService.getCurrentUser().email)
+    .subscribe((userOrders) => {
+      this.currentUserService.setOrders(userOrders);
+      this.orders = this.currentUserService.getOrders();
+    });
     this.currentUser = this.currentUserService.getCurrentUser();
     }
 
@@ -51,5 +61,10 @@ export class AccountComponent {
 
     logOut(): void {
       this.currentUserService.logOut();
+    }
+
+    getDetail(id : number) {
+      console.log("id: ", id);
+      this.router.navigateByUrl(`/detail/${id}`);
     }
 }

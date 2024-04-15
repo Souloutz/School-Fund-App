@@ -27,6 +27,27 @@
                 </div>
                 <button>Change Password</button>
             </div>
+
+            <div *ngIf="orders" class="order-container">
+                <div *ngIf="orders.length > 0">
+                <div class="header">Order Information</div>
+                <div class="order" *ngFor="let order of orders">
+                <div class="id"><span class="badge">Order id: </span>{{order.id}}</div>
+                <div class="date"><span class="badge">Order date: </span>{{order.date}}</div>
+                <div class="badge">Order items:</div>
+            
+                <div *ngIf="order.items" class="items">
+                  <div *ngFor="let item of order.items" class="item-container">
+                    <button (click)="getDetail(item.item_id)" class="detail">
+                      <div>{{item.name}}</div>
+                    </button>
+            
+                    <div class="amount"> Amount: {{item.amount}}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
         </div>
     </body>
 </html>

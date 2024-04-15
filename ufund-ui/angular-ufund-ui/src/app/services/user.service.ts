@@ -63,6 +63,14 @@ export class UserService {
     );
   }
 
+  getUserOrders(email : string) : Observable<Order[]> {
+    const url = `${this.usersURL}/${email}/purchases`;
+    return this.http.get<Order[]>(url).pipe(
+      tap(_ => this.log(`fetched user orders=${email}`)),
+      catchError(this.handleError<Order[]>(`getUserOrder email=${email}`))
+    );
+  }
+
   /** GET users whose name contains search term */
   searchUsers(term: string): Observable<User[]> {
     if (!term.trim()) {

@@ -24,10 +24,10 @@ public class CartItem {
      * value, i.e. 0 for int
      */
     public CartItem(@JsonProperty("item_id") int itemId,
-                    @JsonProperty("name") String itemName,
+                    @JsonProperty("name") String name,
                     @JsonProperty("amount") int itemAmount) {
         this.itemId = itemId;
-        this.itemName = itemName;
+        this.itemName = name;
         this.itemAmount = itemAmount;
     }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Order } from '../model/order';
 
 /**
  * As services are singleton and only one of it is instantiated
@@ -55,6 +56,24 @@ export class CurrentUserService {
    */
   getBaseUser(): User {
     return this.baseUser;
+  }
+
+  /**
+   * Sets the current user's orders
+   * @param orders new orders to be set
+   */
+  setOrders(orders: Order[]) : void{
+    let newUser : User = this.currentUser.getValue();
+    newUser.orders = orders;
+    this.currentUser.next(newUser);
+  }
+
+  /**
+   * 
+   * @returns the current user's orders
+   */
+  getOrders() : Order[] {
+    return this.currentUser.getValue().orders;
   }
 
   /**

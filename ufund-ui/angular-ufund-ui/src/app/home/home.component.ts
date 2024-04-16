@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { GiftsComponent } from '../gifts/gifts.component';
-import { GiftSearchComponent } from '../gift-search/gift-search.component';
+
 import { CurrentUserService } from '../services/current.user.service';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-home',
   imports: [
     GiftsComponent,
-    GiftSearchComponent,
     NavbarComponent,
     CommonModule
   ],

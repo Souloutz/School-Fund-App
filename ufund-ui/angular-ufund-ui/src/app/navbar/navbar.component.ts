@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { CurrentUserService } from '../services/current.user.service';
+import { GiftSearchComponent } from '../gift-search/gift-search.component';
 
 import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-navbar',
+  imports: [
+    GiftSearchComponent
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

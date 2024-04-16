@@ -8,16 +8,17 @@ body
     margin: 0;
 }
 
-app-search
-{
-  margin: 4em;
-  width:100%;
-  
-}
-
 app-gifts
 {
   width:100%;
   display:block;
-  margin: 6em auto;
+  margin: 3em auto;
+}
+
+.name {
+  width: fit-content;
+  margin:auto;
+  font-size: 30pt;
+  margin-top: 2em;
+  font-weight: 600;
 }

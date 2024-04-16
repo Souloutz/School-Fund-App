@@ -78,9 +78,10 @@ export class GiftsComponent implements OnInit {
       }
 
       this.userService.addItemToCart(this.currUserService.getCurrentUser().email,
-                                     this.giftService.createItemFromGiftId(gift.id, gift.name, amount)).subscribe(
-                                        (user: User) => {this.currUserService.setCurrentUser(user);
-                                                 console.log('Success!', user.id)});
+                                     this.giftService.createItemFromGiftId(gift.id, gift.name, amount))
+                                     .subscribe((user: User) => {
+                                      this.currUserService.setCurrentUser(user);
+                                      console.log('Success!', user.id)});
       
       console.log(this.currUserService.getCurrentUser().cart.length);
     } 

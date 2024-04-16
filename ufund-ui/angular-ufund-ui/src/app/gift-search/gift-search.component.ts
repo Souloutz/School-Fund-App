@@ -10,6 +10,7 @@ import { AsyncPipe, NgFor } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CurrentUserService } from '../services/current.user.service';
 import { UserService } from '../services/user.service';
+import { User } from '../model/user';
 
 @Component({
   standalone: true,
@@ -29,10 +30,11 @@ export class GiftSearchComponent implements OnInit {
 
   private searchTerms = new Subject<string>();
 
-  constructor(private currentUserService: CurrentUserService,
+  constructor(private currUserService: CurrentUserService,
               private giftService: GiftService,
               private userService: UserService,
-              private router: Router) {}
+              private router: Router,
+              ) {}
 
   // push a search term into the observable stream.
   search(term: string): void {
@@ -52,23 +54,37 @@ export class GiftSearchComponent implements OnInit {
     );
   }
 
-   /**
-   * Add the gift to the user's cart
-   * @param gift
+  /**
+   * Add the selected gift to the cart
+   * @param gift 
    */
-   addToCart(gift: Gift): void {
-    if(this.currentUserService.isUserLoggedIn()) {
+  addToCart(gift: Gift, passedAmount : string): void {
+
+    passedAmount = passedAmount == "" ? "1" : passedAmount;
+
+    if(this.currUserService.isUserLoggedIn()) {
       console.log("Gift info: ", gift);
 
-      this.userService.addItemToCart(this.currentUserService.getCurrentUser().email,
-                                     this.giftService.createItemFromGiftId(gift.id, gift.name, 1)).subscribe(
-                                        user => {this.currentUserService.setCurrentUser(user);
-                                                 console.log('Success!', user.id)});
+      let amount = parseInt(passedAmount);
+  
+      if(this.isAmountOver(gift, amount)) {
+        amount = gift.amount_needed;
+      }
 
-      console.log(this.currentUserService.getCurrentUser().cart.length);
+      this.userService.addItemToCart(this.currUserService.getCurrentUser().email,
+                                     this.giftService.createItemFromGiftId(gift.id, gift.name, amount))
+                                     .subscribe((user: User) => {
+                                      this.currUserService.setCurrentUser(user);
+                                      console.log('Success!', user.id)});
+      
+      console.log(this.currUserService.getCurrentUser().cart.length);
     } 
     
-    else
+    else 
       this.router.navigate(['/login']);
+  }
+
+  isAmountOver(gift: Gift, amount: number) {
+    return gift.amount_needed < amount;
   }
 }

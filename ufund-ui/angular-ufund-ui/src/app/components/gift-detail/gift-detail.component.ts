@@ -3,13 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Location, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { Gift } from '../model/gift';
-import { GiftService } from '../services/gift.service';
+import { Gift } from '../../model/gift';
+import { GiftService } from '../../services/gift.service';
 import { FormsModule } from '@angular/forms';
 
-import { CurrentUserService } from '../services/current.user.service';
-import { UserService } from '../services/user.service';
-import { User } from '../model/user';
+import { CurrentUserService } from '../../services/current.user.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../model/user';
 
 @Component({
   standalone: true,

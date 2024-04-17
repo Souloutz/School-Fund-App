@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { UserService } from "../services/user.service";
-import { CurrentUserService } from '../services/current.user.service';
+import { UserService } from "../../services/user.service";
+import { CurrentUserService } from '../../services/current.user.service';
 import { Router, RouterLink } from '@angular/router';
 
-import { User } from '../model/user';
+import { User } from '../../model/user';
 import { FormsModule } from '@angular/forms';
 
 import { Location } from '@angular/common';

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Gift } from '../model/gift';
-import { GiftService } from '../services/gift.service';
-import { UserService } from '../services/user.service';
-import { CurrentUserService } from '../services/current.user.service';
+import { Gift } from '../../model/gift';
+import { GiftService } from '../../services/gift.service';
+import { UserService } from '../../services/user.service';
+import { CurrentUserService } from '../../services/current.user.service';
 import { Router, RouterLink } from '@angular/router';
-import { User } from '../model/user';
+import { User } from '../../model/user';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

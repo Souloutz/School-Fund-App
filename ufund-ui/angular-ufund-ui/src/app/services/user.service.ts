@@ -9,7 +9,7 @@ import { MessageService } from './message.service';
 import { sha512 } from 'sha512-crypt-ts';
 import { Item } from '../model/item';
 import { Order } from '../model/order';
-import { CartComponent } from '../cart/cart.component';
+import { CartComponent } from '../components/cart/cart.component';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

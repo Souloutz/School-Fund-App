@@ -2,12 +2,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 
-import { CurrentUserService } from '../services/current.user.service';
-import { UserService } from '../services/user.service';
-import { GiftService } from '../services/gift.service';
-import { Item } from '../model/item';
-import { User } from '../model/user';
-import { Order } from '../model/order';
+import { CurrentUserService } from '../../services/current.user.service';
+import { UserService } from '../../services/user.service';
+import { GiftService } from '../../services/gift.service';
+import { Item } from '../../model/item';
+import { User } from '../../model/user';
+import { Order } from '../../model/order';
 
 @Component({
   standalone: true,

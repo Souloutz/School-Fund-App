@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { GiftsComponent } from '../gifts/gifts.component';
 
-import { CurrentUserService } from '../services/current.user.service';
+import { CurrentUserService } from '../../services/current.user.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

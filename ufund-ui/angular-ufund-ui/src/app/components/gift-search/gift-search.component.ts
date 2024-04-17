@@ -4,13 +4,13 @@ import { Observable, Subject } from 'rxjs';
 
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
-import { Gift } from '../model/gift';
-import { GiftService } from '../services/gift.service';
+import { Gift } from '../../model/gift';
+import { GiftService } from '../../services/gift.service';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { CurrentUserService } from '../services/current.user.service';
-import { UserService } from '../services/user.service';
-import { User } from '../model/user';
+import { CurrentUserService } from '../../services/current.user.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../model/user';
 
 @Component({
   standalone: true,

@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
-import { CurrentUserService } from '../services/current.user.service';
-import { UserService } from '../services/user.service';
+import { CurrentUserService } from '../../services/current.user.service';
+import { UserService } from '../../services/user.service';
 
-import { User } from '../model/user';
+import { User } from '../../model/user';
 import { Router, RouterLink } from '@angular/router';
 
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Order } from '../model/order';
-import { Item } from '../model/item';
+import { Order } from '../../model/order';
+import { Item } from '../../model/item';
 
 @Component({
   standalone: true,

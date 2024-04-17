@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
-import { Gift } from '../model/gift';
-import { GiftService } from '../services/gift.service';
-import { CurrentUserService } from '../services/current.user.service';
+import { Gift } from '../../model/gift';
+import { GiftService } from '../../services/gift.service';
+import { CurrentUserService } from '../../services/current.user.service';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 
-import { GiftEditService } from '../services/gift-edit.service';
+import { GiftEditService } from '../../services/gift-edit.service';
 
 import { Subscription } from 'rxjs';
 

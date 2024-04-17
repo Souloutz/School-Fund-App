@@ -14,7 +14,7 @@ import { User } from '../../model/user';
 
 @Component({
   standalone: true,
-  selector: 'app-search',
+  selector: 'gift-search',
   imports: [
     AsyncPipe,
     NgFor,

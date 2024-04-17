@@ -21,15 +21,19 @@ import { Item } from '../model/item';
     FormsModule
   ],
   templateUrl: './account.component.html',
-  styleUrl: './account.component.css'
+  styleUrls: ['./account.component.css',
+              '../cart/cart.component.css'
+             ]
 })
 export class AccountComponent {
+
+  orders : Order[] = [];
+
+  noMoreOrders : boolean = false;
 
   constructor(private currentUserService: CurrentUserService,
               private router: Router,
               private userService : UserService) {}
-
-  orders : Order[] | undefined;
 
     currentUser: User = this.currentUserService.getBaseUser(); 
 
@@ -41,7 +45,15 @@ export class AccountComponent {
     this.userService.getUserOrders(this.currentUserService.getCurrentUser().email)
     .subscribe((userOrders) => {
       this.currentUserService.setOrders(userOrders);
-      this.orders = this.currentUserService.getOrders();
+
+      this.orders = [];
+      for(let i = 0; i < 3; i++) {
+        if(userOrders[i] == null) {
+          this.noMoreOrders = true;
+          break;
+        }
+        this.orders.push(userOrders[i]);
+      }
     });
     this.currentUser = this.currentUserService.getCurrentUser();
     }
@@ -66,5 +78,28 @@ export class AccountComponent {
     getDetail(id : number) {
       console.log("id: ", id);
       this.router.navigateByUrl(`/detail/${id}`);
+    }
+
+    showMoreOrders() : void {
+
+      this.userService.getUserOrders(this.currentUserService.getCurrentUser().email)
+      .subscribe((userOrders) =>
+        {
+          let pastLength = this.orders.length;
+          for(let i = pastLength;  i < pastLength + 5;i++) {
+            if(userOrders[i] == null) {
+              this.noMoreOrders = true;
+              break;
+            }
+            this.orders.push(userOrders[i]);
+          }
+        });
+        return;
+    }
+
+    showLessOrders() : void {
+      for(let i = this.orders.length; i > 3; i--) {
+        this.orders.pop();
+      }
     }
 }

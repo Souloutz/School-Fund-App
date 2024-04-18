@@ -7,16 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
   </head>
+    <nav>
+      <app-navbar></app-navbar>
+    </nav>
   
-  <nav>
-    <app-navbar></app-navbar>
-  </nav>
-
-  <main>
-
-    <div class="name" *ngIf="name">Hi! {{name}}</div>
-    
-    <app-gifts></app-gifts>
-  </main>
-
+    <main>
+  
+      <div class="name" *ngIf="name">Hi! {{name}}</div>
+      
+      <app-gifts></app-gifts>
+    </main>
 </html>

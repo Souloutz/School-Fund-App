@@ -10,7 +10,32 @@
 
 body
 {
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+}
+
+.sort-container {
+    display: flex;
+    justify-content: center;
+    width: calc(400px + 3em);
+}
+
+.sort-select, .sort-button {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: .3em .5em;
+    margin: 0 .5em;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+}
+
+.sort-button:hover {
+    background-color: #cacaca;
 }
 
 .gift-container
@@ -190,24 +215,4 @@ a:hover
     cursor:pointer;
 }
 
-.sort-container {
-    display: flex;
-    justify-content: left;
-    padding-left: 2em;
-}
 
-.sort-select, .sort-button {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: .3em .5em;
-    margin: 0 .5em;
-    border: 1px solid rgb(134, 134, 134);
-    border-radius: 5px;
-    cursor: pointer;
-    outline: none;
-    font-size: 16px;
-    background-color: rgb(255, 255, 255);
-}
-
-.sort-button:hover {
-    background-color: #cacaca;
-}

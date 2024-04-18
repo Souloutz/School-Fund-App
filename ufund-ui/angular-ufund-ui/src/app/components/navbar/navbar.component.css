@@ -9,17 +9,18 @@ body {
 .navbar {
     display:flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items:baseline;
 }
 
 .account-info {
     display: inline-flex;
     justify-content: right;
+    margin-right: 0;
 }
 
 .acc-item {
-    margin-right: 1em;
+    margin-left: .5em;
     padding: .3em;
     border-radius: 5px;
     font-size: 20px;
@@ -40,8 +41,6 @@ button:hover {
 .logo {
     text-align: left;
     font-size: 24px;
-    margin-left: 1em;
-    margin-top:.5em;
     font-weight: bold;
 }
 

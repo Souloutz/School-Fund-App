@@ -1,47 +1,22 @@
-<div id="search-component">
+<div id="search-component" class="search-component">
 
   <div class="search-container">
     <input #searchBox
            id="search-box" 
            (input)="search(searchBox.value)"
-           class="search-box"
+           [ngClass]="{'search-box': hasGifts, 'search-box-no-gifts': !hasGifts}"
            placeholder="Search Gifts" />
   </div>
 
-  <div class="gift-container">
-    <div *ngFor="let gift of gifts$ | async" class="gift">
-      <div class="upper-container">
-        <a routerLink="/detail/{{gift.id}}"class="name">
-          <div>{{gift.name}}</div>
-        </a>
-  
-        <div class="badge price">${{gift.price}}</div>
-  
-        <div class="description"><p>{{gift.description}}</p></div>
-  
-        <div class="priority">
-          <div class="badge">Priority: </div>
-          <span>{{gift.priority}}</span>
-        </div>
-  
+    <div [ngClass]="{'gift-container': hasGifts, 'gift-container-no-gifts': !hasGifts}">
+      <div *ngFor="let gift of gifts$ | async" class="gift">
         <div class="line"></div>
-      </div>
-      <div class="lower-container">
-        <span class="amount">{{gift.amount_needed}}</span>
-        <div class="add-container">
-          <input type="number" 
-                 step=1
-                 name="gift-amount" 
-                 id="gift-amount" 
-                 min=1 
-                 max={{gift.amount_needed}}
-                 onKeyDown="return false"
-                 class="input-amount" 
-                 #giftAmount/>
-          <button (click)="addToCart(gift, giftAmount.value); giftAmount.value=''" class="add">Add to Cart</button>
-        </div>
+        <button class="info-container" (click)="getDetail(gift.id)">
+          
+          <div class="badge">{{gift.name}}</div >
+    
+          <div class="badge price">${{gift.price}}</div>
+        </button>
       </div>
     </div>
-  </div>
-
 </div>

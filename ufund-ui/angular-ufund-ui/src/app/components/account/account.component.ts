@@ -101,5 +101,6 @@ export class AccountComponent {
       for(let i = this.orders.length; i > 3; i--) {
         this.orders.pop();
       }
+      this.noMoreOrders = false;
     }
 }

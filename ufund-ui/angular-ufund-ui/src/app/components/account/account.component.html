@@ -14,6 +14,8 @@
         <div class="user-container" *ngIf="currentUser.id > 0">
             <h1>Hi, {{currentUser.username}}</h1>
 
+            <h1>Total Contributed: ${{totalContributed}}</h1>
+
             <div class="info-container">
                 <h2>Email: {{currentUser.email}}</h2>
                 <div class="input-container">

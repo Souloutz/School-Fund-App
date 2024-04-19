@@ -34,6 +34,8 @@ export class CartComponent {
 
   gifts = this.giftService.getGifts();
 
+  orderCost : number = -1;
+
   ngOnInit(): void {
     if(!this.currentUserService.isUserLoggedIn())//if theyre not a user (or not logged in)
     {
@@ -78,8 +80,16 @@ export class CartComponent {
 
         //resets currentUser service's cart
         this.currentUserService.setCurrentUser(this.currentUser);
-      });
 
+        //gets the order's total cost and sets it to total
+        this.userService.getTotalOrderCost(newOrder)
+        .subscribe(cost => {
+          console.log(cost);
+          this.orderCost = cost
+        });
+
+      });
+      
   }
 
   hideOrderInfo() {

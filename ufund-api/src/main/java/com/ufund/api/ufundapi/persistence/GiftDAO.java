@@ -3,6 +3,8 @@ package com.ufund.api.ufundapi.persistence;
 import java.io.IOException;
 
 import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.Order;
+import com.ufund.api.ufundapi.model.User;
 
 /**
  * Interface for Gift item object persistence
@@ -99,4 +101,11 @@ public interface GiftDAO {
      * @throws IOException if storage cannot be accessed
      */
     boolean removeGiftQuantity(int id, int amount) throws IOException;
+
+    /**
+     * calculates the total cost for the order
+     * @param order
+     * @return total cost for the order
+     */
+    Double getOrderTotalPrice(int id, User user) throws IOException;
 }

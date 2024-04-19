@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Gift } from '../model/gift';
 import { MessageService } from './message.service';
 import { Item } from '../model/item';
+import { Order } from '../model/order';
 
 @Injectable({ providedIn: 'root' })
 export class GiftService {
@@ -68,6 +69,7 @@ export class GiftService {
       catchError(this.handleError<Gift[]>('searchGifts', []))
     );
   }
+
 
   //////// CRUD methods //////////
 

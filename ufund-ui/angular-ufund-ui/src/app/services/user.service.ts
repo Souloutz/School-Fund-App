@@ -71,6 +71,28 @@ export class UserService {
     );
   }
 
+  /**
+   *  fetches the user's total amount contributed
+   * @param email : user's email
+   * @returns the total amount contributed by the user
+   */
+  getUserTotalContributed(email : string) : Observable<number> {
+    const url = `${this.usersURL}/${email}/purchases/total`;
+    return this.http.get<number>(url).pipe(
+      tap(_ => this.log(`Fetched total contribution : ${email}`)),
+      catchError(this.handleError<number>(`getUserTotalContributed email=${email}`))
+    );
+  }
+
+  /**GET total order cost of the specified order */
+  getTotalOrderCost(order : Order) : Observable<number> {
+    const url = `${this.usersURL}/${order.id}/total/`;
+    return this.http.get<number>(url).pipe(
+      tap(_ => this.log(`fetched order total id=${order.id}`)),
+      catchError(this.handleError<number>(`getTotalOrderCost id=${order.id}`))
+    );
+  }
+
   /** GET users whose name contains search term */
   searchUsers(term: string): Observable<User[]> {
     if (!term.trim()) {

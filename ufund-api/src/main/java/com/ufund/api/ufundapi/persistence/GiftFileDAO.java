@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -11,7 +12,10 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.Order;
+import com.ufund.api.ufundapi.model.OrderItem;
 import com.ufund.api.ufundapi.model.Priority;
+import com.ufund.api.ufundapi.model.User;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,7 +27,7 @@ import org.springframework.stereotype.Component;
  * class and injects the instance into other classes as needed
  * 
  * @author Howard Kong
- * @author
+ * @author Austin Kunkel
  * @author
  * @author
  */
@@ -304,5 +308,30 @@ public class GiftFileDAO implements GiftDAO {
             }
         }
         return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Double getOrderTotalPrice(int id, User user) throws IOException {
+        Double total = 0.0;
+
+        Order order = user.getOrder(id);
+
+        if(order == null) {
+            return -1.0;
+        }
+
+        List<OrderItem> items = order.getOrderItems();
+        Gift gift;
+
+        for(OrderItem item : items) {
+            gift = getGift(item.getItemId());
+
+            total += gift.getPrice() * item.getItemAmount();
+        }
+
+        return total;
     }
 }

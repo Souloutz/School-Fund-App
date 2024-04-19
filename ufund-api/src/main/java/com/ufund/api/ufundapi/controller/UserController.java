@@ -355,6 +355,53 @@ public class UserController {
         }
     }
 
+    
+
+    /**
+     * Respond to the GET request for the user's total contribution
+     * @param email The email of the {@link User user}
+     * @return ResponseEntity with array of {@link Integer} total (may be 0) and HTTP status of OK
+     *         ResponseEntity with HTTP status of NOT_FOUND if not found
+     *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @GetMapping("/{email}/purchases/total")
+    public ResponseEntity<Double> getUserTotalContributed(@PathVariable String email) {
+        LOG.info("GET /users/" + email + "/purchases/total");
+
+        try {
+            User user = userDAO.getUser(email);
+            if (user == null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            Double total = this.userDAO.getUserTotalContributed(user.getOrders(), giftDAO, user);
+            
+            return new ResponseEntity<Double>(total, HttpStatus.OK);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}/{email}/total")
+    public ResponseEntity<Double> getOrderTotalCost(@PathVariable int id, @PathVariable String email) {
+        LOG.info("GET /gifts/" + id);
+
+        try {
+            if(id < 1)
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            Double total = 0.0;
+            total = giftDAO.getOrderTotalPrice(id, userDAO.getUser(email));
+
+            return new ResponseEntity<Double>(total, HttpStatus.OK);
+        }
+        catch (IOException ioe) {
+            LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * Checkout the cart of the {@linkplain User user} with the provided id and update the user's cart and purchases
      * 
@@ -386,7 +433,6 @@ public class UserController {
                 OrderItem newOrderItem = new OrderItem(item.getItemId(),item.getItemName(), item.getItemAmount());
                 orderItems.add(newOrderItem);
             }
-
             user.clearCart();
 
             // Create new order and add it to a user's orders

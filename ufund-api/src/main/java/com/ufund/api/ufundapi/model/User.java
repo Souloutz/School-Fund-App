@@ -148,6 +148,10 @@ public class User {
         this.orders = orders;
     }
 
+    public Order getOrder(int id) {
+        return orders.get(id);
+    }
+
     /**
      * {@inheritDoc}
      */

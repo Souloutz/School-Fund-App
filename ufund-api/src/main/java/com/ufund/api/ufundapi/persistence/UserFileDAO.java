@@ -3,11 +3,15 @@ package com.ufund.api.ufundapi.persistence;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.Gift;
+import com.ufund.api.ufundapi.model.Order;
+import com.ufund.api.ufundapi.model.OrderItem;
 import com.ufund.api.ufundapi.model.User;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Component;
  * class and injects the instance into other classes as needed
  * 
  * @author Howard Kong
- * @author
+ * @author Austin Kunkel
  * @author
  * @author
  */
@@ -248,4 +252,15 @@ public class UserFileDAO implements UserDAO {
             return false;
         }
     }
+
+    @Override
+    public Double getUserTotalContributed(List<Order> orders, GiftDAO giftDAO, User user) throws IOException {
+        Double total = 0.0;
+        for(Order order : orders) {
+            total += giftDAO.getOrderTotalPrice(order.getOrderId(), user);
+        }
+        return total;
+    }
+
+    
 }

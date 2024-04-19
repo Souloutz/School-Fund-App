@@ -29,6 +29,8 @@ export class AccountComponent {
 
   orders : Order[] = [];
 
+  totalContributed : number = 0;
+
   noMoreOrders : boolean = false;
 
   constructor(private currentUserService: CurrentUserService,
@@ -56,6 +58,9 @@ export class AccountComponent {
       }
     });
     this.currentUser = this.currentUserService.getCurrentUser();
+
+    this.userService.getUserTotalContributed(this.currentUser.email)
+    .subscribe(total => {this.totalContributed = total});
     }
 
     saveUser(username : string) {

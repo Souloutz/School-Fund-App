@@ -1,7 +1,12 @@
 package com.ufund.api.ufundapi.persistence;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
+
+import com.ufund.api.ufundapi.model.Order;
+import com.ufund.api.ufundapi.model.OrderItem;
 import com.ufund.api.ufundapi.model.User;
 
 /**
@@ -80,4 +85,14 @@ public interface UserDAO {
      * @throws IOException if underlying storage cannot be accessed
      */
     boolean deleteUser(String email) throws IOException;
+
+    /**
+     * Get a total of the user's contribution
+     * @param orders the orders that the user has
+     * @return the double of total of the user's contribution
+     * @throws IOException
+     */
+    Double getUserTotalContributed(List<Order> orders, GiftDAO giftDAO, User user) throws IOException;
+
+
 }

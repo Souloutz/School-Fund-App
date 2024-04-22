@@ -87,10 +87,9 @@ export class CartComponent {
 
         let email = this.currentUser.email;
 
-        //gets the order's total cost and sets it to total
-        this.orderCost = newOrder.cost
+        this.orderCost = this.itemCost;
 
-        this.userService.setTotalOrderCost(email, this.order.id, this.order.cost).subscribe(
+        this.userService.setTotalOrderCost(email, this.order.id, this.orderCost).subscribe(
           (updated : Order) => {
             this.orderCost = updated.cost;
           }

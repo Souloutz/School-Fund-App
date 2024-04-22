@@ -92,10 +92,6 @@ This section describes the web interface flow; this is how the user views and in
 When you first enter the application, you are brought to the home page. This page shows all the needs that are available to fund. It gives you the option to add to cart, but since you are not logged in yet, clicking on add to cart will bring you to the login page. Here you can login or create an account. Logging in will bring you back into the home page where you can add items to your cart. You can also click on each item to view more details about it, such as cost, a description, etc.. If you are a admin you are brought to a separate page.
 
 ### View Tier
-> _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
 
 ## Summary of View Tier Components
 When you first log in, you will see the need page. This has the gifts, gifts-search, and navbar componets. This display the gifts and allowd you to search for gifts (gifts-search) and navigate the site (navbar). Clicking on a gift will bring you to gift detail, which brings you to a separate page displaying greater information about the gift (description, price, etc.). 
@@ -104,23 +100,17 @@ Clicking on add to cart will bring you to the login page (if not logged in) with
 
 Finally, if you are logged in, you can click on the user button to be brought to the account component, which displays details about your account (name, previous orders, total donated, etc.). You can click the cart button to be brought to the cart component, which displays items in your cart. Then you can click order which will bring you to the order compoent which will create and make an order.
 
-> _**[Sprint 4]** You must  provide at least **2 sequence diagrams** as is relevant to a particular aspects 
-> of the design that you are describing.  (**For example**, in a shopping experience application you might create a 
-> sequence diagram of a customer searching for an item and adding to their cart.)
-> As these can span multiple tiers, be sure to include an relevant HTTP requests from the client-side to the server-side 
-> to help illustrate the end-to-end flow._
->
-**2 sequence diagrams**
+# Sequence Diagrams for Sprint 4
 
-# User Search For Item
+**User Search For Item**
 
+Assuming the user is already logged in, searching for an item using a GET request.
+![seq1](seq1.png)
 
+**User Creating Account**
 
-> _**[Sprint 4]** To adequately show your system, you will need to present the **class diagrams** where relevant in your design. Some additional tips:_
- >* _Class diagrams only apply to the **ViewModel** and **Model** Tier_
->* _A single class diagram of the entire system will not be effective. You may start with one, but will be need to break it down into smaller sections to account for requirements of each of the Tier static models below._
- >* _Correct labeling of relationships with proper notation for the relationship type, multiplicities, and navigation information will be important._
- >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
+User creating an account from the login page, assuming a user with that name does not already exist.
+![seq2](seq2.png)
 
 ### ViewModel Tier
 **GiftController:** Controls and implements the CRUD operations for the Gifts (Needs). Has update, delete, add, get all, retrieve, etc.

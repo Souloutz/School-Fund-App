@@ -20,7 +20,7 @@
   </div>
 
   <div *ngIf="cart.length > 0">
-    <button class="badge" (click)="checkout()">Check out</button>
+    <button class="badge" (click)="checkout()">Check out <span class="cost" *ngIf="itemCost >= 0.00">${{itemCost}}</span></button>
   </div>
 </main>
 
@@ -30,7 +30,7 @@
     <div class="id"><span class="badge">Order id: </span>{{order.id}}</div>
     <div class="date"><span class="badge">Order date: </span>{{order.date}}</div>
 
-    <div *ngIf="orderCost >= 0" class="cost"><span class="badge">Order cost: </span>{{orderCost}}</div>
+    <div *ngIf="orderCost >= 0" class="cost"><span class="badge">Order cost: </span>${{orderCost}}</div>
 
     <div class="badge">Order items:</div>
 

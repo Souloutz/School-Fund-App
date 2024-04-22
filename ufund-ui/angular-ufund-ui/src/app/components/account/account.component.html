@@ -14,12 +14,15 @@
         <div class="user-container" *ngIf="currentUser.id > 0">
             <h1>Hi, {{currentUser.username}}</h1>
 
-            <h1>Total Contributed: ${{totalContributed}}</h1>
+            <div class="contributed-container">
+                <div class="contributed-label">Total contributed: </div>
+                <div class="contributed">${{totalContributed}}</div>
+            </div>
 
             <div class="info-container">
                 <h2>Email: {{currentUser.email}}</h2>
                 <div class="input-container">
-                    <label for="username">Username:</label>
+                    <label for="username"><h2>Username: </h2></label>
                     <input type="text" 
                            name="username" 
                            [(ngModel)]="currentUser.username"
@@ -30,7 +33,8 @@
                 <button>Change Password</button>
             </div>
 
-            <div *ngIf="orders.length > 0" class="order-container">
+            <button (click)="showOrders()" *ngIf="!showOrdersFlag">Show orders</button>
+            <div *ngIf="showOrdersFlag" class="order-container">
                 <div *ngIf="orders.length > 0">
                 <div class="header">Order Information</div>
 
@@ -38,6 +42,7 @@
                 <div class="order" *ngFor="let order of orders">
                     <div class="line"></div>
                     <div class="id"><span class="badge">Order id: </span>{{order.id}}</div>
+                    <div class="cost"><span class="badge">Order cost: </span>${{order.cost}}</div>
                     <div class="date"><span class="badge">Order date: </span>{{order.date}}</div>
                     <div class="badge">Order items:</div>
                 

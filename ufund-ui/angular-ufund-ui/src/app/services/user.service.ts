@@ -84,14 +84,7 @@ export class UserService {
     );
   }
 
-  /**GET total order cost of the specified order */
-  getTotalOrderCost(order : Order) : Observable<number> {
-    const url = `${this.usersURL}/${order.id}/total/`;
-    return this.http.get<number>(url).pipe(
-      tap(_ => this.log(`fetched order total id=${order.id}`)),
-      catchError(this.handleError<number>(`getTotalOrderCost id=${order.id}`))
-    );
-  }
+
 
   /** GET users whose name contains search term */
   searchUsers(term: string): Observable<User[]> {
@@ -134,6 +127,19 @@ export class UserService {
           }
         })
       })
+  }
+
+  /**
+   * sets the order's total cost 
+   * @param order 
+   * @param email 
+   */
+  setTotalOrderCost(email : string, id : number , cost : number) {
+    const url = `${this.usersURL}/${email}/orders/${id}/${cost}`;
+    return this.http.post<Order>(url, this.httpOptions).pipe(
+      tap((newOrder : Order) => this.log(`set order cost : $${newOrder.cost}`)),
+      catchError(this.handleError<Order>('setOrderCost'))
+    );
   }
 
   /** PUT: update the user on the server */

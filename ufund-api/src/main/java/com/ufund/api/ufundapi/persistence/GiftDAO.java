@@ -101,11 +101,4 @@ public interface GiftDAO {
      * @throws IOException if storage cannot be accessed
      */
     boolean removeGiftQuantity(int id, int amount) throws IOException;
-
-    /**
-     * calculates the total cost for the order
-     * @param order
-     * @return total cost for the order
-     */
-    Double getOrderTotalPrice(int id, User user) throws IOException;
 }

@@ -254,10 +254,10 @@ public class UserFileDAO implements UserDAO {
     }
 
     @Override
-    public Double getUserTotalContributed(List<Order> orders, GiftDAO giftDAO, User user) throws IOException {
+    public Double getUserTotalContributed(List<Order> orders, GiftDAO giftDAO) throws IOException {
         Double total = 0.0;
         for(Order order : orders) {
-            total += giftDAO.getOrderTotalPrice(order.getOrderId(), user);
+            total += order.getOrderCost();
         }
         return total;
     }

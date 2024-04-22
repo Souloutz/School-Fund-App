@@ -5,5 +5,6 @@ export interface Order {
     id: number;
     date: string;
     items: Item[];
+    cost: number;
 
 }

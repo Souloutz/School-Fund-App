@@ -36,6 +36,8 @@ export class CartComponent {
 
   orderCost : number = -1;
 
+  itemCost : number = -1;
+
   ngOnInit(): void {
     if(!this.currentUserService.isUserLoggedIn())//if theyre not a user (or not logged in)
     {
@@ -47,6 +49,8 @@ export class CartComponent {
 
   getCartItems() {
     this.cart = this.currentUser.cart;
+
+    this.totalItemCost(this.cart);
   }
 
   removeItem(item: Item) {
@@ -81,12 +85,16 @@ export class CartComponent {
         //resets currentUser service's cart
         this.currentUserService.setCurrentUser(this.currentUser);
 
+        let email = this.currentUser.email;
+
         //gets the order's total cost and sets it to total
-        this.userService.getTotalOrderCost(newOrder)
-        .subscribe(cost => {
-          console.log(cost);
-          this.orderCost = cost
-        });
+        this.orderCost = newOrder.cost
+
+        this.userService.setTotalOrderCost(email, this.order.id, this.order.cost).subscribe(
+          (updated : Order) => {
+            this.orderCost = updated.cost;
+          }
+        )
 
       });
       
@@ -96,6 +104,17 @@ export class CartComponent {
     this.order = undefined;
   }
 
+
+  totalItemCost(items : Item[]) : void {
+    this.itemCost = 0.00;
+    items.forEach(item => {
+      this.giftService.getGift(item.item_id).subscribe(
+        gift => {
+          this.itemCost += item.amount * gift.price;
+        }
+      )
+    });
+  }
 }
 
 

@@ -21,6 +21,7 @@ public class Order {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // date time of an order
     @JsonProperty("date") private LocalDateTime orderDate;
     @JsonProperty("items") private List<OrderItem> orderItems;
+    @JsonProperty("cost") private Double cost;
 
     /**
      * Create an order
@@ -39,6 +40,7 @@ public class Order {
         this.orderId = ID++;
         this.orderDate = orderDate;
         this.orderItems = orderItems;
+        this.cost = 0.0;
     }
 
     /**
@@ -57,12 +59,24 @@ public class Order {
         return orderDate;
     }
 
+    public int getNextID() {
+        return ID + 1;
+    }
+
     /**
      * Retrieve the items of the order
      * @return The items of the order
      */
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    /**
+     * Retrieve the cost of the order
+     * @return the cost of the order
+     */
+    public Double getOrderCost() {
+        return this.cost;
     }
     
     /**
@@ -79,5 +93,13 @@ public class Order {
      */
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    /**
+     * Set the order's cost
+     * @param c the cost of the order
+     */
+    public void setOrderCost(Double c) {
+        this.cost = c;
     }
 }

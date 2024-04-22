@@ -310,28 +310,4 @@ public class GiftFileDAO implements GiftDAO {
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Double getOrderTotalPrice(int id, User user) throws IOException {
-        Double total = 0.0;
-
-        Order order = user.getOrder(id);
-
-        if(order == null) {
-            return -1.0;
-        }
-
-        List<OrderItem> items = order.getOrderItems();
-        Gift gift;
-
-        for(OrderItem item : items) {
-            gift = getGift(item.getItemId());
-
-            total += gift.getPrice() * item.getItemAmount();
-        }
-
-        return total;
-    }
 }

@@ -92,7 +92,7 @@ public interface UserDAO {
      * @return the double of total of the user's contribution
      * @throws IOException
      */
-    Double getUserTotalContributed(List<Order> orders, GiftDAO giftDAO, User user) throws IOException;
+    Double getUserTotalContributed(List<Order> orders, GiftDAO giftDAO) throws IOException;
 
 
 }

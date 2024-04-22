@@ -373,7 +373,7 @@ public class UserController {
             if (user == null)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-            Double total = this.userDAO.getUserTotalContributed(user.getOrders(), giftDAO, user);
+            Double total = this.userDAO.getUserTotalContributed(user.getOrders(), giftDAO);
             
             return new ResponseEntity<Double>(total, HttpStatus.OK);
         }
@@ -383,23 +383,30 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}/{email}/total")
-    public ResponseEntity<Double> getOrderTotalCost(@PathVariable int id, @PathVariable String email) {
-        LOG.info("GET /gifts/" + id);
+    @PostMapping("/{email}/orders/{id}/{cost}")
+    public ResponseEntity<Order> setOrderTotalCost(@PathVariable String email, 
+                                                   @PathVariable int id, 
+                                                   @PathVariable Double cost) {
+        LOG.info("POST /users/order/set/" + email);
 
         try {
-            if(id < 1)
+            if(email == null)
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            Double total = 0.0;
-            total = giftDAO.getOrderTotalPrice(id, userDAO.getUser(email));
+            if(email.equals(""))
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            return new ResponseEntity<Double>(total, HttpStatus.OK);
+            User user = userDAO.getUser(email);
+
+            //sets the user's order cost to the current cost
+            user.getOrder(id).setOrderCost(cost);
+
+            return new ResponseEntity<Order>(user.getOrder(id), HttpStatus.OK);
         }
         catch (IOException ioe) {
             LOG.log(Level.SEVERE, ioe.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        }   
     }
 
     /**
@@ -426,17 +433,20 @@ public class UserController {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             
             List<OrderItem> orderItems = new ArrayList<>(userCart.size());
+
             for (CartItem item : userCart) {
 
                 giftDAO.removeGiftQuantity(item.getItemId(), item.getItemAmount());
 
                 OrderItem newOrderItem = new OrderItem(item.getItemId(),item.getItemName(), item.getItemAmount());
                 orderItems.add(newOrderItem);
+
             }
             user.clearCart();
 
             // Create new order and add it to a user's orders
             Order newOrder = new Order(LocalDateTime.now(), orderItems);
+
             user.getOrders().add(newOrder);
 
             return new ResponseEntity<Order>(newOrder, HttpStatus.OK);

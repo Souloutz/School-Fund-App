@@ -33,6 +33,8 @@ export class AccountComponent {
 
   noMoreOrders : boolean = false;
 
+  showOrdersFlag : boolean = false;
+
   constructor(private currentUserService: CurrentUserService,
               private router: Router,
               private userService : UserService) {}
@@ -107,5 +109,9 @@ export class AccountComponent {
         this.orders.pop();
       }
       this.noMoreOrders = false;
+    }
+
+    showOrders() : void {
+      this.showOrdersFlag = true;
     }
 }

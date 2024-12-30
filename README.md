@@ -3,7 +3,7 @@
 
 # U-Fund: School Supplies
 
-An online charity E-store system built in Java 17=> and Angular 17.
+An online charity E-store system built in Java 21=> and Angular 17.
 
 ## Team
 
@@ -14,7 +14,7 @@ An online charity E-store system built in Java 17=> and Angular 17.
 
 ## Prerequisites
 
-- Java 17 (Make sure to have correct JAVA_HOME setup in your environment)
+- Java 21 (Make sure to have correct JAVA_HOME setup in your environment)
 - Maven
 - Angular 17
 - SHA512 npm package. Install with `npm install --save sha512-crypt-ts`
